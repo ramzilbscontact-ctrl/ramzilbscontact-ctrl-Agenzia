@@ -42,7 +42,7 @@ Pour explorer ou modifier le projet localement :
 1. **Cloner le repository** :
    ```bash
    git clone https://github.com/votre-nom/agenzia.git
-
+--
 Accéder au dossier :
 
 code
@@ -69,6 +69,7 @@ agenzia-txt/
 ├── index.html          # Page d'accueil (Hero & Services)
 ├── agents.txt          # Configuration pour les agents IA
 └── README.md           # Documentation du projet
+--
 🤝 Contribuer
 
 Les propositions d'amélioration sont les bienvenues !
