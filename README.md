@@ -57,6 +57,7 @@ Ouvrir le projet :
 Double-cliquez sur index.html ou utilisez l'extension Live Server sur VS Code pour un rechargement automatique.
 
  Structure des Fichiers
+ ```bash
 code
 Text
 download
