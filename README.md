@@ -14,7 +14,7 @@ Voici un aperçu de l'interface principale, incluant la **Hero Section** et la *
 *(Remplacez le fichier dans `assets/dashboard.png` pour mettre à jour cette vue).*
 
 <p align="center">
-  <img src="assets/dashboard.png" alt="Agenzia TXT Preview" width="100%" style="border-radius: 10px; border: 1px solid #e1e4e8;">
+  <img src="Assets/dashboard.png" alt="Agenzia TXT Preview" width="100%" style="border-radius: 10px; border: 1px solid #e1e4e8;">
   <br>
   <em>Design minimaliste : Typographie forte, navigation fluide et mise en avant des compétences clés.</em>
 </p>
