@@ -14,7 +14,7 @@ Voici un aperçu de l'interface principale, incluant la **Hero Section** et la *
 *(Remplacez le fichier dans `assets/dashboard.png` pour mettre à jour cette vue).*
 
 <p align="center">
-  <img src="Assets/dashboard.png" alt="Agenzia TXT Preview" width="100%" style="border-radius: 10px; border: 1px solid #e1e4e8;">
+  <img src="Assets/Dashboard.png" alt="Agenzia Preview" width="100%" style="border-radius: 10px; border: 1px solid #e1e4e8;">
   <br>
   <em>Design minimaliste : Typographie forte, navigation fluide et mise en avant des compétences clés.</em>
 </p>
@@ -41,7 +41,7 @@ Pour explorer ou modifier le projet localement :
 
 1. **Cloner le repository** :
    ```bash
-   git clone https://github.com/votre-nom/agenzia-txt.git
+   git clone https://github.com/votre-nom/agenzia.git
 
 Accéder au dossier :
 
