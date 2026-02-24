@@ -69,8 +69,9 @@ agenzia-txt/
 ├── js/                 # Logique interactive et animations
 ├── index.html          # Page d'accueil (Hero & Services)
 ├── agents.txt          # Configuration pour les agents IA
-└── README.md           # Documentation du projet
+└── README.md           # Documentation du projet```
 --
+
 🤝 Contribuer
 
 Les propositions d'amélioration sont les bienvenues !
@@ -83,9 +84,4 @@ Soumettez une Pull Request après avoir testé vos modifications.
 
 ⭐ Si ce projet vous inspire, n'oubliez pas de lui donner une étoile sur GitHub !
 
-code
-Code
-download
-content_copy
-expand_less
 ---
