@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "railway": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@railway/mcp-server"],
+      "env": {
+        "RAILWAY_TOKEN": "${RAILWAY_TOKEN}"
+      }
+    },
+    "ovh": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./mcp/ovh-mcp-server.mjs"],
+      "env": {
+        "OVH_APP_KEY": "${OVH_APP_KEY}",
+        "OVH_APP_SECRET": "${OVH_APP_SECRET}",
+        "OVH_CONSUMER_KEY": "${OVH_CONSUMER_KEY}",
+        "OVH_ENDPOINT": "${OVH_ENDPOINT}",
+        "OVH_FTP_HOST": "${OVH_FTP_HOST}",
+        "OVH_FTP_USER": "${OVH_FTP_USER}",
+        "OVH_FTP_PASSWORD": "${OVH_FTP_PASSWORD}"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(npm run dev)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(node mcp/*)",
+      "Bash(npx *)"
+    ]
+  }
+}
