@@ -158,7 +158,18 @@ export const translations: { [key: string]: Content } = {
           imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
           videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          isFeatured: true 
+          isFeatured: true,
+          podcastScript: `[MUSIQUE D'INTRODUCTION : ÉLECTRONIQUE ÉPURÉE, RYTHMÉE]\n\nBonjour à tous, et bienvenue dans ce nouvel épisode d'Agenzia Insights. Je suis votre hôte, et aujourd'hui, on va parler de l'éléphant dans la pièce : l'IA générative. Mais attention, on ne va pas parler de gadgets ou de générer des images de chats. On va parler d'architecture. On va parler d'efficience opérationnelle.\n\n[TRANSITION : BRUIT DE CLAVIER RAPIDE]\n\nPremière punchline : l'ère de l'expérimentation est terminée. Si vous en êtes encore à demander à ChatGPT de rédiger vos mails, vous avez déjà un train de retard. En 2025, l'IA, c'est le système nerveux central de votre boîte. C'est la glue qui fait que tout fonctionne sans friction.\n\nOn passe de l'outil à l'agent autonome. C'est quoi la différence ? Un outil attend que vous lui demandiez quelque chose. Un agent, lui, connaît vos données, comprend votre contexte et prend des décisions. Il n'exécute pas juste une tâche, il gère un workflow. Imaginez un système qui qualifie vos leads, prépare les contrats et alerte votre équipe commerciale, le tout pendant que vous dormez.\n\n[PAUSE DRAMATIQUE]\n\nMais le vrai secret, le levier de ROI massif, c'est l'interoperabilité. Vos outils — Gmail, Slack, HubSpot, Salesforce — ils doivent se parler. Et pas juste s'envoyer des notifications. Ils doivent échanger de l'intelligence. Nos architectures permettent de réduire les erreurs de saisie de 99%. Oui, vous avez bien entendu : 99%.\n\nAlors, conclusion ? L'automatisation intelligente, ce n'est pas un projet pour votre département IT. C'est une stratégie business pure et dure. C'est comment vous allez gagner la guerre de la productivité.\n\nMerci de nous avoir écoutés. Pour passer à l'action, rendez-vous sur agenzia.ai. À très vite.\n\n[MUSIQUE DE FIN : FADE OUT]`,
+          videoStructure: [
+            { scriptPart: "Bonjour à tous... révolution industrielle.", visual: "Plan large d'un bureau ultra-moderne, épuré, style 'White Pure'. Texte en surimpression : 'IA GÉNÉRATIVE : L'ÈRE DE L'INDUSTRIALISATION'." },
+            { scriptPart: "Première punchline... train de retard.", visual: "Gros plan sur un écran montrant une interface de code fluide qui se transforme en un tableau de bord de KPIs en croissance." },
+            { scriptPart: "En 2025... sans friction.", visual: "Animation 3D d'un cerveau numérique dont les synapses se connectent à des logos : Gmail, Slack, Salesforce." },
+            { scriptPart: "On passe de l'outil... pendant que vous dormez.", visual: "Split screen. À gauche : un humain stressé devant des fichiers Excel. À droite : un agent IA symbolisé par une sphère lumineuse gérant tout de manière fluide." },
+            { scriptPart: "Mais le vrai secret... 99%.", visual: "Graphique dynamique montrant une courbe d'erreurs chutant brutalement vers zéro. Texte : '-99% D'ERREURS'." },
+            { scriptPart: "Alors, conclusion... stratégie business.", visual: "Logo Agenzia qui s'anime au centre. Texte : 'ARCHITECTURER VOTRE FUTUR'." }
+          ],
+          seoTitle: "IA Générative 2025 : Guide de l'Efficience Opérationnelle | Agenzia",
+          seoDescription: "Passez de l'outil à l'agent autonome. Découvrez comment architecturer votre entreprise avec l'IA générative pour un ROI massif et 99% d'erreurs en moins.",
         },
         { 
           category: 'Technologie', 
@@ -178,6 +189,15 @@ export const translations: { [key: string]: Content } = {
           imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
           videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+          podcastScript: `[INTRO]\nBienvenue dans ce nouvel épisode. Aujourd'hui, on parle de luxe. Pas de montres ou de voitures, mais de luxe digital. Pourquoi l'IA cognitive est en train de redéfinir ce que signifie "l'excellence opérationnelle".\n\n[PARTIE 1 : L'INVISIBILITÉ]\nLe vrai luxe, c'est quand tout fonctionne sans qu'on s'en aperçoive. Dans le digital, c'est l'invisibilité des processus. Une entreprise performante, c'est celle où les frictions ont disparu. L'IA ne se voit pas, elle se ressent dans la fluidité du travail quotidien.\n\n[PARTIE 2 : L'UX INTERNE]\nOn parle souvent de l'expérience client, mais l'expérience collaborateur est le vrai moteur caché. L'IA cognitive anticipe les besoins de vos équipes. Elle apporte la bonne info au bon moment. C'est ça, le design thinking appliqué à l'automation.\n\n[CONCLUSION]\nChez Agenzia, on conçoit chaque workflow comme un produit de luxe : intuitif, robuste et pur. Merci de nous avoir suivis, et rappelez-vous : la simplicité est la sophistication suprême.`,
+          videoStructure: [
+            { scriptPart: "Bienvenue... excellence opérationnelle.", visual: "Fond blanc épuré, texte minimaliste 'Luxe Digital'" },
+            { scriptPart: "Le vrai luxe... fluidité du travail.", visual: "B-roll cinématique d'un espace de travail zen, transitions fluides" },
+            { scriptPart: "On parle souvent... appliqué à l'automation.", visual: "Schéma montrant l'IA comme un assistant invisible à côté d'un humain" },
+            { scriptPart: "Chez Agenzia... sophistication suprême.", visual: "Logo Agenzia version 'Luxury Black', citation de Léonard de Vinci" }
+          ],
+          seoTitle: "IA Cognitive & Luxe Digital : Le Nouveau Standard | Agenzia",
+          seoDescription: "Découvrez comment l'IA cognitive transforme l'expérience collaborateur et redéfinit l'excellence opérationnelle. Le luxe de l'invisibilité au service de votre croissance."
         },
       ],
       cta: 'Voir tous les articles',
@@ -191,7 +211,7 @@ export const translations: { [key: string]: Content } = {
       description: 'Agenzia. L\'efficience opérationnelle par l\'IA.',
       sections: [
         { title: 'Solutions', links: ['Automatisation Ventes', 'Support Client', 'Opérations RH', 'Finance'] },
-        { title: 'Entreprise', links: ['À propos', 'Carrières', 'Presse', 'Contact'] },
+        { title: 'Entreprise', links: ['À propos', 'Carrières', 'Presse', 'Contact', 'Politique de Confidentialité'] },
         { title: 'Ressources', links: ['Blog', 'Podcasts', 'Vidéos', 'Documentation API'] },
       ],
       copyright: '© 2024 Agenzia. Tous droits réservés.',
@@ -199,6 +219,26 @@ export const translations: { [key: string]: Content } = {
     aiAssistant: {
       greeting: 'Bonjour ! Comment puis-je vous aider à optimiser vos opérations aujourd\'hui ?',
       placeholder: 'Posez votre question...',
+    },
+    articleDetail: {
+      backButton: 'Retour à la sélection',
+      readingTime: 'de lecture',
+      publishedOn: 'Publié le',
+      podcastIncluded: 'Podcast Inclus',
+      videoIncluded: 'Vidéo Incluse',
+      listenPodcast: 'Écouter le Podcast',
+      watchVideo: 'Voir la Vidéo',
+      audioVersion: 'Version Audio Augmentée',
+      videoMasterclass: 'Masterclass Technique',
+      contentArchitecture: 'Content Architecture',
+      multiPlatformDeclination: 'Déclinaison Multi-Plateforme',
+      seoLayer: 'Couche Métadonnées (SEO)',
+      podcastLayer: 'Couche Podcast (Audio)',
+      videoLayer: 'Couche Vidéo (Structure)',
+      metaTitle: 'Balise Title',
+      metaDescription: 'Meta Description',
+      scriptPart: 'Partie du Script',
+      visual: 'Visuel',
     },
   },
   en: {
@@ -357,7 +397,16 @@ export const translations: { [key: string]: Content } = {
           imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
           videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          isFeatured: true 
+          isFeatured: true,
+          podcastScript: `[INTRO]\nHello everyone, welcome to this new episode of Agenzia Insights. Today we're tackling a hot topic: why 2024 marks the end of AI gadgets and the beginning of the real industrial revolution for your businesses.\n\n[PART 1: FROM TOOL TO AGENT]\nWe've all played with ChatGPT, but now, we're getting serious. We're no longer talking about simple tools, but autonomous agents. Imagine: systems that don't just respond, but act based on your proprietary data. It's the transition from curiosity to pure productivity.\n\n[PART 2: INTEROPERABILITY]\nThe secret? Interoperability. It's the fancy word for saying your tools need to talk to each other. Gmail, Slack, HubSpot, Salesforce... if AI is the brain, these connections are the nerves. We're talking about 99% fewer data entry errors. That's where your ROI is hidden.\n\n[CONCLUSION]\nIn summary, intelligent automation is no longer a technical project, it's your growth strategy. Thanks for listening, and see you soon to optimize your operations.`,
+          videoStructure: [
+            { scriptPart: "Hello everyone... industrial revolution.", visual: "Modern office B-roll + Text: '2024: The Industrialization'" },
+            { scriptPart: "We've all played... pure productivity.", visual: "Graphic: 'Tool vs Autonomous Agent' + Gear icons" },
+            { scriptPart: "The secret... where your ROI is hidden.", visual: "Animation: Connected Gmail/Slack/HubSpot logos + Text: '-99% errors'" },
+            { scriptPart: "In summary... optimize your operations.", visual: "Agenzia Logo + Button: 'Strategic Audit'" }
+          ],
+          seoTitle: "AI Industrialization 2024: The Strategic Guide | Agenzia",
+          seoDescription: "Discover why 2024 is the pivotal year for AI in business. Autonomous agents, interoperability, and ROI: move from experimentation to real impact."
         },
         { 
           category: 'Technology', 
@@ -377,6 +426,15 @@ export const translations: { [key: string]: Content } = {
           imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
           videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+          podcastScript: `[INTRO]\nWelcome back to Agenzia Insights. Today, we're redefining luxury. We're not talking about high-end watches or fast cars, but something far more valuable for your business: Digital Luxury. Specifically, why Cognitive AI is the new gold standard for operational excellence.\n\n[PART 1: THE INVISIBILITY OF SUCCESS]\nTrue luxury is often felt, not seen. In the digital world, this means the invisibility of processes. A high-performing company in 2024 is one where operational friction has simply vanished. AI shouldn't be a flashy tool you show off; it should be the silent engine that makes your entire workflow feel 'liquid'.\n\n[PART 2: THE INTERNAL UX REVOLUTION]\nWe spend so much time on the customer experience, but we often forget the most important engine: our own teams. Internal UX is the hidden growth lever. Cognitive AI anticipates what your employees need before they even ask. It's about providing the right info at the right time, without the search. That's design thinking applied to automation.\n\n[CONCLUSION]\nAt Agenzia, we build every workflow like a luxury product: intuitive, robust, and aesthetically pure. Because at the end of the day, simplicity is the ultimate sophistication. Thanks for listening, and let's make your operations feel like luxury.`,
+          videoStructure: [
+            { scriptPart: "Welcome back... operational excellence.", visual: "Minimalist white background with text 'Digital Luxury' + Cinematic shot of a sleek office." },
+            { scriptPart: "True luxury... feel 'liquid'.", visual: "B-roll of a person working effortlessly + Animation of a smooth, flowing liquid representing data." },
+            { scriptPart: "We spend... to automation.", visual: "Split screen showing 'Old Way' vs 'AI Way' + Icons of Slack/HubSpot syncing." },
+            { scriptPart: "At Agenzia... like luxury.", visual: "Agenzia logo in black/gold + CTA button 'Schedule an Audit'." }
+          ],
+          seoTitle: "Cognitive AI & Digital Luxury: The New Operational Standard | Agenzia",
+          seoDescription: "Discover how Cognitive AI redefines digital luxury through process invisibility and internal UX. Transform your operations into a seamless competitive advantage."
         },
       ],
       cta: 'View all articles',
@@ -390,7 +448,7 @@ export const translations: { [key: string]: Content } = {
       description: 'Agenzia. Operational efficiency through AI.',
       sections: [
         { title: 'Solutions', links: ['Sales Automation', 'Customer Support', 'HR Operations', 'Finance'] },
-        { title: 'Company', links: ['About Us', 'Careers', 'Press', 'Contact'] },
+        { title: 'Company', links: ['About Us', 'Careers', 'Press', 'Contact', 'Privacy Policy'] },
         { title: 'Resources', links: ['Blog', 'Podcasts', 'Videos', 'API Documentation'] },
       ],
       copyright: '© 2024 Agenzia. All rights reserved.',
@@ -398,6 +456,26 @@ export const translations: { [key: string]: Content } = {
     aiAssistant: {
       greeting: 'Hello! How can I help you optimize your operations today?',
       placeholder: 'Ask your question...',
+    },
+    articleDetail: {
+      backButton: 'Back to selection',
+      readingTime: 'read',
+      publishedOn: 'Published on',
+      podcastIncluded: 'Podcast Included',
+      videoIncluded: 'Video Included',
+      listenPodcast: 'Listen to the Podcast',
+      watchVideo: 'Watch the Video',
+      audioVersion: 'Augmented Audio Version',
+      videoMasterclass: 'Technical Masterclass',
+      contentArchitecture: 'Content Architecture',
+      multiPlatformDeclination: 'Multi-Platform Declination',
+      seoLayer: 'Metadata Layer (SEO)',
+      podcastLayer: 'Podcast Layer (Audio)',
+      videoLayer: 'Video Layer (Structure)',
+      metaTitle: 'Title Tag',
+      metaDescription: 'Meta Description',
+      scriptPart: 'Script Part',
+      visual: 'Visual',
     },
   },
   de: {
@@ -474,7 +552,67 @@ export const translations: { [key: string]: Content } = {
       title: 'Insights',
       subtitle: 'KI-Trends.',
       filters: ['Alle'],
-      posts: [],
+      posts: [
+        { 
+          category: 'Strategie', 
+          title: 'Generative KI: Die operative Effizienz der Zukunft gestalten', 
+          author: 'John Doe', 
+          authorAvatar: 'https://i.pravatar.cc/150?u=john_doe',
+          date: '12. März 2024', 
+          readingTime: '8 Min.',
+          excerpt: 'Die Integration von Large Language Models (LLMs) beschränkt sich nicht mehr nur auf die Texterstellung. Im Jahr 2025 wird sie zum zentralen Nervensystem agiler Organisationen.',
+          content: `
+            <p>Die Ära der KI-Experimente ist vorbei. Wir sind in das Zeitalter der Industrialisierung eingetreten. Für C-Levels lautet die Frage nicht mehr "Was kann KI tun?", sondern "Wie kann KI unser operatives Modell transformieren?"</p>
+            <h3>1. Vom Werkzeug zum autonomen Agenten</h3>
+            <p>Im Gegensatz zu herkömmlicher Software führen KI-Agenten auf Basis von LLMs nicht nur Aufgaben aus; sie treffen kontextbezogene Entscheidungen. Indem Sie Ihre proprietären Daten mit diesen Modellen verbinden, erstellen Sie Workflows, die aus Ihren vergangenen Erfolgen lernen.</p>
+            <h3>2. Interoperabilität als ROI-Hebel</h3>
+            <p>Der wahre Produktivitätsgewinn liegt in der Verbindung zwischen Ihren Werkzeugen. Gmail, Slack, HubSpot und Salesforce müssen nahtlos kommunizieren. Unsere Architekturen ermöglichen eine Echtzeit-Synchronisation ohne menschliches Eingreifen und reduzieren Eingabefehler um 99 %.</p>
+            <h3>3. Fazit</h3>
+            <p>Intelligente Automatisierung ist kein IT-Projekt, sondern eine Geschäftsstrategie. Indem Sie Ihre Talente von repetitiven Aufgaben befreien, ermöglichen Sie ihnen, sich auf Wertschöpfung und strategische Innovation zu konzentrieren.</p>
+          `,
+          imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+          audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          isFeatured: true,
+          podcastScript: `[INTRO]\nHallo zusammen, willkommen zu einer neuen Folge von Agenzia Insights. Heute sprechen wir über ein wichtiges Thema: Warum 2024 das Ende der KI-Spielereien und der Beginn der echten industriellen Revolution für Ihr Unternehmen ist.\n\n[TEIL 1: VOM WERKZEUG ZUM AGENTEN]\nWir haben alle mit ChatGPT experimentiert, aber jetzt wird es ernst. Wir sprechen nicht mehr nur über einfache Werkzeuge, sondern über autonome Agenten. Stellen Sie sich Systeme vor, die nicht nur antworten, sondern basierend auf Ihren eigenen Daten handeln. Das ist der Übergang von der Neugier zur reinen Produktivität.\n\n[TEIL 2: INTEROPERABILITÄT]\nDas Geheimnis? Interoperabilität. Ein kompliziertes Wort dafür, dass Ihre Werkzeuge miteinander sprechen müssen. Gmail, Slack, HubSpot, Salesforce... wenn die KI das Gehirn ist, sind diese Verbindungen die Nerven. Wir sprechen von 99 % weniger Fehlern bei der Dateneingabe. Hier verbirgt sich Ihr ROI.\n\n[FAZIT]\nZusammenfassend lässt sich sagen: Intelligente Automatisierung ist kein IT-Projekt, sondern Ihre Geschäftsstrategie. Vielen Dank fürs Zuhören und bis bald, um Ihre Abläufe zu optimieren.`,
+          videoStructure: [
+            { scriptPart: "Hallo zusammen... industrielle Revolution.", visual: "B-Roll modernes Büro + Text: '2024: Die Industrialisierung'" },
+            { scriptPart: "Wir haben alle... reinen Produktivität.", visual: "Grafik: 'Werkzeug vs. Autonomer Agent' + Zahnrad-Icons" },
+            { scriptPart: "Das Geheimnis... verbirgt sich Ihr ROI.", visual: "Animation: Verbundene Gmail/Slack/HubSpot-Logos + Text: '-99 % Fehler'" },
+            { scriptPart: "Zusammenfassend... Abläufe zu optimieren.", visual: "Agenzia-Logo + Button: 'Strategisches Audit'" }
+          ],
+          seoTitle: "KI-Industrialisierung 2024: Der strategische Leitfaden | Agenzia",
+          seoDescription: "Erfahren Sie, warum 2024 das entscheidende Jahr für KI in Unternehmen ist. Autonome Agenten, Interoperabilität und ROI: Von der Experimentierphase zur realen Wirkung."
+        },
+        { 
+          category: 'Technologie', 
+          title: 'Automatisierung 2.0: Warum kognitive KI der neue Standard für digitalen Luxus ist', 
+          author: 'Jane Smith', 
+          authorAvatar: 'https://i.pravatar.cc/150?u=jane_smith',
+          date: '08. März 2024', 
+          readingTime: '5 Min.',
+          excerpt: 'Der "Pure White Look" der KI wird nicht gesehen; er wird in der Fluidität der Abläufe gefühlt. Erfahren Sie, warum die interne Nutzererfahrung der am meisten unterschätzte Wachstumshebel ist.',
+          content: `
+            <p>Digitaler Luxus liegt nicht mehr in technologischer Prahlerei, sondern in der Unsichtbarkeit von Prozessen. Ein leistungsstarkes Unternehmen im Jahr 2024 ist eines, in dem operative Reibungsverluste zugunsten eines "flüssigen" Workflows verschwunden sind.</p>
+            <h3>Interne UX: Der verborgene Wachstumsreaktor</h3>
+            <p>Oft übersehen, korreliert die Nutzererfahrung der Mitarbeiter mit ihren eigenen Geschäftswerkzeugen direkt mit der Mitarbeiterbindung und der Qualität des Kundenservice. Kognitive KI antizipiert die Bedürfnisse der Mitarbeiter, indem sie die richtigen Informationen zur richtigen Zeit bereitstellt, ohne aktives Suchen.</p>
+            <blockquote>"Die anspruchsvollste Intelligenz ist diejenige, die Komplexität so weit vereinfacht, dass sie unmerklich wird."</blockquote>
+            <p>Bei Agenzia wenden wir Design-Thinking-Prinzipien auf die Automatisierung an. Jeder Workflow ist wie ein Luxusprodukt konzipiert: intuitiv, robust und ästhetisch rein.</p>
+          `,
+          imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
+          audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+          videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+          podcastScript: `[INTRO]\nWillkommen zurück. Heute definieren wir Luxus neu. Wir sprechen nicht über teure Uhren oder schnelle Autos, sondern über etwas viel Wertvolleres für Ihr Unternehmen: Digitalen Luxus. Warum kognitive KI der neue Goldstandard für operative Exzellenz ist.\n\n[TEIL 1: DIE UNSICHTBARKEIT DES ERFOLGS]\nWahrer Luxus wird oft gefühlt, nicht gesehen. In der digitalen Welt bedeutet das die Unsichtbarkeit von Prozessen. Ein leistungsstarkes Unternehmen im Jahr 2024 ist eines, in dem operative Reibungsverluste einfach verschwunden sind. KI sollte kein auffälliges Werkzeug sein, mit dem man prahlt; sie sollte der stille Motor sein, der Ihren gesamten Workflow 'flüssig' macht.\n\n[TEIL 2: DIE INTERNE UX-REVOLUTION]\nWir verbringen so viel Zeit mit der Kundenerfahrung, aber wir vergessen oft den wichtigsten Motor: unsere eigenen Teams. Die interne UX ist der verborgene Wachstumshebel. Kognitive KI antizipiert, was Ihre Mitarbeiter brauchen, bevor sie überhaupt fragen. Es geht darum, die richtigen Informationen zur richtigen Zeit bereitstellen, ohne langes Suchen. Das ist Design Thinking, angewandt auf die Automatisierung.\n\n[FAZIT]\nBei Agenzia bauen wir jeden Workflow wie ein Luxusprodukt: intuitiv, robust und ästhetisch rein. Denn am Ende des Tages ist Einfachheit die höchste Stufe der Raffinesse. Vielen Dank fürs Zuhören, und lassen Sie uns Ihre Abläufe wie Luxus anfühlen.`,
+          videoStructure: [
+            { scriptPart: "Willkommen zurück... operative Exzellenz.", visual: "Minimalistischer weißer Hintergrund mit Text 'Digitaler Luxus' + Filmische Aufnahme eines eleganten Büros." },
+            { scriptPart: "Wahrer Luxus... Workflow 'flüssig' macht.", visual: "B-Roll einer Person, die mühelos arbeitet + Animation einer glatten, fließenden Flüssigkeit, die Daten darstellt." },
+            { scriptPart: "Wir verbringen... auf die Automatisierung.", visual: "Geteilter Bildschirm zeigt 'Alter Weg' vs. 'KI-Weg' + Icons von Slack/HubSpot-Synchronisierung." },
+            { scriptPart: "Bei Agenzia... wie Luxus anfühlen.", visual: "Agenzia-Logo in Schwarz/Gold + CTA-Button 'Audit vereinbaren'." }
+          ],
+          seoTitle: "Kognitive KI & Digitaler Luxus: Der neue operative Standard | Agenzia",
+          seoDescription: "Erfahren Sie, wie kognitive KI digitalen Luxus durch Prozessunsichtbarkeit und interne UX neu definiert. Transformieren Sie Ihre Abläufe in einen nahtlosen Wettbewerbsvorteil."
+        },
+      ],
       cta: 'Alle Artikel',
       newsletter: {
         title: 'Newsletter',
@@ -495,13 +633,33 @@ export const translations: { [key: string]: Content } = {
     footer: {
       description: 'Agenzia KI.',
       sections: [
-        { title: 'Firma', links: ['Über uns'] },
+        { title: 'Firma', links: ['Über uns', 'Datenschutzerklärung'] },
       ],
       copyright: '© 2024 Agenzia.',
     },
     aiAssistant: {
       greeting: 'Hallo! Wie kann ich helfen?',
       placeholder: 'Frage stellen...',
+    },
+    articleDetail: {
+      backButton: 'Zurück zur Auswahl',
+      readingTime: 'Lesezeit',
+      publishedOn: 'Veröffentlicht am',
+      podcastIncluded: 'Podcast enthalten',
+      videoIncluded: 'Video enthalten',
+      listenPodcast: 'Podcast anhören',
+      watchVideo: 'Video ansehen',
+      audioVersion: 'Erweiterte Audio-Version',
+      videoMasterclass: 'Technische Masterclass',
+      contentArchitecture: 'Content-Architektur',
+      multiPlatformDeclination: 'Multi-Plattform-Deklination',
+      seoLayer: 'Metadaten-Ebene (SEO)',
+      podcastLayer: 'Podcast-Ebene (Audio)',
+      videoLayer: 'Video-Ebene (Struktur)',
+      metaTitle: 'Title-Tag',
+      metaDescription: 'Meta-Beschreibung',
+      scriptPart: 'Skript-Teil',
+      visual: 'Visuell',
     },
   },
   ar: {
@@ -588,7 +746,67 @@ export const translations: { [key: string]: Content } = {
       title: 'مدونة',
       subtitle: 'رؤى الذكاء الاصطناعي.',
       filters: ['الكل'],
-      posts: [],
+      posts: [
+        { 
+          category: 'استراتيجية', 
+          title: 'الذكاء الاصطناعي التوليدي: هندسة الكفاءة التشغيلية للمستقبل', 
+          author: 'جون دو', 
+          authorAvatar: 'https://i.pravatar.cc/150?u=john_doe',
+          date: '12 مارس 2024', 
+          readingTime: '8 دقائق',
+          excerpt: 'لم يعد دمج نماذج اللغات الكبيرة (LLMs) يقتصر على توليد النصوص. في عام 2025، سيصبح الجهاز العصبي المركزي للمؤسسات المرنة.',
+          content: `
+            <p>لقد انتهى عصر التجريب مع الذكاء الاصطناعي. لقد دخلنا عصر التصنيع. بالنسبة للمديرين التنفيذيين، لم يعد السؤال "ماذا يمكن للذكاء الاصطناعي أن يفعل؟" بل "كيف يمكن للذكاء الاصطناعي تحويل نموذجنا التشغيلي؟"</p>
+            <h3>1. من أداة إلى وكيل مستقل</h3>
+            <p>على عكس البرامج التقليدية، لا يكتفي وكلاء الذكاء الاصطناعي القائمون على نماذج اللغات الكبيرة بتنفيذ المهام؛ بل يتخذون قرارات سياقية. من خلال ربط بياناتكم الخاصة بهذه النماذج، فإنكم تنشئون سير عمل يتعلم من نجاحاتكم السابقة.</p>
+            <h3>2. التوافق التشغيلي كرافعة للعائد على الاستثمار</h3>
+            <p>يكمن مكسب الإنتاجية الحقيقي في الروابط بين أدواتكم. يجب أن تتواصل Gmail وSlack وHubSpot وSalesforce بسلاسة. تسمح بنيتنا بالمزامنة في الوقت الفعلي دون تدخل بشري، مما يقلل أخطاء الإدخال بنسبة 99%.</p>
+            <h3>3. الخاتمة</h3>
+            <p>الأتمتة الذكية ليست مشروعاً تقنياً، بل هي استراتيجية عمل. من خلال تحرير مواهبكم من المهام المتكررة، فإنكم تسمحون لهم بالتركيز على خلق القيمة والابتكار الاستراتيجي.</p>
+          `,
+          imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+          audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+          videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          isFeatured: true,
+          podcastScript: `[مقدمة]\nأهلاً بكم في حلقة جديدة من Agenzia Insights. اليوم نتحدث عن موضوع حيوي: لماذا يمثل عام 2024 نهاية أدوات الذكاء الاصطناعي البسيطة وبداية الثورة الصناعية الحقيقية لشركاتكم.\n\n[الجزء 1: من أداة إلى وكيل مستقل]\nلقد جربنا جميعاً ChatGPT، ولكن الآن الأمور أصبحت جدية. لا نتحدث فقط عن أدوات بسيطة، بل عن وكلاء مستقلين. تخيلوا أنظمة لا تكتفي بالرد، بل تعمل بناءً على بياناتكم الخاصة. إنه الانتقال من الفضول إلى الإنتاجية الخالصة.\n\n[الجزء 2: التوافق التشغيلي]\nالسر؟ التوافق التشغيلي. إنها الكلمة المعقدة التي تعني أن أدواتكم يجب أن تتحدث مع بعضها البعض. Gmail، Slack، HubSpot، Salesforce... إذا كان الذكاء الاصطناعي هو الدماغ، فهذه الروابط هي الأعصاب. نتحدث عن تقليل أخطاء إدخال البيانات بنسبة 99%. هنا يكمن العائد على الاستثمار.\n\n[الخاتمة]\nباختصار، الأتمتة الذكية ليست مشروعاً تقنياً، بل هي استراتيجية نموكم. شكراً لاستماعكم، ونراكم قريباً لتحسين عملياتكم.`,
+          videoStructure: [
+            { scriptPart: "أهلاً بكم... الثورة الصناعية.", visual: "لقطات مكتب حديث + نص: '2024: عصر التصنيع'" },
+            { scriptPart: "لقد جربنا... الإنتاجية الخالصة.", visual: "رسم بياني: 'أداة مقابل وكيل مستقل' + أيقونات تروس" },
+            { scriptPart: "السر... العائد على الاستثمار.", visual: "رسوم متحركة: شعارات Gmail/Slack/HubSpot متصلة + نص: '-99% أخطاء'" },
+            { scriptPart: "باختصار... عملياتكم.", visual: "شعار Agenzia + زر: 'تدقيق استراتيجي'" }
+          ],
+          seoTitle: "تصنيع الذكاء الاصطناعي 2024: الدليل الاستراتيجي | Agenzia",
+          seoDescription: "اكتشف لماذا يعد عام 2024 العام المحوري للذكاء الاصطناعي في الأعمال. وكلاء مستقلون، توافق تشغيلي، وعائد على الاستثمار: انتقل من التجريب إلى التأثير الحقيقي."
+        },
+        { 
+          category: 'تكنولوجيا', 
+          title: 'الأتمتة 2.0: لماذا يعد الذكاء الاصطناعي المعرفي المعيار الجديد للفخامة الرقمية', 
+          author: 'جين سميث', 
+          authorAvatar: 'https://i.pravatar.cc/150?u=jane_smith',
+          date: '08 مارس 2024', 
+          readingTime: '5 دقائق',
+          excerpt: 'لا تُرى "الفخامة الرقمية" للذكاء الاصطناعي؛ بل تُحس في سلاسة العمليات. تعرف على سبب كون تجربة المستخدم الداخلية هي رافعة النمو الأكثر استهانة.',
+          content: `
+            <p>لم تعد الفخامة الرقمية تكمن في التباهي التكنولوجي بل في خفاء العمليات. الشركة ذات الأداء العالي في عام 2024 هي تلك التي اختفت فيها الاحتكاكات التشغيلية لصالح سير عمل "سائل".</p>
+            <h3>تجربة المستخدم الداخلية: محرك النمو الخفي</h3>
+            <p>غالباً ما يتم تجاهلها، ترتبط تجربة المستخدم للموظفين مع أدوات عملهم الخاصة ارتباطاً مباشراً بالاحتفاظ بالمواهب وجودة خدمة العملاء. يتوقع الذكاء الاصطناعي المعرفي احتياجات الموظفين من خلال توفير المعلومات الصحيحة في الوقت الصحيح، دون بحث نشط.</p>
+            <blockquote>"الذكاء الأكثر تطوراً هو الذي يبسط التعقيد حتى يصبح غير محسوس."</blockquote>
+            <p>في Agenzia، نطبق مبادئ التفكير التصميمي على الأتمتة. تم تصميم كل سير عمل كمنتج فاخر: بديهي، قوي، ونقي جمالياً.</p>
+          `,
+          imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
+          audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+          videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+          podcastScript: `[مقدمة]\nمرحباً بكم من جديد. اليوم نعيد تعريف الفخامة. لا نتحدث عن الساعات الفاخرة أو السيارات السريعة، بل عن شيء أكثر قيمة لشركتكم: الفخامة الرقمية. لماذا يعد الذكاء الاصطناعي المعرفي المعيار الذهبي الجديد للتميز التشغيلي.\n\n[الجزء 1: خفاء النجاح]\nالفخامة الحقيقية غالباً ما تُحس ولا تُرى. في العالم الرقمي، هذا يعني خفاء العمليات. الشركة ذات الأداء العالي في عام 2024 هي تلك التي اختفت فيها الاحتكاكات التشغيلية لصالح سير عمل 'سائل'. لا ينبغي أن يكون الذكاء الاصطناعي أداة براقة تتباهى بها؛ بل يجب أن يكون المحرك الصامت الذي يجعل سير عملك بالكامل يبدو سلساً.\n\n[الجزء 2: ثورة تجربة المستخدم الداخلية]\nنقضي الكثير من الوقت في تجربة العملاء، لكننا غالباً ما ننسى المحرك الأكثر أهمية: فرقنا الخاصة. تجربة المستخدم الداخلية هي رافعة النمو الخفية. الذكاء الاصطناعي المعرفي يتوقع ما يحتاجه موظفوك قبل أن يسألوا. يتعلق الأمر بتوفير المعلومة الصحيحة في الوقت الصحيح، دون عناء البحث. هذا هو التفكير التصميمي المطبق على الأتمتة.\n\n[الخاتمة]\nفي Agenzia، نصمم كل سير عمل كمنتج فاخر: بديهي، قوي، ونقي جمالياً. لأن البساطة في نهاية المطاف هي قمة الرقي. شكراً لاستماعكم، ولنجعل عملياتكم تبدو كالفخامة.`,
+          videoStructure: [
+            { scriptPart: "مرحباً بكم... التميز التشغيلي.", visual: "خلفية بيضاء بسيطة مع نص 'الفخامة الرقمية' + لقطة سينمائية لمكتب أنيق." },
+            { scriptPart: "الفخامة الحقيقية... سير عمل 'سائل'.", visual: "لقطات لشخص يعمل بسهولة + رسوم متحركة لسائل يتدفق بسلاسة يمثل البيانات." },
+            { scriptPart: "نقضي الكثير... المطبق على الأتمتة.", visual: "شاشة مقسمة تظهر 'الطريقة القديمة' مقابل 'طريقة الذكاء الاصطناعي' + أيقونات مزامنة Slack/HubSpot." },
+            { scriptPart: "في Agenzia... كالفخامة.", visual: "شعار Agenzia باللون الأسود والذهبي + زر: 'احجز تدقيقاً'." }
+          ],
+          seoTitle: "الذكاء الاصطناعي المعرفي والفخامة الرقمية: المعيار التشغيلي الجديد | Agenzia",
+          seoDescription: "اكتشف كيف يعيد الذكاء الاصطناعي المعرفي تعريف الفخامة الرقمية من خلال خفاء العمليات وتجربة المستخدم الداخلية. حول عملياتك إلى ميزة تنافسية سلسة."
+        },
+      ],
       cta: 'كل المقالات',
       newsletter: {
         title: 'النشرة',
@@ -604,8 +822,28 @@ export const translations: { [key: string]: Content } = {
       copyright: '© 2024 أجينزيا.',
     },
     aiAssistant: {
-      greeting: 'مرحباً! كيف أساعدك؟',
-      placeholder: 'اسأل سؤالاً...',
+      greeting: 'أهلاً بك! كيف يمكنني مساعدتك في تحسين عملياتك اليوم؟',
+      placeholder: 'اسأل سؤالك...',
+    },
+    articleDetail: {
+      backButton: 'العودة إلى الاختيار',
+      readingTime: 'قراءة',
+      publishedOn: 'نُشر في',
+      podcastIncluded: 'بودكاست متضمن',
+      videoIncluded: 'فيديو متضمن',
+      listenPodcast: 'استمع إلى البودكاست',
+      watchVideo: 'شاهد الفيديو',
+      audioVersion: 'نسخة صوتية مطورة',
+      videoMasterclass: 'ماستر كلاس تقني',
+      contentArchitecture: 'هندسة المحتوى',
+      multiPlatformDeclination: 'توزيع المحتوى متعدد المنصات',
+      seoLayer: 'طبقة البيانات الوصفية (SEO)',
+      podcastLayer: 'طبقة البودكاست (صوتي)',
+      videoLayer: 'طبقة الفيديو (هيكلية)',
+      metaTitle: 'عنوان الصفحة (Title Tag)',
+      metaDescription: 'الوصف الميتا (Meta Description)',
+      scriptPart: 'جزء من السيناريو',
+      visual: 'مرئي',
     },
   },
 };

@@ -12,10 +12,13 @@ import Blog from './components/Blog';
 import ArticleDetail from './components/ArticleDetail';
 import Footer from './components/Footer';
 import AiAssistant from './components/AiAssistant';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import LegalNotices from './components/LegalNotices';
+import TermsOfService from './components/TermsOfService';
 import type { Language, Direction, Post } from './types';
 import { translations } from './constants';
 
-type View = 'landing' | 'blog' | 'article';
+type View = 'landing' | 'blog' | 'article' | 'privacy' | 'legal' | 'terms';
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('fr');
@@ -72,19 +75,32 @@ const App: React.FC = () => {
               isFullPage={true} 
             />
           </div>
+        ) : view === 'privacy' ? (
+          <div className="pt-20">
+            <PrivacyPolicy />
+          </div>
+        ) : view === 'legal' ? (
+          <div className="pt-20">
+            <LegalNotices />
+          </div>
+        ) : view === 'terms' ? (
+          <div className="pt-20">
+            <TermsOfService />
+          </div>
         ) : (
           <div className="pt-20">
             {selectedPost && (
               <ArticleDetail 
                 post={selectedPost} 
                 onBack={() => handleNavigate('blog')} 
+                content={content.articleDetail}
               />
             )}
           </div>
         )}
       </main>
 
-      <Footer content={content.footer} />
+      <Footer content={content.footer} onNavigate={handleNavigate} />
       <AiAssistant content={content.aiAssistant} />
     </div>
   );

@@ -1,10 +1,11 @@
 
 import React from 'react';
-import type { Post } from '../types';
+import type { Post, Content } from '../types';
 
 interface ArticleDetailProps {
   post: Post;
   onBack: () => void;
+  content: Content['articleDetail'];
 }
 
 const ArrowLeftIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -25,7 +26,7 @@ const VideoIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
+const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack, content }) => {
   return (
     <article className="min-h-screen bg-white">
       {/* Top Navigation */}
@@ -37,7 +38,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
           <div className="w-10 h-10 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-all">
             <ArrowLeftIcon className="w-4 h-4" />
           </div>
-          Retour à la sélection
+          {content.backButton}
         </button>
       </div>
 
@@ -50,7 +51,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
             </span>
             <div className="w-1 h-1 rounded-full bg-brand-secondary/20" />
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-secondary/40">
-              {post.readingTime} de lecture
+              {post.readingTime} {content.readingTime}
             </span>
           </div>
           
@@ -64,7 +65,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
             </div>
             <div>
               <p className="text-xs font-black uppercase tracking-widest text-brand-primary">{post.author}</p>
-              <p className="text-[10px] font-bold text-brand-secondary/40 uppercase tracking-tighter">Publié le {post.date}</p>
+              <p className="text-[10px] font-bold text-brand-secondary/40 uppercase tracking-tighter">{content.publishedOn} {post.date}</p>
             </div>
           </div>
         </div>
@@ -82,7 +83,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
                 <div className="w-8 h-8 rounded-full bg-brand-accent text-white flex items-center justify-center">
                   <PlayIcon className="w-4 h-4 ml-0.5" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Podcast Inclus</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">{content.podcastIncluded}</span>
               </div>
             )}
             {post.videoUrl && (
@@ -90,7 +91,7 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
                 <div className="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center">
                   <VideoIcon className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Vidéo Incluse</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">{content.videoIncluded}</span>
               </div>
             )}
           </div>
@@ -108,8 +109,8 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
                     <PlayIcon className="w-8 h-8 ml-1" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black text-brand-primary tracking-tight">Écouter le Podcast</h3>
-                    <p className="text-xs font-bold text-brand-secondary/40 uppercase tracking-widest">Version Audio Augmentée</p>
+                    <h3 className="text-xl font-black text-brand-primary tracking-tight">{content.listenPodcast}</h3>
+                    <p className="text-xs font-bold text-brand-secondary/40 uppercase tracking-widest">{content.audioVersion}</p>
                   </div>
                 </div>
                 <audio controls className="w-full h-10">
@@ -126,8 +127,8 @@ const ArticleDetail: React.FC<ArticleDetailProps> = ({ post, onBack }) => {
                     <VideoIcon className="w-8 h-8" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black text-brand-primary tracking-tight">Voir la Vidéo</h3>
-                    <p className="text-xs font-bold text-brand-secondary/40 uppercase tracking-widest">Masterclass Technique</p>
+                    <h3 className="text-xl font-black text-brand-primary tracking-tight">{content.watchVideo}</h3>
+                    <p className="text-xs font-bold text-brand-secondary/40 uppercase tracking-widest">{content.videoMasterclass}</p>
                   </div>
                 </div>
                 <div className="aspect-video rounded-2xl overflow-hidden shadow-lg ring-1 ring-black/5">

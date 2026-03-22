@@ -15,6 +15,10 @@ export interface Post {
   audioUrl?: string; // Added for podcast
   videoUrl?: string; // Added for video
   isFeatured?: boolean;
+  podcastScript?: string;
+  videoStructure?: { scriptPart: string; visual: string }[];
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export interface Content {
@@ -115,5 +119,25 @@ export interface Content {
   aiAssistant: {
     greeting: string;
     placeholder: string;
+  };
+  articleDetail: {
+    backButton: string;
+    readingTime: string;
+    publishedOn: string;
+    podcastIncluded: string;
+    videoIncluded: string;
+    listenPodcast: string;
+    watchVideo: string;
+    audioVersion: string;
+    videoMasterclass: string;
+    contentArchitecture: string;
+    multiPlatformDeclination: string;
+    seoLayer: string;
+    podcastLayer: string;
+    videoLayer: string;
+    metaTitle: string;
+    metaDescription: string;
+    scriptPart: string;
+    visual: string;
   };
 }

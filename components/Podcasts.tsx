@@ -57,10 +57,13 @@ const Podcasts: React.FC<PodcastsProps> = ({ content, blogPosts, onNavigate }) =
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-accent">{post.category}</span>
-                  <div className="w-1 h-1 rounded-full bg-brand-secondary/20" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-secondary/40">{post.date}</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-accent">{post.category}</span>
+                    <div className="w-1 h-1 rounded-full bg-brand-secondary/20" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-secondary/40">{post.date}</span>
+                  </div>
+                  <span className="text-[8px] font-black uppercase tracking-widest text-brand-primary/30 border border-brand-primary/10 px-2 py-0.5 rounded-full">LM Notebook</span>
                 </div>
                 <h3 className="text-3xl md:text-4xl font-black text-brand-primary tracking-tighter leading-[0.95] group-hover:text-brand-accent transition-colors">
                   {post.title}
