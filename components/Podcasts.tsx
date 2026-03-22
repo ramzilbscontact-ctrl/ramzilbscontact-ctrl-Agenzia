@@ -19,11 +19,11 @@ const Podcasts: React.FC<PodcastsProps> = ({ content, blogPosts, onNavigate }) =
   const podcastPosts = blogPosts.filter(post => post.audioUrl);
 
   return (
-    <section className="py-40 bg-gray-50/50" id="podcasts">
+    <section className="py-20 md:py-40 bg-gray-50/50" id="podcasts">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24 animate-unfold">
           <div className="max-w-3xl">
-            <h2 className="text-6xl md:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
+            <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
               {content.title}
             </h2>
             <p className="text-xl text-brand-secondary/60 font-medium max-w-xl border-l-2 border-brand-accent/30 pl-8 ml-2">
@@ -65,7 +65,7 @@ const Podcasts: React.FC<PodcastsProps> = ({ content, blogPosts, onNavigate }) =
                   </div>
                   <span className="text-[8px] font-black uppercase tracking-widest text-brand-primary/30 border border-brand-primary/10 px-2 py-0.5 rounded-full">LM Notebook</span>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-black text-brand-primary tracking-tighter leading-[0.95] group-hover:text-brand-accent transition-colors">
+                <h3 className="text-xl md:text-3xl lg:text-4xl font-black text-brand-primary tracking-tighter leading-[0.95] group-hover:text-brand-accent transition-colors">
                   {post.title}
                 </h3>
                 <div className="flex items-center gap-3 pt-4">
