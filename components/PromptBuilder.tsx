@@ -270,10 +270,22 @@ const PromptBuilder: React.FC<PromptBuilderProps> = ({ content }) => {
                                 )}
                             </div>
                              <div className="mt-12">
-                                <button disabled={!isComplete} className="w-full bg-white text-brand-primary font-black py-6 rounded-[1.5rem] shadow-xl transition-all disabled:opacity-10 disabled:scale-95 disabled:cursor-not-allowed hover:bg-brand-accent hover:text-white hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 uppercase tracking-tighter">
-                                    <span>{content.cta}</span>
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                                </button>
+                                {isComplete ? (
+                                    <a 
+                                        href="https://cal.eu/getagenzia/15min" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="w-full bg-white text-brand-primary font-black py-6 rounded-[1.5rem] shadow-xl transition-all hover:bg-brand-accent hover:text-white hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-4 uppercase tracking-tighter"
+                                    >
+                                        <span>{content.cta}</span>
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                                    </a>
+                                ) : (
+                                    <button disabled className="w-full bg-white text-brand-primary font-black py-6 rounded-[1.5rem] shadow-xl transition-all opacity-10 scale-95 cursor-not-allowed flex items-center justify-center gap-4 uppercase tracking-tighter">
+                                        <span>{content.cta}</span>
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>

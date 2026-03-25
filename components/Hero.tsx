@@ -25,7 +25,12 @@ const Hero: React.FC<HeroProps> = ({ content }) => {
             {content.subtitle}
           </p>
           <div className="mt-10 flex justify-center items-center gap-4">
-            <a href="#" className="group inline-flex items-center justify-center gap-2 bg-brand-primary text-white text-base font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all shadow-md">
+            <a 
+              href="https://cal.eu/getagenzia/15min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 bg-brand-primary text-white text-base font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all shadow-md"
+            >
               {content.cta}
               <ArrowRightIcon className="w-5 h-5 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"/>
             </a>

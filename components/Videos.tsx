@@ -19,11 +19,11 @@ const Videos: React.FC<VideosProps> = ({ content, blogPosts, onNavigate }) => {
   const videoPosts = blogPosts.filter(post => post.videoUrl);
 
   return (
-    <section className="py-20 md:py-40 bg-white" id="videos">
+    <section className="py-40 bg-white" id="videos">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24 animate-unfold">
           <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
+            <h2 className="text-6xl md:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
               {content.title}
             </h2>
             <p className="text-xl text-brand-secondary/60 font-medium max-w-xl border-l-2 border-brand-accent/30 pl-8 ml-2">
@@ -64,7 +64,7 @@ const Videos: React.FC<VideosProps> = ({ content, blogPosts, onNavigate }) => {
                   </span>
                 </div>
                 
-                <h3 className="text-2xl md:text-4xl lg:text-5xl font-black text-brand-primary tracking-tighter leading-[0.95] group-hover:text-brand-accent transition-colors duration-500">
+                <h3 className="text-4xl md:text-5xl font-black text-brand-primary tracking-tighter leading-[0.95] group-hover:text-brand-accent transition-colors duration-500">
                   {post.title}
                 </h3>
                 

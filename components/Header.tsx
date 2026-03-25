@@ -28,7 +28,6 @@ const ChevronDownIcon: React.FC<{ className?: string }> = ({ className }) => (
 const Header: React.FC<HeaderProps> = ({ language, setLanguage, content, onNavigate, currentView }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const languages: { code: Language; name: string }[] = [
     { code: 'fr', name: 'Français' },
     { code: 'en', name: 'English' },
@@ -44,35 +43,50 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, content, onNavig
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: content.nav.solutions, action: () => { onNavigate('landing'); setIsMobileMenuOpen(false); } },
-    { label: content.nav.podcasts, action: () => { onNavigate('landing'); setIsMobileMenuOpen(false); setTimeout(() => document.getElementById('podcasts')?.scrollIntoView({ behavior: 'smooth' }), 100); } },
-    { label: content.nav.videos, action: () => { onNavigate('landing'); setIsMobileMenuOpen(false); setTimeout(() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' }), 100); } },
-    { label: content.nav.blog, action: () => { onNavigate('blog'); setIsMobileMenuOpen(false); }, active: currentView === 'blog' },
-  ];
-
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || currentView === 'blog' || currentView === 'article' || isMobileMenuOpen ? 'bg-gray-50/95 backdrop-blur-lg shadow-tactile' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || currentView === 'blog' || currentView === 'article' ? 'bg-gray-50/80 backdrop-blur-lg shadow-tactile' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <button
+          <button 
             onClick={() => onNavigate('landing')}
             className="text-2xl font-black text-brand-primary tracking-tighter hover:opacity-70 transition-opacity"
           >
             Agenzia
           </button>
-
+          
           <nav className="hidden lg:flex items-center gap-8 text-brand-secondary">
-            {navLinks.map(({ label, action, active }) => (
-              <button key={label} onClick={action} className={`text-xs font-black uppercase tracking-[0.2em] transition-colors ${active ? 'text-brand-accent' : 'hover:text-brand-primary'}`}>{label}</button>
-            ))}
+            <button onClick={() => onNavigate('landing')} className="text-xs font-black uppercase tracking-[0.2em] hover:text-brand-primary transition-colors">{content.nav.solutions}</button>
+            <button 
+              onClick={() => {
+                onNavigate('landing');
+                setTimeout(() => document.getElementById('podcasts')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              }} 
+              className="text-xs font-black uppercase tracking-[0.2em] hover:text-brand-primary transition-colors"
+            >
+              {content.nav.podcasts}
+            </button>
+            <button 
+              onClick={() => {
+                onNavigate('landing');
+                setTimeout(() => document.getElementById('videos')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              }} 
+              className="text-xs font-black uppercase tracking-[0.2em] hover:text-brand-primary transition-colors"
+            >
+              {content.nav.videos}
+            </button>
+            <button 
+              onClick={() => onNavigate('blog')} 
+              className={`text-xs font-black uppercase tracking-[0.2em] transition-colors ${currentView === 'blog' ? 'text-brand-accent' : 'hover:text-brand-primary'}`}
+            >
+              {content.nav.blog}
+            </button>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <div className="relative">
               <button
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center gap-2 text-sm font-medium text-brand-secondary hover:text-brand-primary transition-colors p-1"
+                className="flex items-center gap-2 text-sm font-medium text-brand-secondary hover:text-brand-primary transition-colors"
               >
                 <LanguageIcon className="w-5 h-5" />
                 <span className="hidden md:inline">{languages.find(l => l.code === language)?.name}</span>
@@ -87,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, content, onNavig
                         setLanguage(code);
                         setIsLangMenuOpen(false);
                       }}
-                      className={`w-full text-start px-3 py-2 rounded text-sm ${language === code ? 'bg-gray-100 text-brand-primary' : 'text-brand-secondary hover:bg-gray-50'}`}
+                      className={`w-full text-start px-3 py-1.5 rounded text-sm ${language === code ? 'bg-gray-100 text-brand-primary' : 'text-brand-secondary hover:bg-gray-50'}`}
                     >
                       {name}
                     </button>
@@ -95,41 +109,16 @@ const Header: React.FC<HeaderProps> = ({ language, setLanguage, content, onNavig
                 </div>
               )}
             </div>
-            <a href="#" className="hidden md:inline-block bg-brand-primary text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm">
+            <a 
+              href="https://cal.eu/getagenzia/15min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hidden md:inline-block bg-brand-primary text-white text-sm font-semibold px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+            >
               {content.cta}
             </a>
-            {/* Hamburger button - mobile only */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-              aria-label="Toggle menu"
-            >
-              <span className={`block w-6 h-0.5 bg-brand-primary transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block w-6 h-0.5 bg-brand-primary transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-              <span className={`block w-6 h-0.5 bg-brand-primary transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-            </button>
           </div>
         </div>
-
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden pt-4 pb-6 border-t border-black/5 mt-4 animate-unfold" style={{ animationDuration: '0.15s' }}>
-            <nav className="flex flex-col gap-1">
-              {navLinks.map(({ label, action, active }) => (
-                <button
-                  key={label}
-                  onClick={action}
-                  className={`text-left px-3 py-3 text-sm font-black uppercase tracking-[0.2em] rounded-lg transition-colors ${active ? 'text-brand-accent bg-brand-accent/5' : 'text-brand-secondary hover:text-brand-primary hover:bg-black/5'}`}
-                >
-                  {label}
-                </button>
-              ))}
-              <a href="#" className="mt-3 bg-brand-primary text-white text-sm font-semibold px-4 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm text-center">
-                {content.cta}
-              </a>
-            </nav>
-          </div>
-        )}
       </div>
     </header>
   );

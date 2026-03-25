@@ -88,7 +88,12 @@ const RoiSimulator: React.FC<RoiSimulatorProps> = ({ content }) => {
               {formatCurrency(annualSavings)}
             </p>
             <p className="text-sm text-brand-secondary">{content.savingsPerYear}</p>
-            <a href="#" className="mt-8 bg-brand-primary text-white text-base font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm w-full">
+            <a 
+              href="https://cal.eu/getagenzia/15min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-8 bg-brand-primary text-white text-base font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm w-full text-center"
+            >
               {content.cta}
             </a>
           </div>

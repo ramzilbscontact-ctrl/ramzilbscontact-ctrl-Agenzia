@@ -44,12 +44,12 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
   };
 
   return (
-    <section className={`py-20 md:py-40 ${isFullPage ? 'bg-gray-50/30' : 'bg-white'}`} id="blog">
+    <section className={`py-40 ${isFullPage ? 'bg-gray-50/30' : 'bg-white'}`} id="blog">
       <div className="container mx-auto px-6">
         {/* Editorial Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24 animate-unfold">
           <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
+            <h2 className="text-6xl md:text-8xl font-black text-brand-primary tracking-tighter leading-[0.85] mb-8">
               {content.title}
             </h2>
             <p className="text-xl text-brand-secondary/60 font-medium max-w-xl border-l-2 border-brand-accent/30 pl-8 ml-2">
@@ -84,7 +84,7 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
             style={{ animationDelay: '0.2s' }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-gray-50 rounded-[3rem] overflow-hidden shadow-tactile-lg transition-all duration-700 hover:shadow-2xl">
-              <div className="lg:col-span-8 relative overflow-hidden h-[260px] sm:h-[380px] lg:h-[700px]">
+              <div className="lg:col-span-8 relative overflow-hidden h-[500px] lg:h-[700px]">
                 <SafeImage 
                   src={featuredPost.imageUrl || ''} 
                   alt={featuredPost.title} 
@@ -93,7 +93,7 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </div>
               
-              <div className="lg:col-span-4 p-6 md:p-10 lg:p-16 flex flex-col justify-between bg-white border-l border-black/5">
+              <div className="lg:col-span-4 p-12 md:p-16 flex flex-col justify-between bg-white border-l border-black/5">
                 <div>
                   <div className="flex items-center gap-4 mb-10">
                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white bg-brand-primary px-4 py-2 rounded-lg">
@@ -103,7 +103,7 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
                       {featuredPost.readingTime}
                     </span>
                   </div>
-                  <h3 className="text-2xl md:text-4xl lg:text-5xl font-black text-brand-primary tracking-tighter leading-[0.95] mb-6 group-hover:text-brand-accent transition-colors duration-500">
+                  <h3 className="text-4xl md:text-5xl font-black text-brand-primary tracking-tighter leading-[0.95] mb-8 group-hover:text-brand-accent transition-colors duration-500">
                     {featuredPost.title}
                   </h3>
                   <p className="text-lg text-brand-secondary/60 font-medium leading-relaxed mb-12">
@@ -166,7 +166,7 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
                           <div className="w-1 h-1 rounded-full bg-brand-accent/40" />
                           <span className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-secondary/30">{post.readingTime}</span>
                        </div>
-                       <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-brand-primary tracking-tighter leading-[0.95] mb-4 group-hover:text-brand-accent transition-colors duration-300">
+                       <h3 className="text-3xl md:text-4xl font-black text-brand-primary tracking-tighter leading-[0.95] mb-4 group-hover:text-brand-accent transition-colors duration-300">
                          {post.title}
                        </h3>
                        <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ const Blog: React.FC<BlogProps> = ({ content, onNavigate, isFullPage = false }) 
                   </svg>
                 </div>
                 
-                <h3 className="text-2xl md:text-3xl font-black tracking-tighter leading-none mb-6">
+                <h3 className="text-4xl font-black tracking-tighter leading-none mb-6">
                   {content.newsletter.title}
                 </h3>
                 
