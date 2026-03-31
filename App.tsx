@@ -7,6 +7,8 @@ import Problem from './components/Problem';
 import PromptBuilder from './components/PromptBuilder';
 import Podcasts from './components/Podcasts';
 import Videos from './components/Videos';
+import Pricing from './components/Pricing';
+import Roadmap from './components/Roadmap';
 import RoiSimulator from './components/RoiSimulator';
 import Blog from './components/Blog';
 import ArticleDetail from './components/ArticleDetail';
@@ -60,6 +62,8 @@ const App: React.FC = () => {
             <PromptBuilder content={content.promptBuilder} />
             <Podcasts content={content.podcasts} blogPosts={content.blog.posts} onNavigate={handleNavigate} />
             <Videos content={content.videos} blogPosts={content.blog.posts} onNavigate={handleNavigate} />
+            <Pricing content={content.pricing} />
+            <Roadmap content={content.roadmap} />
             <RoiSimulator content={content.roi} />
             <Blog 
               content={content.blog} 

@@ -21,6 +21,24 @@ export interface Post {
   seoDescription?: string;
 }
 
+export interface PricingTier {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  highlighted?: boolean;
+}
+
+export interface RoadmapPhase {
+  phase: string;
+  title: string;
+  timeline: string;
+  items: string[];
+  kpi: string;
+}
+
 export interface Content {
   header: {
     nav: { [key: string]: string };
@@ -68,6 +86,16 @@ export interface Content {
       description: string;
       tag: string;
     }[];
+  };
+  pricing: {
+    title: string;
+    subtitle: string;
+    tiers: PricingTier[];
+  };
+  roadmap: {
+    title: string;
+    subtitle: string;
+    phases: RoadmapPhase[];
   };
   podcasts: {
     title: string;

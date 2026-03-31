@@ -9,42 +9,42 @@ export const translations: { [key: string]: Content } = {
       language: 'Langue',
     },
     hero: {
-      title: 'Votre entreprise, en version augmentée par l’IA.',
-      subtitle: 'Nous concevons des systèmes d’automatisation sur-mesure pour décupler votre productivité et libérer le potentiel de vos équipes.',
-      cta: 'Découvrir nos solutions',
+      title: 'Cybersécurité, Cloud & Data enfin accessibles aux PME.',
+      subtitle: 'L\'Uber de la tech pour PME françaises : Agents IA autonomes + Freelances experts = 80% d\'automatisation, déploiement 1-clic. 100% souverain SecNumCloud & RGPD. À partir de 99€/mois.',
+      cta: 'Audit cyber gratuit en 5 min',
     },
     ecosystem: {
-      title: 'Intégré à votre écosystème technologique',
+      title: 'Compatible avec votre infrastructure existante',
     },
     problem: {
-      title: 'Les opérations manuelles freinent votre croissance.',
-      description: 'Chaque tâche répétitive est une opportunité manquée. L\'inefficacité opérationnelle coûte cher, démotive vos équipes et vous laisse vulnérable face à la concurrence.',
+      title: 'Les PME françaises sont en danger numérique.',
+      description: '75 000 postes cyber/data non pourvus en France, 76% des PME sans compétences internes, et des coûts de brèche de 1 à 5M€. Les solutions traditionnelles (Thales, Atos, OVH premium) sont inaccessibles : 500€+/jour, 3-6 mois de setup.',
       cards: [
-        { title: 'Perte de temps', description: 'Des heures précieuses gaspillées dans des process manuels et redondants.' },
-        { title: 'Risque d\'erreurs', description: 'Les interventions humaines augmentent la probabilité d\'erreurs coûteuses.' },
-        { title: 'Manque de scalabilité', description: 'Vos systèmes actuels ne peuvent pas suivre la croissance de votre activité.' },
+        { title: 'Migration Cloud échouée', description: '40% d\'échecs, coûts sous-estimés de +50%. SecNumCloud bloquant pour 80% des PME en mode hybride.' },
+        { title: 'Cybersécurité inexistante', description: '64% des PME prennent des raccourcis risqués. Ransomwares en hausse de +30% en 2026. Détection tardive.' },
+        { title: 'Data Analysis manuelle', description: '2 à 4 semaines par rapport. +45% de demande mais zéro solution IA no-code accessible aux PME.' },
       ],
     },
     vision: {
-      title: 'Passez à l’efficience opérationnelle absolue.',
-      description: 'Agenzia transforme vos processus métier en un avantage compétitif. Grâce à l\'IA et l\'automatisation, nous créons un système nerveux central pour votre entreprise, où chaque action est optimisée, intelligente et instantanée.',
-      cta: 'Discuter avec un expert',
+      title: 'L\'Uber du Cyber/Cloud/Data : Zero Friction, prix PME.',
+      description: 'Agenzia démocratise l\'accès aux expertises Cyber, Cloud et Data pour les PME françaises. Notre plateforme combine des agents IA autonomes locaux, un matching intelligent avec des freelances juniors qualifiés, et un déploiement en 1 clic. Résultat : 80% d\'automatisation, 100% souverain SecNumCloud/RGPD/HDS, à partir de 99€/mois.',
+      cta: 'Planifier une démo',
     },
     promptBuilder: {
-      title: 'Imaginez. Nous Architecturons. Votre Écosystème Idéal.',
-      intro: 'Chez Agenzia, nous ne vendons pas des boîtes. Nous construisons des extensions de votre intelligence. Utilisez notre configurateur interactif pour définir votre besoin le plus pressant. Observez comment le "White Pure Look" se matérialise pour vous, en temps réel.',
+      title: 'Diagnostiquez. Nous Sécurisons. Votre Infrastructure Idéale.',
+      intro: 'Chez Agenzia, nous ne vendons pas du consulting premium. Nous déployons des agents IA locaux qui automatisent 80% de vos besoins cyber, cloud et data. Utilisez notre configurateur pour identifier votre besoin prioritaire et obtenir une solution sur-mesure en 1 clic.',
       steps: {
         challenge: { title: 'Étape 1 : Quel est votre défi principal ?' },
-        tools: { title: 'Étape 2 : Quels outils utilisez-vous déjà ?', available: 'Outils disponibles', selected: 'Votre espace de travail' },
-        wish: { title: 'Étape 3 : Décrivez votre souhait', placeholder: 'Ex: "Je veux que mes leads qualifiés dans HubSpot reçoivent un email personnalisé 5 minutes après."', suggestions: ['...envoi automatique d\'email...', '...création de tâche...', '...synchronisation des données...'] },
+        tools: { title: 'Étape 2 : Quels outils/infra utilisez-vous déjà ?', available: 'Outils disponibles', selected: 'Votre infrastructure' },
+        wish: { title: 'Étape 3 : Décrivez votre besoin', placeholder: 'Ex: "Je veux migrer mes serveurs vers OVH SecNumCloud avec un monitoring automatique et une assurance cyber."', suggestions: ['...migration cloud automatisée...', '...audit de vulnérabilités...', '...dashboard data temps réel...'] },
       },
       challenges: [
-        { id: 'leads', name: 'Acquisition & Conversion Leads', icon: 'magnet' },
-        { id: 'admin', name: 'Gestion Administrative & Finance', icon: 'balance' },
-        { id: 'hr', name: 'RH & Onboarding', icon: 'team' },
-        { id: 'data', name: 'Analyse de Données & Reporting', icon: 'chart' },
-        { id: 'ops', name: 'Processus Opérationnels', icon: 'gear' },
-        { id: 'support', name: 'Support Client & FAQ', icon: 'chat' },
+        { id: 'cyber', name: 'Cybersécurité & SOC', icon: 'magnet' },
+        { id: 'cloud', name: 'Migration Cloud SecNumCloud', icon: 'gear' },
+        { id: 'data', name: 'Data Analysis & IA No-Code', icon: 'chart' },
+        { id: 'compliance', name: 'Conformité RGPD/HDS/NIS2', icon: 'balance' },
+        { id: 'monitoring', name: 'Monitoring & Alerting', icon: 'chat' },
+        { id: 'efacture', name: 'E-Facturation Obligatoire 2026', icon: 'team' },
       ],
       tools: [
           { id: 'gmail', name: 'Gmail', iconUrl: 'google.com' },
@@ -97,12 +97,106 @@ export const translations: { [key: string]: Content } = {
       cta: 'Générer ma solution personnalisée',
     },
     modules: {
-      title: 'Nos modules d\'intervention.',
+      title: 'Trois solutions clé-en-main.',
       cards: [
-        { title: 'Audit & Stratégie IA', description: 'Analyse complète de vos processus pour identifier les gisements de productivité.', tag: 'Fondation' },
-        { title: 'Automatisation des Ventes', description: 'Optimisez votre CRM, qualifiez les leads et automatisez le reporting commercial.', tag: 'Sales' },
-        { title: 'Support Client Augmenté', description: 'Déployez des agents IA pour des réponses instantanées et un support 24/7.', tag: 'Support' },
-        { title: 'Optimisation Financière', description: 'Automatisez la facturation, le suivi des paiements et la réconciliation comptable.', tag: 'Finance' },
+        { title: 'Agent IA Cyber Local', description: 'Installation en 5 min sur votre PC admin. Scan automatique des dépendances, troubleshooting logs, migration cloud OVH SecNumCloud, monitoring Prometheus + alerting.', tag: 'Cyber' },
+        { title: 'Data Analysis IA No-Code', description: 'Upload Excel/CSV, dashboard instantané + insights prédictifs. Compatible Polymer, IA-souveraine.fr, Mistral Agents. 100% RGPD natif.', tag: 'Data' },
+        { title: 'Marketplace Uberisée', description: 'Matching IA entre vos besoins et un pool de juniors qualifiés (écoles 42/Polytechnique). Pay-per-task dès 0.5€/insight, l\'IA gère 80% du workload.', tag: 'Marketplace' },
+        { title: 'SOC & Assurance Cyber', description: 'Centre de sécurité opérationnel complet avec détection automatique, réponse aux incidents et assurance cyber auto-claim via partenariat Elyos.', tag: 'Enterprise' },
+      ],
+    },
+    pricing: {
+      title: 'Des prix pensés pour les PME.',
+      subtitle: 'Pas de consulting à 500€/jour. Pas de setup de 6 mois. Juste la technologie qui marche, à un prix juste.',
+      tiers: [
+        {
+          name: 'BASIC',
+          price: '99€',
+          period: '/mois',
+          description: 'Idéal pour les PME qui démarrent leur transformation digitale.',
+          features: [
+            'Agent IA local (Claude Code)',
+            'Scan automatique des vulnérabilités',
+            'Monitoring infra basique',
+            'Alerting email/Slack',
+            'Dashboard sécurité',
+            'Support communautaire',
+          ],
+          cta: 'Démarrer gratuitement',
+        },
+        {
+          name: 'PRO',
+          price: '499€',
+          period: '/mois',
+          description: 'Pour les PME en migration cloud avec besoins data avancés.',
+          features: [
+            'Tout le plan Basic +',
+            'Migration cloud assistée OVH SecNumCloud',
+            'Data Analysis IA (Polymer/Mistral)',
+            'Matching freelance junior dédié',
+            'Conformité RGPD/HDS automatisée',
+            'Support prioritaire 24h',
+          ],
+          cta: 'Essai gratuit 14 jours',
+          highlighted: true,
+        },
+        {
+          name: 'ENTERPRISE',
+          price: '999€',
+          period: '/mois',
+          description: 'SOC complet + assurance cyber pour les PME exigeantes.',
+          features: [
+            'Tout le plan Pro +',
+            'SOC complet 24/7',
+            'Assurance cyber auto-claim (Elyos)',
+            'Edge AI on-premise',
+            'Conformité NIS2/SecNumCloud',
+            'Account manager dédié',
+          ],
+          cta: 'Contacter l\'équipe',
+        },
+      ],
+    },
+    roadmap: {
+      title: 'Notre feuille de route.',
+      subtitle: 'Un plan ambitieux mais réaliste pour révolutionner l\'accès Cyber/Cloud/Data des PME françaises.',
+      phases: [
+        {
+          phase: 'Phase 1',
+          title: 'MVP & Beta',
+          timeline: 'Q2-Q3 2026',
+          items: [
+            'POC Agent IA local (Claude Code)',
+            'Beta 10 PME partenaires',
+            'Intégration Polymer/IA-souveraine.fr',
+            'Launch audit freemium (leadgen)',
+          ],
+          kpi: '20 clients payants, MRR 10k€',
+        },
+        {
+          phase: 'Phase 2',
+          title: 'Scale Initial',
+          timeline: 'Q4 2026-Q1 2027',
+          items: [
+            'Partenariats OVH SecNumCloud & Elyos',
+            'Marketplace : 50 freelances juniors',
+            'Webinars CESIN / Station F',
+            'Certification Cybermalveillance.gouv',
+          ],
+          kpi: '100 clients, MRR 50k€, CA 255k€',
+        },
+        {
+          phase: 'Phase 3',
+          title: 'Scale Européen',
+          timeline: 'Q2 2027-Q1 2028',
+          items: [
+            'Expansion Allemagne/Benelux (EUCS)',
+            'Edge AI on-premise PME',
+            'Consortium startups souveraines',
+            'Levée de fonds Série A',
+          ],
+          kpi: 'CA 1M€ → 5M€ objectif An3',
+        },
       ],
     },
     podcasts: {
@@ -116,88 +210,88 @@ export const translations: { [key: string]: Content } = {
       cta: 'Regarder la vidéo',
     },
     useCases: {
-      title: 'Des applications concrètes pour chaque département.',
+      title: 'Des solutions concrètes pour chaque besoin PME.',
       cases: [
-        { title: 'Marketing', description: 'Génération de contenu, analyse de sentiment, personnalisation des campagnes à grande échelle.' },
-        { title: 'Ressources Humaines', description: 'Automatisation du sourcing de candidats, onboarding des nouveaux employés, gestion des congés.' },
-        { title: 'Opérations', description: 'Gestion de la chaîne logistique, optimisation des stocks, maintenance prédictive.' },
+        { title: 'Cybersécurité', description: 'Audit automatique des vulnérabilités, SOC IA 24/7, réponse aux incidents en temps réel, assurance cyber intégrée.' },
+        { title: 'Migration Cloud', description: 'Scripts automatisés OVH SecNumCloud, monitoring Kubernetes/Docker, FinOps et optimisation des coûts cloud.' },
+        { title: 'Data & Conformité', description: 'Dashboards IA no-code, insights prédictifs, conformité RGPD/HDS/NIS2 automatisée, e-facturation 2026.' },
       ],
     },
     roi: {
-      title: 'Calculez votre retour sur investissement.',
-      description: 'Visualisez concrètement les économies et le gain de temps que l’automatisation peut apporter à votre entreprise.',
+      title: 'Calculez vos économies cyber & cloud.',
+      description: 'Comparez le coût d\'une brèche de sécurité ou d\'un consulting traditionnel avec notre solution. Une PME moyenne économise 70% sur ses dépenses cyber/cloud.',
       employeesLabel: 'Nombre d\'employés',
-      hoursLabel: 'Heures sauvées par employé/semaine',
+      hoursLabel: 'Heures IT économisées/semaine',
       costLabel: 'Coût horaire moyen (€)',
       savingsTitle: 'Économies annuelles estimées',
       savingsPerYear: '/ an',
-      cta: 'Obtenir un audit gratuit',
+      cta: 'Obtenir mon audit gratuit',
     },
     blog: {
       title: 'Intelligence & Perspectives.',
       subtitle: 'Décryptage des tendances IA et stratégies d\'automatisation pour les leaders de demain.',
       filters: ['Tous', 'Stratégie', 'Technologie'],
       posts: [
-        { 
-          category: 'Stratégie', 
-          title: 'L’IA Générative : Architecturer l’Efficience Opérationnelle du Futur', 
-          author: 'Jean Dupont', 
-          authorAvatar: 'https://i.pravatar.cc/150?u=jean_dupont',
-          date: '12 Mars 2024', 
+        {
+          category: 'Stratégie',
+          title: 'PME Françaises 2026 : Pourquoi la Cybersécurité IA est Devenue une Question de Survie',
+          author: 'Ramzil BS',
+          authorAvatar: 'https://i.pravatar.cc/150?u=ramzil_bs',
+          date: '31 Mars 2026',
           readingTime: '8 min',
-          excerpt: 'L’intégration des Large Language Models (LLM) ne se limite plus à la simple génération de texte. En 2025, elle devient le système nerveux central des organisations agiles.',
+          excerpt: '75 000 postes cyber non pourvus, ransomwares +30%, e-facturation obligatoire Q3 2026. Les PME n\'ont plus le choix : s\'armer en IA ou disparaître.',
           content: `
-            <p>L'ère de l'expérimentation avec l'IA est terminée. Nous sommes entrés dans l'ère de l'industrialisation. Pour les C-Levels, la question n'est plus "Qu'est-ce que l'IA peut faire ?" mais "Comment l'IA peut-elle transformer notre modèle opérationnel ?"</p>
-            <h3>1. De l'outil à l'agent autonome</h3>
-            <p>Contrairement aux logiciels traditionnels, les agents IA basés sur les LLMs ne se contentent pas d'exécuter des tâches ; ils prennent des decisions contextuelles. En connectant vos données propriétaires à ces modèles, vous créez des workflows qui apprennent de vos succès passés.</p>
-            <h3>2. L'interopérabilité comme levier de ROI</h3>
-            <p>Le véritable gain de productivité se trouve dans la glue entre vos outils. Gmail, Slack, HubSpot et Salesforce doivent communiquer de manière fluide. Nos architectures permettent une synchronisation en temps réel sans intervention humaine, réduisant les erreurs de saisie de 99%.</p>
-            <h3>3. Conclusion</h3>
-            <p>L'automatisation intelligente n'est pas un projet IT, c'est une stratégie business. En libérant vos talents des tâches répétitives, vous leur permettez de se concentrer sur la création de valeur et l'innovation stratégique.</p>
+            <p>Le constat est brutal : en 2026, 76% des PME françaises n'ont toujours aucune compétence cyber interne. Pendant ce temps, les ransomwares ont augmenté de 30%, et la CNIL enregistre 2 500 fuites de données par trimestre. L'e-facturation obligatoire au Q3 2026 force le passage au cloud hybride sans filet de sécurité.</p>
+            <h3>1. Le marché Cyber/Data/Cloud en crise</h3>
+            <p>La pénurie est critique : 75 000 postes de cyber analystes, data analysts et experts cloud restent non pourvus en France. Les solutions traditionnelles (Thales, Atos, OVH premium) facturent 500€+/jour avec 3 à 6 mois de setup. Inaccessible pour une PME de moins de 250 employés.</p>
+            <h3>2. L'Uberisation comme solution</h3>
+            <p>Notre approche combine trois leviers : des agents IA autonomes locaux qui automatisent 80% des tâches de monitoring et de détection, un matching intelligent avec des freelances juniors qualifiés (écoles 42, Polytechnique), et un déploiement en 1 clic 100% souverain SecNumCloud.</p>
+            <h3>3. Le timing est parfait</h3>
+            <p>L'e-facturation 2026 crée une urgence cloud. Le marché adressable PME représente 2 milliards d'euros en France. À partir de 99€/mois, nous rendons enfin accessible ce qui était réservé aux grands groupes.</p>
           `,
-          imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+          imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?auto=format&fit=crop&q=80&w=1200',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
           videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
           isFeatured: true,
-          podcastScript: `[MUSIQUE D'INTRODUCTION : ÉLECTRONIQUE ÉPURÉE, RYTHMÉE]\n\nBonjour à tous, et bienvenue dans ce nouvel épisode d'Agenzia Insights. Je suis votre hôte, et aujourd'hui, on va parler de l'éléphant dans la pièce : l'IA générative. Mais attention, on ne va pas parler de gadgets ou de générer des images de chats. On va parler d'architecture. On va parler d'efficience opérationnelle.\n\n[TRANSITION : BRUIT DE CLAVIER RAPIDE]\n\nPremière punchline : l'ère de l'expérimentation est terminée. Si vous en êtes encore à demander à ChatGPT de rédiger vos mails, vous avez déjà un train de retard. En 2025, l'IA, c'est le système nerveux central de votre boîte. C'est la glue qui fait que tout fonctionne sans friction.\n\nOn passe de l'outil à l'agent autonome. C'est quoi la différence ? Un outil attend que vous lui demandiez quelque chose. Un agent, lui, connaît vos données, comprend votre contexte et prend des décisions. Il n'exécute pas juste une tâche, il gère un workflow. Imaginez un système qui qualifie vos leads, prépare les contrats et alerte votre équipe commerciale, le tout pendant que vous dormez.\n\n[PAUSE DRAMATIQUE]\n\nMais le vrai secret, le levier de ROI massif, c'est l'interoperabilité. Vos outils — Gmail, Slack, HubSpot, Salesforce — ils doivent se parler. Et pas juste s'envoyer des notifications. Ils doivent échanger de l'intelligence. Nos architectures permettent de réduire les erreurs de saisie de 99%. Oui, vous avez bien entendu : 99%.\n\nAlors, conclusion ? L'automatisation intelligente, ce n'est pas un projet pour votre département IT. C'est une stratégie business pure et dure. C'est comment vous allez gagner la guerre de la productivité.\n\nMerci de nous avoir écoutés. Pour passer à l'action, rendez-vous sur agenzia.ai. À très vite.\n\n[MUSIQUE DE FIN : FADE OUT]`,
+          podcastScript: `[MUSIQUE D'INTRODUCTION]\n\nBonjour à tous, bienvenue dans Agenzia Insights. Aujourd'hui, on attaque un sujet qui concerne 76% des PME françaises : la cybersécurité. Ou plutôt, son absence totale.\n\n[PARTIE 1 : LE CONSTAT]\n75 000 postes non pourvus. Des ransomwares en hausse de 30%. La CNIL qui enregistre 2 500 fuites par trimestre. Et pendant ce temps, les solutions traditionnelles facturent 500€ par jour minimum. Avec 3 à 6 mois de setup. Autant dire que pour une PME de 50 employés, c'est mission impossible.\n\n[PARTIE 2 : L'UBERISATION]\nNotre réponse ? L'uberisation. Des agents IA locaux qui tournent sur le PC de votre admin, qui scannent, qui détectent, qui alertent. Automatiquement. Combinés avec un pool de juniors qualifiés qui interviennent sur les tâches complexes. Le tout à partir de 99€ par mois.\n\n[CONCLUSION]\nL'e-facturation obligatoire au Q3 2026 force le passage au cloud. C'est maintenant ou jamais. Rendez-vous sur agenzia.ai pour votre audit gratuit.\n\n[MUSIQUE DE FIN]`,
           videoStructure: [
-            { scriptPart: "Bonjour à tous... révolution industrielle.", visual: "Plan large d'un bureau ultra-moderne, épuré, style 'White Pure'. Texte en surimpression : 'IA GÉNÉRATIVE : L'ÈRE DE L'INDUSTRIALISATION'." },
-            { scriptPart: "Première punchline... train de retard.", visual: "Gros plan sur un écran montrant une interface de code fluide qui se transforme en un tableau de bord de KPIs en croissance." },
-            { scriptPart: "En 2025... sans friction.", visual: "Animation 3D d'un cerveau numérique dont les synapses se connectent à des logos : Gmail, Slack, Salesforce." },
-            { scriptPart: "On passe de l'outil... pendant que vous dormez.", visual: "Split screen. À gauche : un humain stressé devant des fichiers Excel. À droite : un agent IA symbolisé par une sphère lumineuse gérant tout de manière fluide." },
-            { scriptPart: "Mais le vrai secret... 99%.", visual: "Graphique dynamique montrant une courbe d'erreurs chutant brutalement vers zéro. Texte : '-99% D'ERREURS'." },
-            { scriptPart: "Alors, conclusion... stratégie business.", visual: "Logo Agenzia qui s'anime au centre. Texte : 'ARCHITECTURER VOTRE FUTUR'." }
+            { scriptPart: "Le constat est brutal... sans filet de sécurité.", visual: "Carte de France avec zones rouges de cyberattaques. Stats en surimpression : '75K postes non pourvus'." },
+            { scriptPart: "La pénurie est critique... moins de 250 employés.", visual: "Comparaison visuelle : facture consulting traditionnel vs prix Agenzia." },
+            { scriptPart: "Notre approche combine... 100% souverain SecNumCloud.", visual: "Animation : Agent IA local + Freelance junior + Dashboard = Protection PME." },
+            { scriptPart: "L'e-facturation 2026... aux grands groupes.", visual: "Logo Agenzia + pricing 99€/mois + CTA 'Audit Gratuit'." }
           ],
-          seoTitle: "IA Générative 2025 : Guide de l'Efficience Opérationnelle | Agenzia",
-          seoDescription: "Passez de l'outil à l'agent autonome. Découvrez comment architecturer votre entreprise avec l'IA générative pour un ROI massif et 99% d'erreurs en moins.",
+          seoTitle: "Cybersécurité PME France 2026 : L'IA comme bouclier accessible | Agenzia",
+          seoDescription: "75 000 postes cyber non pourvus, ransomwares +30%. Découvrez comment l'uberisation IA rend la cybersécurité accessible aux PME françaises dès 99€/mois.",
         },
-        { 
-          category: 'Technologie', 
-          title: 'Automatisation 2.0 : Pourquoi l’IA Cognitive est le Nouveau Standard du Luxe Digital', 
-          author: 'Marie Curie', 
-          authorAvatar: 'https://i.pravatar.cc/150?u=marie_curie',
-          date: '08 Mars 2024', 
-          readingTime: '5 min',
-          excerpt: 'Le "Pure White Look" de l’IA ne se voit pas, il se ressent dans la fluidité des opérations. Découvrez pourquoi l’expérience utilisateur interne est le levier de croissance le plus sous-estimé.',
+        {
+          category: 'Technologie',
+          title: 'Migration Cloud SecNumCloud : Le Guide Pratique pour PME en 2026',
+          author: 'Ramzil BS',
+          authorAvatar: 'https://i.pravatar.cc/150?u=ramzil_bs_tech',
+          date: '28 Mars 2026',
+          readingTime: '6 min',
+          excerpt: '40% des migrations cloud échouent. Coûts sous-estimés de 50%. Voici comment notre agent IA local automatise le passage à OVH SecNumCloud en toute sécurité.',
           content: `
-            <p>Le luxe digital ne réside plus dans l'ostentation technologique, mais dans l'invisibilité des processus. Une entreprise performante en 2024 est une entreprise où les frictions opérationnelles ont disparu au profit d'un flux de travail "liquide".</p>
-            <h3>L'UX Interne : Le moteur caché de la croissance</h3>
-            <p>Souvent négligée, l'expérience utilisateur des employés with their own business tools est corrélée directement à la rétention des talents et à la qualité du service client. L'IA cognitive permet d'anticiper les besoins des collaborateurs en leur fournissant la bonne information au bon moment, sans recherche active.</p>
-            <blockquote>"L'intelligence la plus sophistiquée est celle qui simplifie la complexité jusqu'à la rendre imperceptible."</blockquote>
-            <p>Chez Agenzia, nous appliquons les principes du design thinking à l'automatisation. Chaque workflow est conçu comme un produit de luxe : intuitif, robuste et esthétiquement pur.</p>
+            <p>La migration cloud est le cauchemar des PME : 40% d'échecs, des coûts systématiquement sous-estimés de 50%, et une complexité SecNumCloud qui décourage les meilleures volontés. Pourtant, avec l'e-facturation obligatoire Q3 2026, le cloud hybride n'est plus une option.</p>
+            <h3>L'Agent IA Local : votre copilote migration</h3>
+            <p>Notre agent Claude Code s'installe en 5 minutes sur le PC de votre admin. Il scanne automatiquement vos dépendances (pip/npm/docker), analyse vos logs Kubernetes, et génère les scripts de migration OVH SecNumCloud adaptés à votre infrastructure existante.</p>
+            <h3>Monitoring automatique post-migration</h3>
+            <p>Prometheus + Mist AI sont déployés automatiquement pour surveiller votre infrastructure 24/7. Chaque alerte déclenche un diagnostic IA avant escalade humaine. Résultat : 80% des incidents résolus sans intervention manuelle.</p>
+            <blockquote>"La meilleure migration cloud est celle que vos équipes ne remarquent même pas."</blockquote>
+            <p>Avec notre assurance cyber partenaire Elyos, chaque vulnérabilité détectée génère automatiquement un devis d'assurance. Protection complète, zéro friction.</p>
           `,
-          imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
+          imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
           videoUrl: 'https://www.w3schools.com/html/movie.mp4',
-          podcastScript: `[INTRO]\nBienvenue dans ce nouvel épisode. Aujourd'hui, on parle de luxe. Pas de montres ou de voitures, mais de luxe digital. Pourquoi l'IA cognitive est en train de redéfinir ce que signifie "l'excellence opérationnelle".\n\n[PARTIE 1 : L'INVISIBILITÉ]\nLe vrai luxe, c'est quand tout fonctionne sans qu'on s'en aperçoive. Dans le digital, c'est l'invisibilité des processus. Une entreprise performante, c'est celle où les frictions ont disparu. L'IA ne se voit pas, elle se ressent dans la fluidité du travail quotidien.\n\n[PARTIE 2 : L'UX INTERNE]\nOn parle souvent de l'expérience client, mais l'expérience collaborateur est le vrai moteur caché. L'IA cognitive anticipe les besoins de vos équipes. Elle apporte la bonne info au bon moment. C'est ça, le design thinking appliqué à l'automation.\n\n[CONCLUSION]\nChez Agenzia, on conçoit chaque workflow comme un produit de luxe : intuitif, robuste et pur. Merci de nous avoir suivis, et rappelez-vous : la simplicité est la sophistication suprême.`,
+          podcastScript: `[INTRO]\nBienvenue dans ce nouvel épisode. On parle cloud, on parle migration, et surtout on parle de pourquoi 40% des PME échouent dans cette étape critique.\n\n[PARTIE 1 : LE PROBLÈME]\n40% d'échecs. C'est le taux de migration cloud pour les PME. Pourquoi ? Coûts sous-estimés de 50%, complexité SecNumCloud, et absence de compétences internes. L'e-facturation 2026 ne laisse plus le choix.\n\n[PARTIE 2 : LA SOLUTION]\nNotre agent IA s'installe en 5 minutes. Il scanne votre infra, génère les scripts de migration OVH SecNumCloud, et déploie un monitoring automatique. 80% des incidents résolus sans intervention humaine.\n\n[CONCLUSION]\nAvec l'assurance cyber Elyos intégrée, vous êtes couvert de bout en bout. Migration + monitoring + assurance = zéro friction. C'est ça, l'Uber du cloud PME.`,
           videoStructure: [
-            { scriptPart: "Bienvenue... excellence opérationnelle.", visual: "Fond blanc épuré, texte minimaliste 'Luxe Digital'" },
-            { scriptPart: "Le vrai luxe... fluidité du travail.", visual: "B-roll cinématique d'un espace de travail zen, transitions fluides" },
-            { scriptPart: "On parle souvent... appliqué à l'automation.", visual: "Schéma montrant l'IA comme un assistant invisible à côté d'un humain" },
-            { scriptPart: "Chez Agenzia... sophistication suprême.", visual: "Logo Agenzia version 'Luxury Black', citation de Léonard de Vinci" }
+            { scriptPart: "40% des migrations échouent... plus une option.", visual: "Graphique d'échecs migration + Timeline e-facturation 2026" },
+            { scriptPart: "Notre agent Claude Code... infrastructure existante.", visual: "Screencast : installation 5min + scan automatique" },
+            { scriptPart: "Prometheus + Mist AI... intervention manuelle.", visual: "Dashboard monitoring temps réel avec alertes IA" },
+            { scriptPart: "Avec notre assurance... zéro friction.", visual: "Logo Agenzia + Elyos + CTA 'Migration assistée'" }
           ],
-          seoTitle: "IA Cognitive & Luxe Digital : Le Nouveau Standard | Agenzia",
-          seoDescription: "Découvrez comment l'IA cognitive transforme l'expérience collaborateur et redéfinit l'excellence opérationnelle. Le luxe de l'invisibilité au service de votre croissance."
+          seoTitle: "Migration Cloud SecNumCloud PME 2026 : Guide IA Automatisé | Agenzia",
+          seoDescription: "40% des migrations cloud échouent. Découvrez comment notre agent IA local automatise la migration OVH SecNumCloud pour PME avec monitoring 24/7 et assurance cyber."
         },
       ],
       cta: 'Voir tous les articles',
@@ -208,16 +302,16 @@ export const translations: { [key: string]: Content } = {
       }
     },
     footer: {
-      description: 'Agenzia. L\'efficience opérationnelle par l\'IA.',
+      description: 'Agenzia. Cyber, Cloud & Data accessibles aux PME françaises.',
       sections: [
-        { title: 'Solutions', links: ['Automatisation Ventes', 'Support Client', 'Opérations RH', 'Finance'] },
-        { title: 'Entreprise', links: ['À propos', 'Carrières', 'Presse', 'Contact', 'Politique de Confidentialité'] },
-        { title: 'Ressources', links: ['Blog', 'Podcasts', 'Vidéos', 'Documentation API'] },
+        { title: 'Solutions', links: ['Agent IA Cyber', 'Migration Cloud', 'Data Analysis IA', 'SOC & Assurance'] },
+        { title: 'Entreprise', links: ['À propos', 'Carrières', 'Partenaires', 'Contact', 'Politique de Confidentialité'] },
+        { title: 'Ressources', links: ['Blog', 'Podcasts', 'Vidéos', 'Documentation', 'Audit Gratuit'] },
       ],
-      copyright: '© 2024 Agenzia. Tous droits réservés.',
+      copyright: '© 2026 Agenzia. Tous droits réservés. 100% Souverain SecNumCloud/RGPD.',
     },
     aiAssistant: {
-      greeting: 'Bonjour ! Comment puis-je vous aider à optimiser vos opérations aujourd\'hui ?',
+      greeting: 'Bonjour ! Je suis votre assistant IA cyber. Comment puis-je sécuriser votre PME aujourd\'hui ?',
       placeholder: 'Posez votre question...',
     },
     articleDetail: {
@@ -248,42 +342,42 @@ export const translations: { [key: string]: Content } = {
       language: 'Language',
     },
     hero: {
-      title: 'Your company, augmented by AI.',
-      subtitle: 'We design custom automation systems to multiply your productivity and unlock your team\'s potential.',
-      cta: 'Discover our solutions',
+      title: 'Cybersecurity, Cloud & Data finally accessible to SMEs.',
+      subtitle: 'The Uber of tech for French SMEs: Autonomous AI agents + Expert freelancers = 80% automation, 1-click deployment. 100% sovereign SecNumCloud & GDPR compliant. From 99€/month.',
+      cta: 'Free cyber audit in 5 min',
     },
     ecosystem: {
-      title: 'Integrated into your technology ecosystem',
+      title: 'Compatible with your existing infrastructure',
     },
     problem: {
-      title: 'Manual operations are slowing your growth.',
-      description: 'Every repetitive task is a missed opportunity. Operational inefficiency is costly, demotivates your teams, and leaves you vulnerable to competition.',
+      title: 'French SMEs are in digital danger.',
+      description: '75,000 unfilled cyber/data positions in France, 76% of SMEs without internal skills, and breach costs of €1-5M. Traditional solutions (Thales, Atos, OVH premium) are inaccessible: €500+/day, 3-6 months setup.',
       cards: [
-        { title: 'Wasted Time', description: 'Precious hours wasted on manual and redundant processes.' },
-        { title: 'Risk of Errors', description: 'Human intervention increases the likelihood of costly mistakes.' },
-        { title: 'Lack of Scalability', description: 'Your current systems cannot keep up with your business growth.' },
+        { title: 'Failed Cloud Migration', description: '40% failure rate, costs underestimated by +50%. SecNumCloud blocking for 80% of SMEs in hybrid mode.' },
+        { title: 'Non-existent Cybersecurity', description: '64% of SMEs take risky shortcuts. Ransomware up +30% in 2026. Late detection.' },
+        { title: 'Manual Data Analysis', description: '2-4 weeks per report. +45% demand but zero accessible AI no-code solution for SMEs.' },
       ],
     },
     vision: {
-      title: 'Switch to absolute operational efficiency.',
-      description: 'Agenzia transforms your business processes into a competitive advantage. With AI and automation, we create a central nervous system for your company, where every action is optimized, intelligent, and instant.',
-      cta: 'Talk to an expert',
+      title: 'The Uber of Cyber/Cloud/Data: Zero Friction, SME pricing.',
+      description: 'Agenzia democratizes access to Cyber, Cloud, and Data expertise for French SMEs. Our platform combines local autonomous AI agents, intelligent matching with qualified junior freelancers, and 1-click deployment. Result: 80% automation, 100% sovereign SecNumCloud/GDPR/HDS, from €99/month.',
+      cta: 'Schedule a demo',
     },
     promptBuilder: {
-        title: 'Imagine. We Architect. Your Ideal Ecosystem.',
-        intro: 'At Agenzia, we don\'t sell boxes. We build extensions of your intelligence. Use our interactive configurator to define your most pressing need. Watch how the "White Pure Look" materializes for you, in real time.',
+        title: 'Diagnose. We Secure. Your Ideal Infrastructure.',
+        intro: 'At Agenzia, we don\'t sell premium consulting. We deploy local AI agents that automate 80% of your cyber, cloud, and data needs. Use our configurator to identify your priority need and get a custom solution in 1 click.',
         steps: {
             challenge: { title: 'Step 1: What is your main challenge?' },
-            tools: { title: 'Step 2: Which tools do you already use?', available: 'Available tools', selected: 'Your workspace' },
-            wish: { title: 'Step 3: Describe your wish', placeholder: 'e.g., "I want qualified leads in HubSpot to receive a personalized email 5 minutes later."', suggestions: ['...automatic email sending...', '...task creation...', '...data synchronization...'] },
+            tools: { title: 'Step 2: Which tools/infra do you already use?', available: 'Available tools', selected: 'Your infrastructure' },
+            wish: { title: 'Step 3: Describe your need', placeholder: 'e.g., "I want to migrate my servers to OVH SecNumCloud with automatic monitoring and cyber insurance."', suggestions: ['...automated cloud migration...', '...vulnerability audit...', '...real-time data dashboard...'] },
         },
         challenges: [
-            { id: 'leads', name: 'Lead Acquisition & Conversion', icon: 'magnet' },
-            { id: 'admin', name: 'Admin & Finance Management', icon: 'balance' },
-            { id: 'hr', name: 'HR & Onboarding', icon: 'team' },
-            { id: 'data', name: 'Data Analysis & Reporting', icon: 'chart' },
-            { id: 'ops', name: 'Operational Processes', icon: 'gear' },
-            { id: 'support', name: 'Customer Support & FAQ', icon: 'chat' },
+            { id: 'cyber', name: 'Cybersecurity & SOC', icon: 'magnet' },
+            { id: 'cloud', name: 'SecNumCloud Migration', icon: 'gear' },
+            { id: 'data', name: 'AI No-Code Data Analysis', icon: 'chart' },
+            { id: 'compliance', name: 'GDPR/HDS/NIS2 Compliance', icon: 'balance' },
+            { id: 'monitoring', name: 'Monitoring & Alerting', icon: 'chat' },
+            { id: 'efacture', name: 'E-Invoicing 2026 Mandate', icon: 'team' },
         ],
         tools: [
           { id: 'gmail', name: 'Gmail', iconUrl: 'google.com' },
@@ -336,17 +430,57 @@ export const translations: { [key: string]: Content } = {
         cta: 'Generate my custom solution',
     },
     modules: {
-      title: 'Our intervention modules.',
+      title: 'Three turnkey solutions.',
       cards: [
-        { title: 'AI Audit & Strategy', description: 'Comprehensive analysis of your processes to identify productivity gains.', tag: 'Foundation' },
-        { title: 'Sales Automation', description: 'Optimize your CRM, qualify leads, and automate sales reporting.', tag: 'Sales' },
-        { title: 'Augmented Customer Support', description: 'Deploy AI agents for instant responses and 24/7 support.', tag: 'Support' },
-        { title: 'Financial Optimization', description: 'Automate invoicing, payment tracking, and accounting reconciliation.', tag: 'Finance' },
+        { title: 'Local Cyber AI Agent', description: '5-min install on your admin PC. Auto dependency scanning, log troubleshooting, OVH SecNumCloud migration, Prometheus monitoring + alerting.', tag: 'Cyber' },
+        { title: 'AI No-Code Data Analysis', description: 'Upload Excel/CSV, instant dashboard + predictive insights. Compatible with Polymer, IA-souveraine.fr, Mistral Agents. 100% GDPR native.', tag: 'Data' },
+        { title: 'Uberized Marketplace', description: 'AI matching between your needs and a pool of qualified juniors (42/Polytechnique schools). Pay-per-task from €0.5/insight, AI handles 80% of workload.', tag: 'Marketplace' },
+        { title: 'SOC & Cyber Insurance', description: 'Complete security operations center with auto-detection, incident response, and auto-claim cyber insurance via Elyos partnership.', tag: 'Enterprise' },
+      ],
+    },
+    pricing: {
+      title: 'Pricing built for SMEs.',
+      subtitle: 'No €500/day consulting. No 6-month setup. Just technology that works, at a fair price.',
+      tiers: [
+        {
+          name: 'BASIC',
+          price: '€99',
+          period: '/month',
+          description: 'Ideal for SMEs starting their digital transformation.',
+          features: ['Local AI agent (Claude Code)', 'Auto vulnerability scanning', 'Basic infra monitoring', 'Email/Slack alerting', 'Security dashboard', 'Community support'],
+          cta: 'Start for free',
+        },
+        {
+          name: 'PRO',
+          price: '€499',
+          period: '/month',
+          description: 'For SMEs migrating to cloud with advanced data needs.',
+          features: ['Everything in Basic +', 'Assisted OVH SecNumCloud migration', 'AI Data Analysis (Polymer/Mistral)', 'Dedicated junior freelance matching', 'Automated GDPR/HDS compliance', 'Priority 24h support'],
+          cta: '14-day free trial',
+          highlighted: true,
+        },
+        {
+          name: 'ENTERPRISE',
+          price: '€999',
+          period: '/month',
+          description: 'Complete SOC + cyber insurance for demanding SMEs.',
+          features: ['Everything in Pro +', '24/7 complete SOC', 'Auto-claim cyber insurance (Elyos)', 'On-premise Edge AI', 'NIS2/SecNumCloud compliance', 'Dedicated account manager'],
+          cta: 'Contact team',
+        },
+      ],
+    },
+    roadmap: {
+      title: 'Our roadmap.',
+      subtitle: 'An ambitious yet realistic plan to revolutionize Cyber/Cloud/Data access for French SMEs.',
+      phases: [
+        { phase: 'Phase 1', title: 'MVP & Beta', timeline: 'Q2-Q3 2026', items: ['Local AI Agent POC (Claude Code)', 'Beta with 10 partner SMEs', 'Polymer/IA-souveraine.fr integration', 'Freemium audit launch (leadgen)'], kpi: '20 paying clients, €10K MRR' },
+        { phase: 'Phase 2', title: 'Initial Scale', timeline: 'Q4 2026-Q1 2027', items: ['OVH SecNumCloud & Elyos partnerships', 'Marketplace: 50 junior freelancers', 'CESIN / Station F webinars', 'Cybermalveillance.gouv certification'], kpi: '100 clients, €50K MRR, €255K revenue' },
+        { phase: 'Phase 3', title: 'European Scale', timeline: 'Q2 2027-Q1 2028', items: ['Germany/Benelux expansion (EUCS)', 'On-premise Edge AI for SMEs', 'Sovereign startup consortium', 'Series A fundraising'], kpi: '€1M revenue → €5M Y3 target' },
       ],
     },
     podcasts: {
       title: 'Strategic Podcasts.',
-      subtitle: 'Listen to our experts decode the future of automation.',
+      subtitle: 'Listen to our experts decode the future of SME cybersecurity.',
       cta: 'Listen to all episodes',
     },
     videos: {
@@ -355,86 +489,88 @@ export const translations: { [key: string]: Content } = {
       cta: 'View all videos',
     },
     useCases: {
-      title: 'Concrete applications for every department.',
+      title: 'Concrete solutions for every SME need.',
       cases: [
-        { title: 'Marketing', description: 'Content generation, sentiment analysis, large-scale campaign personalization.' },
-        { title: 'Human Resources', description: 'Candidate sourcing automation, new employee onboarding, leave management.' },
-        { title: 'Operations', description: 'Supply chain management, inventory optimization, predictive maintenance.' },
+        { title: 'Cybersecurity', description: 'Automated vulnerability audits, 24/7 AI SOC, real-time incident response, integrated cyber insurance.' },
+        { title: 'Cloud Migration', description: 'Automated OVH SecNumCloud scripts, Kubernetes/Docker monitoring, FinOps and cloud cost optimization.' },
+        { title: 'Data & Compliance', description: 'AI no-code dashboards, predictive insights, automated GDPR/HDS/NIS2 compliance, e-invoicing 2026.' },
       ],
     },
     roi: {
-      title: 'Calculate your return on investment.',
-      description: 'Visualize the concrete savings and time gains that automation can bring to your company.',
+      title: 'Calculate your cyber & cloud savings.',
+      description: 'Compare the cost of a security breach or traditional consulting with our solution. An average SME saves 70% on cyber/cloud expenses.',
       employeesLabel: 'Number of employees',
-      hoursLabel: 'Hours saved per employee/week',
-      costLabel: 'Average hourly cost ($)',
+      hoursLabel: 'IT hours saved/week',
+      costLabel: 'Average hourly cost (€)',
       savingsTitle: 'Estimated annual savings',
       savingsPerYear: '/ year',
-      cta: 'Get a free audit',
+      cta: 'Get my free audit',
     },
     blog: {
       title: 'Insights & Perspectives.',
       subtitle: 'Decoding AI trends and automation strategies for tomorrow\'s leaders.',
       filters: ['All', 'Strategy', 'Technology'],
       posts: [
-        { 
-          category: 'Strategy', 
-          title: 'Generative AI: Architecting the Operational Efficiency of the Future', 
-          author: 'John Doe', 
-          authorAvatar: 'https://i.pravatar.cc/150?u=john_doe',
-          date: 'March 12, 2024', 
+        {
+          category: 'Strategy',
+          title: 'French SMEs 2026: Why AI Cybersecurity Has Become a Matter of Survival',
+          author: 'Ramzil BS',
+          authorAvatar: 'https://i.pravatar.cc/150?u=ramzil_bs',
+          date: 'March 31, 2026',
           readingTime: '8 min',
-          excerpt: 'Large Language Models (LLMs) integration is no longer just about text generation. In 2025, it becomes the central nervous system of agile organizations.',
+          excerpt: '75,000 unfilled cyber positions, ransomware +30%, mandatory e-invoicing Q3 2026. SMEs have no choice: arm up with AI or disappear.',
           content: `
-            <p>The era of AI experimentation is over. We have entered the era of industrialization. For C-Levels, the question is no longer "What can AI do?" but "How can AI transform our operational model?"</p>
-            <h3>1. From Tool to Autonomous Agent</h3>
-            <p>Unlike traditional software, AI agents based on LLMs don't just execute tasks; they make contextual decisions. By connecting your proprietary data to these models, you create workflows that learn from your past successes.</p>
-            <h3>2. Interoperability as an ROI Lever</h3>
-            <p>The real productivity gain lies in the glue between your tools. Gmail, Slack, HubSpot, and Salesforce must communicate seamlessly. Our architectures allow real-time synchronization without human intervention, reducing entry errors by 99%.</p>
-            <h3>3. Conclusion</h3>
-            <p>Intelligent automation is not an IT project; it's a business strategy. By freeing your talent from repetitive tasks, you allow them to focus on value creation and strategic innovation.</p>
+            <p>The reality is brutal: in 2026, 76% of French SMEs still have no internal cyber skills. Meanwhile, ransomware has increased by 30%, and CNIL records 2,500 data breaches per quarter. Mandatory e-invoicing in Q3 2026 forces hybrid cloud adoption without a safety net.</p>
+            <h3>1. The Cyber/Data/Cloud Market in Crisis</h3>
+            <p>The shortage is critical: 75,000 cyber analyst, data analyst, and cloud expert positions remain unfilled in France. Traditional solutions (Thales, Atos, OVH premium) charge €500+/day with 3-6 months setup. Unreachable for an SME with fewer than 250 employees.</p>
+            <h3>2. Uberization as the Solution</h3>
+            <p>Our approach combines three levers: local autonomous AI agents that automate 80% of monitoring and detection tasks, intelligent matching with qualified junior freelancers (42, Polytechnique schools), and 1-click deployment that is 100% SecNumCloud sovereign.</p>
+            <h3>3. The Timing is Perfect</h3>
+            <p>E-invoicing 2026 creates cloud urgency. The addressable SME market represents €2 billion in France. From €99/month, we finally make accessible what was reserved for large corporations.</p>
           `,
-          imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
+          imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?auto=format&fit=crop&q=80&w=1200',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
           videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
           isFeatured: true,
-          podcastScript: `[INTRO]\nHello everyone, welcome to this new episode of Agenzia Insights. Today we're tackling a hot topic: why 2024 marks the end of AI gadgets and the beginning of the real industrial revolution for your businesses.\n\n[PART 1: FROM TOOL TO AGENT]\nWe've all played with ChatGPT, but now, we're getting serious. We're no longer talking about simple tools, but autonomous agents. Imagine: systems that don't just respond, but act based on your proprietary data. It's the transition from curiosity to pure productivity.\n\n[PART 2: INTEROPERABILITY]\nThe secret? Interoperability. It's the fancy word for saying your tools need to talk to each other. Gmail, Slack, HubSpot, Salesforce... if AI is the brain, these connections are the nerves. We're talking about 99% fewer data entry errors. That's where your ROI is hidden.\n\n[CONCLUSION]\nIn summary, intelligent automation is no longer a technical project, it's your growth strategy. Thanks for listening, and see you soon to optimize your operations.`,
+          podcastScript: `[INTRO]\nHello everyone, welcome to Agenzia Insights. Today we tackle a topic affecting 76% of French SMEs: cybersecurity. Or rather, its total absence.\n\n[PART 1]\n75,000 unfilled positions. Ransomware up 30%. CNIL recording 2,500 breaches per quarter. Traditional solutions charge €500/day minimum with 3-6 months setup. For a 50-person SME, it's mission impossible.\n\n[PART 2]\nOur answer? Uberization. Local AI agents on your admin's PC that scan, detect, and alert automatically. Combined with qualified juniors for complex tasks. All from €99/month.\n\n[CONCLUSION]\nMandatory e-invoicing Q3 2026 forces cloud adoption. It's now or never. Visit agenzia.ai for your free audit.`,
           videoStructure: [
-            { scriptPart: "Hello everyone... industrial revolution.", visual: "Modern office B-roll + Text: '2024: The Industrialization'" },
-            { scriptPart: "We've all played... pure productivity.", visual: "Graphic: 'Tool vs Autonomous Agent' + Gear icons" },
-            { scriptPart: "The secret... where your ROI is hidden.", visual: "Animation: Connected Gmail/Slack/HubSpot logos + Text: '-99% errors'" },
-            { scriptPart: "In summary... optimize your operations.", visual: "Agenzia Logo + Button: 'Strategic Audit'" }
+            { scriptPart: "The reality is brutal...", visual: "France map with red cyberattack zones. Stats overlay: '75K unfilled positions'." },
+            { scriptPart: "The shortage is critical...", visual: "Visual comparison: traditional consulting invoice vs Agenzia pricing." },
+            { scriptPart: "Our approach combines...", visual: "Animation: Local AI Agent + Junior Freelancer + Dashboard = SME Protection." },
+            { scriptPart: "E-invoicing 2026...", visual: "Agenzia logo + €99/month pricing + CTA 'Free Audit'." }
           ],
-          seoTitle: "AI Industrialization 2024: The Strategic Guide | Agenzia",
-          seoDescription: "Discover why 2024 is the pivotal year for AI in business. Autonomous agents, interoperability, and ROI: move from experimentation to real impact."
+          seoTitle: "SME Cybersecurity France 2026: AI as an Accessible Shield | Agenzia",
+          seoDescription: "75,000 unfilled cyber positions, ransomware +30%. Discover how AI uberization makes cybersecurity accessible to French SMEs from €99/month.",
         },
-        { 
-          category: 'Technology', 
-          title: 'Automation 2.0: Why Cognitive AI is the New Standard of Digital Luxury', 
-          author: 'Jane Smith', 
-          authorAvatar: 'https://i.pravatar.cc/150?u=jane_smith',
-          date: 'March 08, 2024', 
-          readingTime: '5 min',
-          excerpt: 'The "Pure White Look" of AI isn\'t seen; it\'s felt in the fluidity of operations. Learn why internal user experience is the most underestimated growth lever.',
+        {
+          category: 'Technology',
+          title: 'SecNumCloud Migration: The Practical Guide for SMEs in 2026',
+          author: 'Ramzil BS',
+          authorAvatar: 'https://i.pravatar.cc/150?u=ramzil_bs_tech',
+          date: 'March 28, 2026',
+          readingTime: '6 min',
+          excerpt: '40% of cloud migrations fail. Costs underestimated by 50%. Here\'s how our local AI agent automates the transition to OVH SecNumCloud safely.',
           content: `
-            <p>Digital luxury no longer resides in technological ostentation but in the invisibility of processes. A high-performing company in 2024 is one where operational frictions have disappeared in favor of a "liquid" workflow.</p>
-            <h3>Internal UX: The Hidden Growth Engine</h3>
-            <p>Often overlooked, the user experience of employees with their own business tools is directly correlated to talent retention and customer service quality. Cognitive AI anticipates employee needs by providing the right information at the right time, without active searching.</p>
-            <blockquote>"The most sophisticated intelligence is the one that simplifies complexity until it becomes imperceptible."</blockquote>
-            <p>At Agenzia, we apply design thinking principles to automation. Every workflow is designed like a luxury product: intuitive, robust, and aesthetically pure.</p>
+            <p>Cloud migration is the SME nightmare: 40% failure rate, systematically underestimated costs by 50%, and SecNumCloud complexity that discourages the best intentions. Yet with mandatory e-invoicing Q3 2026, hybrid cloud is no longer optional.</p>
+            <h3>The Local AI Agent: Your Migration Copilot</h3>
+            <p>Our Claude Code agent installs in 5 minutes on your admin PC. It automatically scans your dependencies (pip/npm/docker), analyzes your Kubernetes logs, and generates OVH SecNumCloud migration scripts adapted to your existing infrastructure.</p>
+            <h3>Automatic Post-Migration Monitoring</h3>
+            <p>Prometheus + Mist AI are automatically deployed to monitor your infrastructure 24/7. Each alert triggers an AI diagnosis before human escalation. Result: 80% of incidents resolved without manual intervention.</p>
+            <blockquote>"The best cloud migration is one your teams don't even notice."</blockquote>
+            <p>With our Elyos cyber insurance partner, each detected vulnerability automatically generates an insurance quote. Complete protection, zero friction.</p>
           `,
-          imageUrl: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
+          imageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
           audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
           videoUrl: 'https://www.w3schools.com/html/movie.mp4',
-          podcastScript: `[INTRO]\nWelcome back to Agenzia Insights. Today, we're redefining luxury. We're not talking about high-end watches or fast cars, but something far more valuable for your business: Digital Luxury. Specifically, why Cognitive AI is the new gold standard for operational excellence.\n\n[PART 1: THE INVISIBILITY OF SUCCESS]\nTrue luxury is often felt, not seen. In the digital world, this means the invisibility of processes. A high-performing company in 2024 is one where operational friction has simply vanished. AI shouldn't be a flashy tool you show off; it should be the silent engine that makes your entire workflow feel 'liquid'.\n\n[PART 2: THE INTERNAL UX REVOLUTION]\nWe spend so much time on the customer experience, but we often forget the most important engine: our own teams. Internal UX is the hidden growth lever. Cognitive AI anticipates what your employees need before they even ask. It's about providing the right info at the right time, without the search. That's design thinking applied to automation.\n\n[CONCLUSION]\nAt Agenzia, we build every workflow like a luxury product: intuitive, robust, and aesthetically pure. Because at the end of the day, simplicity is the ultimate sophistication. Thanks for listening, and let's make your operations feel like luxury.`,
+          podcastScript: `[INTRO]\nWelcome to this new episode. We talk cloud, migration, and especially why 40% of SMEs fail at this critical step.\n\n[PART 1]\n40% failure rate. That's the cloud migration stat for SMEs. Why? Costs underestimated by 50%, SecNumCloud complexity, and lack of internal skills.\n\n[PART 2]\nOur AI agent installs in 5 minutes. It scans your infra, generates SecNumCloud migration scripts, and deploys automatic monitoring. 80% of incidents resolved without human intervention.\n\n[CONCLUSION]\nWith integrated Elyos cyber insurance, you're covered end-to-end. Migration + monitoring + insurance = zero friction.`,
           videoStructure: [
-            { scriptPart: "Welcome back... operational excellence.", visual: "Minimalist white background with text 'Digital Luxury' + Cinematic shot of a sleek office." },
-            { scriptPart: "True luxury... feel 'liquid'.", visual: "B-roll of a person working effortlessly + Animation of a smooth, flowing liquid representing data." },
-            { scriptPart: "We spend... to automation.", visual: "Split screen showing 'Old Way' vs 'AI Way' + Icons of Slack/HubSpot syncing." },
-            { scriptPart: "At Agenzia... like luxury.", visual: "Agenzia logo in black/gold + CTA button 'Schedule an Audit'." }
+            { scriptPart: "40% of migrations fail...", visual: "Migration failure chart + E-invoicing 2026 timeline" },
+            { scriptPart: "Our Claude Code agent...", visual: "Screencast: 5-min install + auto scan" },
+            { scriptPart: "Prometheus + Mist AI...", visual: "Real-time monitoring dashboard with AI alerts" },
+            { scriptPart: "With our insurance...", visual: "Agenzia + Elyos logos + CTA 'Assisted Migration'" }
           ],
-          seoTitle: "Cognitive AI & Digital Luxury: The New Operational Standard | Agenzia",
-          seoDescription: "Discover how Cognitive AI redefines digital luxury through process invisibility and internal UX. Transform your operations into a seamless competitive advantage."
+          seoTitle: "SecNumCloud Migration for SMEs 2026: Automated AI Guide | Agenzia",
+          seoDescription: "40% of cloud migrations fail. Discover how our local AI agent automates OVH SecNumCloud migration for SMEs with 24/7 monitoring and cyber insurance."
         },
       ],
       cta: 'View all articles',
@@ -445,16 +581,16 @@ export const translations: { [key: string]: Content } = {
       }
     },
     footer: {
-      description: 'Agenzia. Operational efficiency through AI.',
+      description: 'Agenzia. Cyber, Cloud & Data accessible to French SMEs.',
       sections: [
-        { title: 'Solutions', links: ['Sales Automation', 'Customer Support', 'HR Operations', 'Finance'] },
-        { title: 'Company', links: ['About Us', 'Careers', 'Press', 'Contact', 'Privacy Policy'] },
-        { title: 'Resources', links: ['Blog', 'Podcasts', 'Videos', 'API Documentation'] },
+        { title: 'Solutions', links: ['Cyber AI Agent', 'Cloud Migration', 'AI Data Analysis', 'SOC & Insurance'] },
+        { title: 'Company', links: ['About Us', 'Careers', 'Partners', 'Contact', 'Privacy Policy'] },
+        { title: 'Resources', links: ['Blog', 'Podcasts', 'Videos', 'Documentation', 'Free Audit'] },
       ],
-      copyright: '© 2024 Agenzia. All rights reserved.',
+      copyright: '© 2026 Agenzia. All rights reserved. 100% Sovereign SecNumCloud/GDPR.',
     },
     aiAssistant: {
-      greeting: 'Hello! How can I help you optimize your operations today?',
+      greeting: 'Hello! I\'m your cyber AI assistant. How can I help secure your SME today?',
       placeholder: 'Ask your question...',
     },
     articleDetail: {
@@ -527,9 +663,30 @@ export const translations: { [key: string]: Content } = {
       cta: 'Lösung generieren',
     },
     modules: {
-      title: 'Module',
+      title: 'Drei schlüsselfertige Lösungen.',
       cards: [
-        { title: 'Audit', description: 'Analyse Ihrer Prozesse.', tag: 'Basis' },
+        { title: 'Lokaler Cyber-KI-Agent', description: 'Installation in 5 Min. Automatischer Scan, Log-Troubleshooting, Cloud-Migration, Monitoring.', tag: 'Cyber' },
+        { title: 'KI-Datenanalyse No-Code', description: 'Excel/CSV hochladen, sofortiges Dashboard + prädiktive Insights. DSGVO-konform.', tag: 'Daten' },
+        { title: 'Uberisierter Marktplatz', description: 'KI-Matching mit qualifizierten Junioren. Pay-per-Task ab 0,5€/Insight.', tag: 'Marktplatz' },
+        { title: 'SOC & Cyber-Versicherung', description: 'Komplettes SOC mit automatischer Erkennung und Cyber-Versicherung.', tag: 'Enterprise' },
+      ],
+    },
+    pricing: {
+      title: 'Preise für KMU.',
+      subtitle: 'Kein 500€/Tag Consulting. Keine 6-monatige Einrichtung.',
+      tiers: [
+        { name: 'BASIC', price: '99€', period: '/Monat', description: 'Für KMU am Anfang der digitalen Transformation.', features: ['Lokaler KI-Agent', 'Schwachstellen-Scan', 'Basis-Monitoring', 'E-Mail/Slack-Alarme', 'Sicherheits-Dashboard', 'Community-Support'], cta: 'Kostenlos starten' },
+        { name: 'PRO', price: '499€', period: '/Monat', description: 'Für KMU mit Cloud-Migration und Datenbedarf.', features: ['Alles aus Basic +', 'Cloud-Migration SecNumCloud', 'KI-Datenanalyse', 'Junior-Freelance-Matching', 'DSGVO-Compliance', 'Prioritäts-Support'], cta: '14 Tage kostenlos', highlighted: true },
+        { name: 'ENTERPRISE', price: '999€', period: '/Monat', description: 'Komplettes SOC + Cyber-Versicherung.', features: ['Alles aus Pro +', '24/7 SOC', 'Cyber-Versicherung', 'Edge AI On-Premise', 'NIS2-Compliance', 'Dedizierter Account Manager'], cta: 'Team kontaktieren' },
+      ],
+    },
+    roadmap: {
+      title: 'Unsere Roadmap.',
+      subtitle: 'Ein Plan zur Revolutionierung des Cyber/Cloud/Data-Zugangs für KMU.',
+      phases: [
+        { phase: 'Phase 1', title: 'MVP & Beta', timeline: 'Q2-Q3 2026', items: ['KI-Agent POC', 'Beta mit 10 KMU', 'Polymer-Integration', 'Freemium-Audit'], kpi: '20 Kunden, 10k€ MRR' },
+        { phase: 'Phase 2', title: 'Erster Scale', timeline: 'Q4 2026-Q1 2027', items: ['OVH/Elyos Partnerschaften', '50 Junior-Freelancer', 'Webinare', 'Zertifizierung'], kpi: '100 Kunden, 50k€ MRR' },
+        { phase: 'Phase 3', title: 'Europäischer Scale', timeline: 'Q2 2027-Q1 2028', items: ['DE/Benelux Expansion', 'Edge AI On-Premise', 'Startup-Konsortium', 'Serie A'], kpi: '1M€ → 5M€ Umsatz' },
       ],
     },
     useCases: {
@@ -711,9 +868,30 @@ export const translations: { [key: string]: Content } = {
       cta: 'إنشاء الحل',
     },
     modules: {
-      title: 'وحداتنا',
+      title: 'ثلاثة حلول جاهزة.',
       cards: [
-        { title: 'تدقيق', description: 'تحليل العمليات.', tag: 'أساس' },
+        { title: 'وكيل أمن سيبراني محلي', description: 'تثبيت في 5 دقائق. فحص تلقائي، مراقبة، هجرة سحابية.', tag: 'أمن' },
+        { title: 'تحليل بيانات بالذكاء الاصطناعي', description: 'رفع ملفات Excel/CSV، لوحة معلومات فورية. متوافق مع RGPD.', tag: 'بيانات' },
+        { title: 'سوق إلكتروني', description: 'مطابقة ذكية مع مستقلين مؤهلين. الدفع لكل مهمة.', tag: 'سوق' },
+        { title: 'مركز عمليات أمنية', description: 'مركز أمني كامل مع كشف تلقائي وتأمين سيبراني.', tag: 'مؤسسي' },
+      ],
+    },
+    pricing: {
+      title: 'أسعار مصممة للشركات الصغيرة.',
+      subtitle: 'بدون استشارات باهظة. بدون إعداد لمدة 6 أشهر.',
+      tiers: [
+        { name: 'أساسي', price: '99€', period: '/شهر', description: 'مثالي للشركات التي تبدأ تحولها الرقمي.', features: ['وكيل ذكاء اصطناعي محلي', 'فحص الثغرات', 'مراقبة أساسية', 'تنبيهات', 'لوحة أمان', 'دعم مجتمعي'], cta: 'ابدأ مجاناً' },
+        { name: 'احترافي', price: '499€', period: '/شهر', description: 'للشركات التي تحتاج هجرة سحابية وبيانات متقدمة.', features: ['كل خطة الأساسي +', 'هجرة سحابية', 'تحليل بيانات بالذكاء الاصطناعي', 'مطابقة مستقل', 'امتثال RGPD', 'دعم أولوية'], cta: 'تجربة مجانية 14 يوم', highlighted: true },
+        { name: 'مؤسسي', price: '999€', period: '/شهر', description: 'مركز أمني كامل + تأمين سيبراني.', features: ['كل خطة الاحترافي +', 'مركز أمني 24/7', 'تأمين سيبراني', 'ذكاء اصطناعي محلي', 'امتثال NIS2', 'مدير حساب مخصص'], cta: 'تواصل معنا' },
+      ],
+    },
+    roadmap: {
+      title: 'خارطة الطريق.',
+      subtitle: 'خطة طموحة لثورة وصول الشركات الصغيرة للأمن السيبراني والسحابة والبيانات.',
+      phases: [
+        { phase: 'المرحلة 1', title: 'النموذج الأولي', timeline: 'Q2-Q3 2026', items: ['نموذج وكيل ذكاء اصطناعي', 'تجربة 10 شركات', 'تكامل البيانات', 'تدقيق مجاني'], kpi: '20 عميل، 10 آلاف يورو شهرياً' },
+        { phase: 'المرحلة 2', title: 'التوسع الأولي', timeline: 'Q4 2026-Q1 2027', items: ['شراكات OVH/Elyos', '50 مستقل', 'ندوات', 'شهادات'], kpi: '100 عميل، 50 ألف يورو شهرياً' },
+        { phase: 'المرحلة 3', title: 'التوسع الأوروبي', timeline: 'Q2 2027-Q1 2028', items: ['توسع ألمانيا/بنلوكس', 'ذكاء اصطناعي محلي', 'اتحاد شركات', 'جولة تمويل'], kpi: '1 مليون → 5 مليون يورو' },
       ],
     },
     podcasts: {
