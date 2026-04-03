@@ -1,0 +1,99 @@
+name: Deploy to Hetzner
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deploy even without code changes'
+        required: false
+        default: 'false'
+
+env:
+  NODE_VERSION: '20'
+  DEPLOY_HOST: '204.168.190.123'
+  DEPLOY_USER: 'root'
+  DEPLOY_PATH: '/var/www/agenzia-site'
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy to Hetzner
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Node setup & cache ────────────────────────────────────────────
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      # ── 3. Install dependencies ──────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. Build ─────────────────────────────────────────────────────────
+      - name: Build Vite app
+        run: npm run build
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NODE_ENV: production
+
+      # ── 5. Setup SSH ─────────────────────────────────────────────────────
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HETZNER_SSH_PRIVATE_KEY }}" > ~/.ssh/hetzner_deploy
+          chmod 600 ~/.ssh/hetzner_deploy
+          ssh-keyscan -H ${{ env.DEPLOY_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      # ── 6. Create remote directory ───────────────────────────────────────
+      - name: Prepare remote directory
+        run: |
+          ssh -i ~/.ssh/hetzner_deploy \
+            -o StrictHostKeyChecking=no \
+            -o ConnectTimeout=15 \
+            ${{ env.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} \
+            "mkdir -p ${{ env.DEPLOY_PATH }} && echo 'Remote dir ready'"
+
+      # ── 7. Deploy via rsync ──────────────────────────────────────────────
+      - name: Deploy dist/ to Hetzner
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/hetzner_deploy -o StrictHostKeyChecking=no" \
+            ./dist/ \
+            ${{ env.DEPLOY_USER }}@${{ env.DEPLOY_HOST }}:${{ env.DEPLOY_PATH }}/
+
+      # ── 8. Copy Nginx config & reload ────────────────────────────────────
+      - name: Install/update Nginx config
+        run: |
+          scp -i ~/.ssh/hetzner_deploy \
+            -o StrictHostKeyChecking=no \
+            ./nginx/agenzia-site.conf \
+            ${{ env.DEPLOY_USER }}@${{ env.DEPLOY_HOST }}:/etc/nginx/sites-available/agenzia-site
+
+          ssh -i ~/.ssh/hetzner_deploy \
+            -o StrictHostKeyChecking=no \
+            ${{ env.DEPLOY_USER }}@${{ env.DEPLOY_HOST }} \
+            "
+              ln -sf /etc/nginx/sites-available/agenzia-site /etc/nginx/sites-enabled/agenzia-site
+              nginx -t && systemctl reload nginx || nginx -s reload
+              echo '✅ Nginx reloaded'
+            "
+
+      # ── 9. Health check ──────────────────────────────────────────────────
+      - name: Health check
+        run: |
+          sleep 5
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 10 http://${{ env.DEPLOY_HOST }} || echo "000")
+          echo "Health check HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "301" ] && [ "$HTTP_CODE" != "302" ]; then
+            echo "⚠️  Unexpected status $HTTP_CODE — check server"
+          else
+            echo "✅ Site is live at http://${{ env.DEPLOY_HOST }}"
+          fi

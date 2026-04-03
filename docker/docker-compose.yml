@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  agenzia-site:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    container_name: agenzia-site
+    restart: unless-stopped
+    ports:
+      - "3001:80"   # Internal port — Nginx on host will proxy this
+    networks:
+      - agenzia-net
+
+networks:
+  agenzia-net:
+    external: true
+    name: agenzia-net
