@@ -1,81 +1,119 @@
-
 import React from 'react';
-import type { Content } from '../types';
+import { motion } from 'motion/react';
+import { Shield, Globe, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-interface FooterProps {
-  content: Content['footer'];
-  onNavigate: (view: 'landing' | 'blog' | 'article' | 'privacy' | 'legal' | 'terms') => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ content, onNavigate }) => {
-  const handleLinkClick = (e: React.MouseEvent, link: string) => {
-    e.preventDefault();
-    const l = link.toLowerCase();
-    if (l.includes('politique') || l.includes('privacy') || l.includes('datenschutz')) {
-      onNavigate('privacy');
-    } else if (l === 'blog') {
-      onNavigate('blog');
-    } else if (l.includes('mentions') || l.includes('legal')) {
-      onNavigate('legal'); 
-    } else if (l.includes('cgu') || l.includes('terms')) {
-      onNavigate('terms');
+const Footer = () => {
+  const sections = [
+    {
+      id: "01",
+      title: "Services",
+      links: [
+        { name: "Infogérance IA", href: "/services/infogerance-ia" },
+        { name: "Cybersécurité NIS2", href: "/services/cybersecurite-nis2" },
+        { name: "Migration Cloud", href: "/services/migration-cloud" },
+        { name: "Audit Flash", href: "/#contact" }
+      ]
+    },
+    {
+      id: "02",
+      title: "Tarifs",
+      links: [
+        { name: "Plan Starter", href: "/#tarifs" },
+        { name: "Plan Pro", href: "/#tarifs" },
+        { name: "Plan Enterprise", href: "/#tarifs" },
+        { name: "Simulateur ROI", href: "/simulateur-roi" }
+      ]
+    },
+    {
+      id: "03",
+      title: "Légal",
+      links: [
+        { name: "Mentions légales", href: "/mentions-legales" },
+        { name: "Politique de Confidentialité", href: "/politique-confidentialite" },
+        { name: "RGPD", href: "/rgpd" },
+        { name: "CGU", href: "/cgu" }
+      ]
     }
-  };
+  ];
 
   return (
-    <footer className="bg-black text-gray-400 py-12 border-t border-white/5">
+    <footer className="bg-white pt-24 md:pt-32 pb-12 border-t border-black">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
-          {/* Logo & Baseline */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-24">
+          {/* Logo & Tagline */}
           <div className="lg:col-span-5">
-            <h3 className="text-2xl font-black text-white tracking-tighter mb-4">Agenzia</h3>
-            <p className="text-sm font-medium leading-relaxed max-w-sm">
-              Agenzia - La puissance des agents IA au service de votre business.
+            <div className="flex items-center gap-2 mb-8 group cursor-pointer">
+              <div className="w-8 h-8 bg-black rounded flex items-center justify-center group-hover:bg-brand-accent transition-colors">
+                <span className="text-white font-brand text-xl lowercase">a</span>
+              </div>
+              <span className="text-2xl font-bold text-zinc-900 tracking-tighter lowercase font-brand">agenzia<span className="text-[10px] align-top font-brand text-brand-accent">©</span></span>
+            </div>
+            <p className="text-zinc-500 text-xl font-serif leading-relaxed max-w-sm mb-10 italic">
+              Votre IT. Géré. Sécurisé. Souverain. L'infogérance IA-first pour les PME françaises.
             </p>
-          </div>
-
-          {/* Offices */}
-          <div className="lg:col-span-3">
-            <h4 className="text-[10px] font-black text-white uppercase tracking-[0.2em] mb-6">Bureaux</h4>
-            <address className="not-italic text-sm font-medium">
-              13 RUE des Petits Champs,<br />
-              67300 Schiltigheim
-            </address>
-          </div>
-
-          {/* Navigation Links (Simplified) */}
-          <div className="lg:col-span-4 flex flex-col md:items-end">
-            <h4 className="text-[10px] font-black text-white uppercase tracking-[0.2em] mb-6">Navigation</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 md:justify-end">
-              {['Mentions Légales', 'Politique de Confidentialité', 'CGU'].map((link) => (
-                <a 
-                  key={link}
-                  href="#" 
-                  onClick={(e) => handleLinkClick(e, link)}
-                  className="text-[11px] font-bold uppercase tracking-widest hover:text-white transition-colors"
-                >
-                  {link}
-                </a>
+            <div className="flex flex-wrap gap-4">
+              {[
+                { icon: Globe, text: "Données EU" },
+                { icon: Shield, text: "NIS2" },
+                { icon: Lock, text: "RGPD" }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 px-3 py-1 bg-white border border-black hover:border-brand-accent hover:bg-brand-accent/5 transition-all group">
+                  <item.icon className="w-3 h-3 text-black group-hover:text-brand-accent transition-colors" />
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-black">{item.text}</span>
+                </div>
               ))}
             </div>
           </div>
+
+          {/* Navigation Links */}
+          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
+            {sections.map((section, i) => (
+              <div key={i}>
+                <h4 className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 mb-8">{section.id} // {section.title}</h4>
+                <ul className="space-y-4">
+                  {section.links.map((link, j) => (
+                    <li key={j}>
+                      {link.href.startsWith('/#') ? (
+                        <a 
+                          href={link.href} 
+                          className="text-sm font-serif text-zinc-500 hover:text-black hover:underline underline-offset-4 transition-all"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link 
+                          to={link.href} 
+                          className="text-sm font-serif text-zinc-500 hover:text-black hover:underline underline-offset-4 transition-all"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Legal Dense Block */}
-        <div className="pt-8 border-t border-white/5">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-8">
-              <p className="text-[10px] leading-relaxed text-gray-500 max-w-3xl">
-                Entreprise Lebsaira (Entrepreneur Individuel : Ramzi Lebsaira) — SIREN 928 689 819 — SIRET 928 689 819 00011. 
-                Hébergé par Vercel Inc. (340 S Lemon Ave #4133, Walnut, CA 91789, USA). 
-                Registrar : OVH SAS (2 rue Kellermann, 59100 Roubaix, France). 
-                Ce site est protégé par les lois sur la propriété intellectuelle. Toute reproduction, même partielle, est interdite sans autorisation préalable.
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-black">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-2">
+              <p className="text-[10px] font-brand lowercase tracking-widest text-zinc-400">
+                © 2025 agenzia — Entreprise Lebsaira
+              </p>
+              <p className="text-[10px] font-mono text-zinc-300">
+                13 Rue des Petits Champs, 67300 Schiltigheim · SIREN: 928 689 819
               </p>
             </div>
-            <div className="lg:col-span-4 lg:text-right">
-              <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">
-                {content.copyright}
-              </p>
+            <div className="flex md:justify-end gap-12">
+              {['Twitter', 'LinkedIn', 'GitHub'].map((social) => (
+                <a key={social} href="#" className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 hover:text-black transition-colors">
+                  {social}
+                </a>
+              ))}
             </div>
           </div>
         </div>
