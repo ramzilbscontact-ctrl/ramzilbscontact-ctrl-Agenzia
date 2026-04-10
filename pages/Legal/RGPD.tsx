@@ -25,7 +25,7 @@ const RGPD: React.FC = () => {
             <section>
               <h2 className="text-2xl font-bold text-zinc-900 mb-4">2. Responsable du traitement</h2>
               <p>
-                Le responsable du traitement des données est : Ramzi Lebsaira — contact@agenzia.ai.
+                Le responsable du traitement des données est : Ramzi Lebsaira — hello@getagenzia.fr.
               </p>
             </section>
 

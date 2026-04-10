@@ -51,12 +51,14 @@ const Navbar = () => {
             System Status: Active
           </button>
           
-          <Link 
-            to="/audit"
+          <a 
+            href="https://www.cal.eu/getagenzia"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:block bg-black text-white px-6 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent border border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
           >
             Audit Gratuit
-          </Link>
+          </a>
 
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -93,13 +95,15 @@ const Navbar = () => {
             </div>
 
             <div className="mt-auto pb-12 flex flex-col gap-6">
-              <Link 
-                to="/audit"
+              <a 
+                href="https://www.cal.eu/getagenzia"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full bg-black text-white px-8 py-6 text-center text-xs font-mono uppercase tracking-widest border-2 border-black shadow-tactile"
               >
                 Audit Gratuit
-              </Link>
+              </a>
               <div className="flex items-center justify-center gap-2 text-[10px] font-mono uppercase tracking-widest text-zinc-400">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>

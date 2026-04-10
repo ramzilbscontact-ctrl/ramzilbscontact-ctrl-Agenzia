@@ -76,7 +76,7 @@ const ComparisonTable = () => {
 
         <div className="mt-24 text-center">
           <a
-            href="https://cal.eu/getagenzia/15min"
+            href="https://www.cal.eu/getagenzia"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-6 bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-white hover:text-black border-2 border-black transition-all duration-300"

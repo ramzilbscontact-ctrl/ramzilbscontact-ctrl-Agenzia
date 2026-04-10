@@ -44,13 +44,16 @@ const Hero = () => {
           </p>
           
           <div className="mt-16 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-            <motion.button 
+            <motion.a 
+              href="https://www.cal.eu/getagenzia"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-brand-accent border-2 border-black transition-all duration-300 shadow-tactile hover:shadow-tactile-accent"
+              className="bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-brand-accent border-2 border-black transition-all duration-300 shadow-tactile hover:shadow-tactile-accent inline-block"
             >
               Garantir ma continuité →
-            </motion.button>
+            </motion.a>
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">

@@ -26,7 +26,7 @@ const CTABanner = () => {
             </div>
 
             <a
-              href="https://cal.eu/getagenzia/15min"
+              href="https://www.cal.eu/getagenzia"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-6 bg-white text-black px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-black hover:text-white border-2 border-white transition-all duration-300"

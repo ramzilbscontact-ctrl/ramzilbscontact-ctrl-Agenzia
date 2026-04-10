@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Shield, X } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { setPostHogOptIn } from '../lib/posthog';
 
 const CookieConsent: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,16 +10,21 @@ const CookieConsent: React.FC = () => {
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       setIsVisible(true);
+    } else {
+      // If consent already exists, set PostHog state accordingly
+      setPostHogOptIn(consent === 'accepted');
     }
   }, []);
 
   const handleAccept = () => {
     localStorage.setItem('cookie-consent', 'accepted');
+    setPostHogOptIn(true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem('cookie-consent', 'declined');
+    setPostHogOptIn(false);
     setIsVisible(false);
   };
 

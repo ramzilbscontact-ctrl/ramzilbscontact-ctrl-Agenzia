@@ -59,7 +59,7 @@ const PrivacyPolicy: React.FC = () => {
             <section>
               <h2 className="text-2xl font-bold text-zinc-900 mb-4">5. Vos droits</h2>
               <p>
-                Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, de suppression, d'opposition et de portabilité de vos données. Pour exercer ces droits, contactez-nous à : <a href="mailto:dpo@agenzia.ai" className="text-brand-accent hover:underline">dpo@agenzia.ai</a>.
+                Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, de suppression, d'opposition et de portabilité de vos données. Pour exercer ces droits, contactez-nous à : <a href="mailto:hello@getagenzia.fr" className="text-brand-accent hover:underline">hello@getagenzia.fr</a>.
               </p>
             </section>
           </div>

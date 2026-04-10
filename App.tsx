@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
@@ -12,8 +12,13 @@ import InfogeranceIA from './pages/Services/InfogeranceIA';
 import CybersecuriteNIS2 from './pages/Services/CybersecuriteNIS2';
 import MigrationCloud from './pages/Services/MigrationCloud';
 import SimulateurROI from './pages/Tools/SimulateurROI';
+import { initPostHog } from './lib/posthog';
 
 const App: React.FC = () => {
+  useEffect(() => {
+    initPostHog();
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />

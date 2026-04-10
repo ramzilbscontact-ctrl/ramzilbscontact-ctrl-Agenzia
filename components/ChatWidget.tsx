@@ -38,12 +38,12 @@ const ChatWidget: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Ligne Directe</div>
-                  <div className="text-lg font-serif font-bold tracking-tight">+33 1 89 20 45 12</div>
+                  <div className="text-lg font-serif font-bold tracking-tight">+33 1 59 13 17 47</div>
                 </div>
               </div>
               
               <a
-                href="https://cal.eu/getagenzia/15min"
+                href="https://www.cal.eu/getagenzia"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between w-full bg-black text-white px-8 py-4 text-[10px] font-mono uppercase tracking-widest hover:bg-zinc-800 transition-colors group"

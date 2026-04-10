@@ -23,9 +23,9 @@ const MentionsLegales: React.FC = () => {
               <ul className="list-disc pl-6 mt-4 space-y-2">
                 <li><strong>Propriétaire :</strong> Entreprise Lebsaira — SIREN : 928 689 819</li>
                 <li><strong>Adresse :</strong> 13 Rue des Petits Champs, 67300 Schiltigheim</li>
-                <li><strong>Responsable publication :</strong> Ramzi Lebsaira — contact@agenzia.ai</li>
+                <li><strong>Responsable publication :</strong> Ramzi Lebsaira — hello@getagenzia.fr</li>
                 <li><strong>Hébergeur :</strong> OVHcloud — 2 rue Kellermann, 59100 Roubaix</li>
-                <li><strong>Délégué à la protection des données :</strong> Ramzi Lebsaira — dpo@agenzia.ai</li>
+                <li><strong>Délégué à la protection des données :</strong> Ramzi Lebsaira — hello@getagenzia.fr</li>
               </ul>
             </section>
 
