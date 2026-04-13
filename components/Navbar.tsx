@@ -30,8 +30,15 @@ const Navbar = () => {
         "w-full border-b-[1px] border-black py-6 px-6 md:px-8 flex justify-between items-center bg-white sticky top-0 z-50 transition-all duration-300",
         isScrolled ? "py-4" : "py-8"
       )}>
-        <Link to="/" className="text-2xl font-bold tracking-tighter lowercase font-brand flex items-center gap-1">
-          agenzia<span className="text-[10px] align-top font-brand">©</span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img
+            src="/brand-logo.png"
+            alt="Agenzia"
+            className="h-9 w-9 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
+          />
+          <span className="text-2xl font-bold tracking-tighter font-brand flex items-center gap-1">
+            Agenzia<span className="text-[10px] align-top font-brand">©</span>
+          </span>
         </Link>
         
         <div className="hidden md:flex gap-8 lg:gap-12 text-[10px] font-mono tracking-[0.2em] uppercase">

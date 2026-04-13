@@ -43,12 +43,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-24">
           {/* Logo & Tagline */}
           <div className="lg:col-span-5">
-            <div className="flex items-center gap-2 mb-8 group cursor-pointer">
-              <div className="w-8 h-8 bg-black rounded flex items-center justify-center group-hover:bg-brand-accent transition-colors">
-                <span className="text-white font-brand text-xl lowercase">a</span>
-              </div>
-              <span className="text-2xl font-bold text-zinc-900 tracking-tighter lowercase font-brand">agenzia<span className="text-[10px] align-top font-brand text-brand-accent">©</span></span>
-            </div>
+            <Link to="/" className="flex items-center gap-3 mb-8 group">
+              <img
+                src="/brand-logo.png"
+                alt="Agenzia"
+                className="w-9 h-9 object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+              <span className="text-2xl font-bold text-zinc-900 tracking-tighter font-brand">Agenzia<span className="text-[10px] align-top font-brand text-brand-accent">©</span></span>
+            </Link>
             <p className="text-zinc-500 text-xl font-serif leading-relaxed max-w-sm mb-10 italic">
               Votre IT. Géré. Sécurisé. Souverain. L'infogérance IA-first pour les PME françaises.
             </p>
@@ -102,7 +104,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="space-y-2">
               <p className="text-[10px] font-brand lowercase tracking-widest text-zinc-400">
-                © 2025 agenzia — Entreprise Lebsaira
+                © 2025 Agenzia — Entreprise Lebsaira
               </p>
               <p className="text-[10px] font-mono text-zinc-300">
                 13 Rue des Petits Champs, 67300 Schiltigheim · SIREN: 928 689 819
