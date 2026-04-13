@@ -12,6 +12,8 @@ import InfogeranceIA from './pages/Services/InfogeranceIA';
 import CybersecuriteNIS2 from './pages/Services/CybersecuriteNIS2';
 import MigrationCloud from './pages/Services/MigrationCloud';
 import SimulateurROI from './pages/Tools/SimulateurROI';
+import Blog from './pages/Blog';
+import ArticlePage from './pages/Blog/ArticlePage';
 import { initPostHog } from './lib/posthog';
 
 const App: React.FC = () => {
@@ -33,6 +35,8 @@ const App: React.FC = () => {
           <Route path="/services/cybersecurite-nis2" element={<CybersecuriteNIS2 />} />
           <Route path="/services/migration-cloud" element={<MigrationCloud />} />
           <Route path="/simulateur-roi" element={<SimulateurROI />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<ArticlePage />} />
         </Routes>
       </Layout>
     </Router>
