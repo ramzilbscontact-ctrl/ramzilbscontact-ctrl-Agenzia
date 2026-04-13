@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X, Phone, ArrowRight } from 'lucide-react';
+import { trackEvent } from '../lib/posthog';
 
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,10 @@ const ChatWidget: React.FC = () => {
                   <MessageCircle className="w-6 h-6 text-black" />
                 </div>
                 <button 
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    trackEvent('chat_widget_closed');
+                  }}
                   className="p-2 hover:bg-zinc-800 transition-colors"
                 >
                   <X className="w-5 h-5" />
@@ -46,6 +50,7 @@ const ChatWidget: React.FC = () => {
                 href="https://www.cal.eu/getagenzia"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('chat_widget_cta_clicked', { cta: 'prendre_rendez_vous' })}
                 className="flex items-center justify-between w-full bg-black text-white px-8 py-4 text-[10px] font-mono uppercase tracking-widest hover:bg-zinc-800 transition-colors group"
               >
                 Prendre rendez-vous
@@ -59,7 +64,11 @@ const ChatWidget: React.FC = () => {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          const next = !isOpen;
+          setIsOpen(next);
+          trackEvent(next ? 'chat_widget_opened' : 'chat_widget_closed');
+        }}
         className="bg-black text-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all flex items-center gap-4 group"
       >
         <div className="relative">

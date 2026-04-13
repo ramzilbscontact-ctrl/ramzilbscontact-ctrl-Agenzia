@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { trackEvent } from '../lib/posthog';
 
 const PricingSection = () => {
   const [isAnnual, setIsAnnual] = useState(false);
@@ -69,7 +70,10 @@ const PricingSection = () => {
           
           <div className="flex items-center gap-0 border border-black p-1">
             <button
-              onClick={() => setIsAnnual(false)}
+              onClick={() => {
+                setIsAnnual(false);
+                trackEvent('pricing_billing_changed', { cadence: 'monthly' });
+              }}
               className={cn(
                 "px-6 py-2 text-[10px] font-mono uppercase tracking-widest transition-all",
                 !isAnnual ? "bg-black text-white" : "text-zinc-400"
@@ -78,7 +82,10 @@ const PricingSection = () => {
               Mensuel
             </button>
             <button
-              onClick={() => setIsAnnual(true)}
+              onClick={() => {
+                setIsAnnual(true);
+                trackEvent('pricing_billing_changed', { cadence: 'annual' });
+              }}
               className={cn(
                 "px-6 py-2 text-[10px] font-mono uppercase tracking-widest transition-all flex items-center gap-2",
                 isAnnual ? "bg-black text-white" : "text-zinc-400"
@@ -128,6 +135,7 @@ const PricingSection = () => {
 
               <a
                 href={plan.href}
+                onClick={() => trackEvent('pricing_cta_clicked', { plan: plan.name.toLowerCase(), cta: plan.cta.toLowerCase() })}
                 className={cn(
                   "w-full py-6 text-[10px] font-mono uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 border border-black shadow-tactile group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1",
                   plan.popular 

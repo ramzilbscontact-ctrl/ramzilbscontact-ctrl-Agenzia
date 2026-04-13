@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Calculator, TrendingDown, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { trackEvent } from '../../lib/posthog';
 
 const SimulateurROI: React.FC = () => {
   const [devices, setDevices] = useState(50);
@@ -128,6 +129,14 @@ const SimulateurROI: React.FC = () => {
               </div>
               <a
                 href="/#contact"
+                onClick={() =>
+                  trackEvent('roi_audit_cta_clicked', {
+                    devices,
+                    incidents_per_month: incidentsPerMonth,
+                    avg_resolution_time: avgResolutionTime,
+                    annual_savings: Math.round(annualSavings),
+                  })
+                }
                 className="bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-white hover:text-black border-2 border-black transition-all duration-300"
               >
                 Audit Gratuit

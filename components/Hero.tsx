@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Shield, Zap, Database, ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { trackEvent } from '../lib/posthog';
 
 const Hero = () => {
   return (
@@ -48,6 +49,7 @@ const Hero = () => {
               href="https://www.cal.eu/getagenzia"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('cta_clicked', { location: 'hero', cta: 'garantir_ma_continuite' })}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-brand-accent border-2 border-black transition-all duration-300 shadow-tactile hover:shadow-tactile-accent inline-block"

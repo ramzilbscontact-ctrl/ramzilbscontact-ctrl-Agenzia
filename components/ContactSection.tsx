@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { identifyLead, trackEvent } from '../lib/posthog';
 
 interface FormData {
   nom: string;
@@ -36,6 +37,7 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('loading');
+    trackEvent('contact_form_submitted', { postes: formData.postes || 'unknown' });
 
     try {
       const response = await fetch(WEBHOOK_URL, {
@@ -48,6 +50,11 @@ const ContactSection: React.FC = () => {
         throw new Error(`HTTP error: ${response.status}`);
       }
 
+      identifyLead(formData.email, {
+        email: formData.email,
+        company: formData.entreprise || 'unknown',
+      });
+      trackEvent('lead_created', { source: 'contact_form' });
       setFormState('success');
       setFormData({
         nom: '',
@@ -58,6 +65,7 @@ const ContactSection: React.FC = () => {
         message: '',
       });
     } catch {
+      trackEvent('contact_form_failed', { source: 'contact_form' });
       setFormState('error');
     }
   };

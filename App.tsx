@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -14,7 +14,17 @@ import MigrationCloud from './pages/Services/MigrationCloud';
 import SimulateurROI from './pages/Tools/SimulateurROI';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/Blog/ArticlePage';
-import { initPostHog } from './lib/posthog';
+import { initPostHog, trackPageView } from './lib/posthog';
+
+const AnalyticsTracker: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location.pathname]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -23,6 +33,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <AnalyticsTracker />
       <ScrollToTop />
       <Layout>
         <Routes>
