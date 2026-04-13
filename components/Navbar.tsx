@@ -17,10 +17,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Vision", href: "#nis2" },
-    { name: "The Outcome", href: "#services" },
-    { name: "Pricing", href: "#tarifs" },
-    { name: "Connect", href: "#contact" },
+    { name: "Vision", href: "#nis2", internal: false },
+    { name: "The Outcome", href: "#services", internal: false },
+    { name: "Pricing", href: "#tarifs", internal: false },
+    { name: "Blog", href: "/blog", internal: true },
+    { name: "Connect", href: "#contact", internal: false },
   ];
 
   return (
@@ -34,12 +35,23 @@ const Navbar = () => {
         </Link>
         
         <div className="hidden md:flex gap-8 lg:gap-12 text-[10px] font-mono tracking-[0.2em] uppercase">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="hover:text-brand-accent transition-colors relative group">
-              {link.name}
-              <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full" />
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.internal ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="hover:text-brand-accent transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full" />
+              </Link>
+            ) : (
+              <a key={link.name} href={link.href} className="hover:text-brand-accent transition-colors relative group">
+                {link.name}
+                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full" />
+              </a>
+            )
+          )}
         </div>
 
         <div className="flex items-center gap-4 md:gap-6">
@@ -79,19 +91,36 @@ const Navbar = () => {
             className="fixed inset-0 z-40 bg-white pt-32 px-8 flex flex-col gap-12 md:hidden"
           >
             <div className="flex flex-col gap-8">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-4xl font-serif font-bold uppercase tracking-tighter hover:italic hover:text-brand-accent transition-all"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
+              {navLinks.map((link, i) =>
+                link.internal ? (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Link
+                      to={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-4xl font-serif font-bold uppercase tracking-tighter hover:italic hover:text-brand-accent transition-all block"
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.a
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-4xl font-serif font-bold uppercase tracking-tighter hover:italic hover:text-brand-accent transition-all"
+                  >
+                    {link.name}
+                  </motion.a>
+                )
+              )}
             </div>
 
             <div className="mt-auto pb-12 flex flex-col gap-6">
