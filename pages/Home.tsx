@@ -8,6 +8,7 @@ import PricingSection from '../components/PricingSection';
 import ComparisonTable from '../components/ComparisonTable';
 import Stats from '../components/Stats';
 import CTABanner from '../components/CTABanner';
+import ContactSection from '../components/ContactSection';
 
 const Home: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
       <ComparisonTable />
       <Stats />
       <CTABanner />
+      <ContactSection />
     </>
   );
 };
