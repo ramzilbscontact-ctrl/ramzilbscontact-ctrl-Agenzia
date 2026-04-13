@@ -44,11 +44,6 @@ const Footer = () => {
           {/* Logo & Tagline */}
           <div className="lg:col-span-5">
             <Link to="/" className="flex items-center gap-3 mb-8 group">
-              <img
-                src="/brand-logo.png"
-                alt="Agenzia"
-                className="w-9 h-9 object-contain transition-transform duration-200 group-hover:scale-105"
-              />
               <span className="text-2xl font-bold text-zinc-900 tracking-tighter font-brand">Agenzia<span className="text-[10px] align-top font-brand text-brand-accent">©</span></span>
             </Link>
             <p className="text-zinc-500 text-xl font-serif leading-relaxed max-w-sm mb-10 italic">
