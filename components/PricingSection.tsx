@@ -19,6 +19,7 @@ const PricingSection = () => {
         "Support par email"
       ],
       cta: "Commencer",
+      href: "/simulateur-roi",
       popular: false
     },
     {
@@ -34,6 +35,7 @@ const PricingSection = () => {
         "Rapport de valeur mensuel"
       ],
       cta: "Garantir mon IT",
+      href: "https://buy.stripe.com/test_placeholder_pro",
       popular: true
     },
     {
@@ -49,6 +51,7 @@ const PricingSection = () => {
         "Gestion de crise prioritaire"
       ],
       cta: "Nous contacter",
+      href: "#contact",
       popular: false
     }
   ];
@@ -123,8 +126,8 @@ const PricingSection = () => {
                 ))}
               </div>
 
-              <a 
-                href="#contact"
+              <a
+                href={plan.href}
                 className={cn(
                   "w-full py-6 text-[10px] font-mono uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 border border-black shadow-tactile group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1",
                   plan.popular 
