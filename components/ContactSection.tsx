@@ -26,6 +26,7 @@ const ContactSection: React.FC = () => {
     message: '',
   });
   const [formState, setFormState] = useState<FormState>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -37,19 +38,32 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('loading');
+    setErrorMessage(null);
     trackEvent('contact_form_submitted', { postes: formData.postes || 'unknown' });
+
+    console.log('Submitting data to Contact Webhook:', formData);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
+      console.log('Webhook Response Status:', response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Erreur HTTP: ${response.status} - ${errorText}`);
       }
 
+      alert('Envoi du formulaire de contact réussi !');
       identifyLead(formData.email, {
         email: formData.email,
         company: formData.entreprise || 'unknown',
@@ -64,8 +78,16 @@ const ContactSection: React.FC = () => {
         postes: '',
         message: '',
       });
-    } catch {
+    } catch (err: any) {
+      clearTimeout(timeoutId);
       trackEvent('contact_form_failed', { source: 'contact_form' });
+      if (err.name === 'AbortError') {
+        console.error("Erreur : Délai d'attente dépassé");
+        setErrorMessage("Erreur : Délai d'attente dépassé (Vérifie ton VPS)");
+      } else {
+        console.error('Error submitting form:', err);
+        setErrorMessage(err.message);
+      }
       setFormState('error');
     }
   };
@@ -132,13 +154,15 @@ const ContactSection: React.FC = () => {
                 ERREUR D'ENVOI //
               </div>
               <p className="font-serif text-zinc-700">
-                Une erreur est survenue. Veuillez réessayer ou nous contacter directement à{' '}
-                <a href="mailto:contact@zenocci.fr" className="underline hover:text-brand-accent transition-colors">
-                  contact@zenocci.fr
-                </a>
+                Une erreur est survenue. Veuillez réessayer ou nous contacter directement.
               </p>
+              {errorMessage && (
+                <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
+                  <pre className="text-xs text-red-800 font-mono whitespace-pre-wrap break-all">{errorMessage}</pre>
+                </div>
+              )}
               <button
-                onClick={() => setFormState('idle')}
+                onClick={() => { setFormState('idle'); setErrorMessage(null); }}
                 className="mt-3 text-[10px] font-mono uppercase tracking-widest underline hover:text-brand-accent transition-colors"
               >
                 Réessayer

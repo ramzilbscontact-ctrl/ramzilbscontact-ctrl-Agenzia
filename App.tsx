@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
@@ -12,9 +11,11 @@ import InfogeranceIA from './pages/Services/InfogeranceIA';
 import CybersecuriteNIS2 from './pages/Services/CybersecuriteNIS2';
 import MigrationCloud from './pages/Services/MigrationCloud';
 import SimulateurROI from './pages/Tools/SimulateurROI';
+import CarouselEditor from './pages/Tools/CarouselEditor';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/Blog/ArticlePage';
 import { initPostHog, trackPageView } from './lib/posthog';
+import LeadMagnetModal from './components/LeadMagnetModal';
 
 const AnalyticsTracker: React.FC = () => {
   const location = useLocation();
@@ -46,9 +47,11 @@ const App: React.FC = () => {
           <Route path="/services/cybersecurite-nis2" element={<CybersecuriteNIS2 />} />
           <Route path="/services/migration-cloud" element={<MigrationCloud />} />
           <Route path="/simulateur-roi" element={<SimulateurROI />} />
+          <Route path="/tools/carousel-editor" element={<CarouselEditor />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<ArticlePage />} />
         </Routes>
+        <LeadMagnetModal />
       </Layout>
     </Router>
   );
