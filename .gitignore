@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Fichiers PDF générés
+public/carousels/*.pdf
+
+# Fichiers Markdown temporaires à la racine
+/01_probleme_it.md
+/02_services_agenzia.md
+/03_roi_performance.md
