@@ -10,10 +10,13 @@ import CGU from './pages/Legal/CGU';
 import InfogeranceIA from './pages/Services/InfogeranceIA';
 import CybersecuriteNIS2 from './pages/Services/CybersecuriteNIS2';
 import MigrationCloud from './pages/Services/MigrationCloud';
+import CguOutbound from './pages/Legal/CguOutbound';
 import SimulateurROI from './pages/Tools/SimulateurROI';
 import CarouselEditor from './pages/Tools/CarouselEditor';
 import Blog from './pages/Blog';
 import ArticlePage from './pages/Blog/ArticlePage';
+import SaasLanding from './pages/SaasLanding';
+import SaasLandingEn from './pages/SaasLandingEn';
 import { initPostHog, trackPageView } from './lib/posthog';
 import LeadMagnetModal from './components/LeadMagnetModal';
 
@@ -43,6 +46,7 @@ const App: React.FC = () => {
           <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
           <Route path="/rgpd" element={<RGPD />} />
           <Route path="/cgu" element={<CGU />} />
+          <Route path="/cgu-outbound" element={<CguOutbound />} />
           <Route path="/services/infogerance-ia" element={<InfogeranceIA />} />
           <Route path="/services/cybersecurite-nis2" element={<CybersecuriteNIS2 />} />
           <Route path="/services/migration-cloud" element={<MigrationCloud />} />
@@ -50,6 +54,9 @@ const App: React.FC = () => {
           <Route path="/tools/carousel-editor" element={<CarouselEditor />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<ArticlePage />} />
+          <Route path="/saas" element={<SaasLanding />} />
+          <Route path="/en/saas" element={<SaasLandingEn />} />
+          <Route path="/en" element={<SaasLandingEn />} />
         </Routes>
         <LeadMagnetModal />
       </Layout>
