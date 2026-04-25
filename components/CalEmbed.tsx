@@ -24,12 +24,12 @@ const CalEmbed: React.FC<CalEmbedProps> = ({ calLink, prefill, compact }) => {
     if ((window as any).Cal) return;
 
     const script = document.createElement('script');
-    script.src = 'https://app.cal.com/embed/embed.js';
+    script.src = 'https://app.cal.eu/embed/embed.js';
     script.async = true;
     script.onload = () => {
       const Cal = (window as any).Cal;
       if (!Cal) return;
-      Cal('init', 'agenzia-cal', { origin: 'https://app.cal.com' });
+      Cal('init', 'agenzia-cal', { origin: 'https://app.cal.eu' });
       Cal.ns['agenzia-cal']('inline', {
         elementOrSelector: '#cal-embed-container',
         config: {
@@ -56,16 +56,9 @@ const CalEmbed: React.FC<CalEmbedProps> = ({ calLink, prefill, compact }) => {
   if (!link) {
     return (
       <div className="p-8 border-2 border-dashed border-zinc-300 text-center">
-        <p className="text-sm font-mono text-zinc-500 mb-4">
-          Cal.com link non configuré
-        </p>
-        <p className="text-xs text-zinc-400 leading-relaxed max-w-md mx-auto">
-          Pour activer la prise de RDV : crée un compte sur{' '}
-          <a href="https://cal.com/signup" target="_blank" rel="noopener noreferrer" className="underline">
-            cal.com/signup
-          </a>{' '}
-          puis ajoute <code className="px-1 bg-zinc-100">VITE_CAL_LINK=username/event-slug</code> dans
-          tes variables d'environnement Vercel.
+        <p className="text-sm font-mono text-zinc-500 mb-4">VITE_CAL_LINK non configuré</p>
+        <p className="text-xs text-zinc-400">
+          Defaults manquant — set <code className="px-1 bg-zinc-100">VITE_CAL_LINK=getagenzia/discovery-15</code>
         </p>
       </div>
     );
