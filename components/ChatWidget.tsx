@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X, Phone, ArrowRight } from 'lucide-react';
+import { MessageCircle, X, Phone, ArrowRight, Mic, PhoneCall } from 'lucide-react';
 import { trackEvent } from '../lib/posthog';
+
+// ElevenLabs widget custom element typing
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'elevenlabs-convai': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & { 'agent-id'?: string },
+        HTMLElement
+      >;
+    }
+  }
+}
+
+const CLARA_AGENT_ID = 'agent_3901kpr0qqrqfk28zdq6jy3j9dtm';
 
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showClara, setShowClara] = useState(false);
+
+  const openLeadMagnetInCallbackMode = () => {
+    window.dispatchEvent(new CustomEvent('open-lead-magnet', { detail: { intent: 'callback' } }));
+    setIsOpen(false);
+  };
 
   return (
     <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
@@ -36,26 +56,91 @@ const ChatWidget: React.FC = () => {
             </div>
             
             <div className="p-8">
-              <div className="flex items-center gap-6 mb-8 p-6 border border-black hover:bg-zinc-50 transition-colors group">
-                <div className="bg-black p-3 group-hover:bg-brand-accent transition-colors">
-                  <Phone className="w-5 h-5 text-white" />
+              {/* Clara IA voice agent — primary CTA */}
+              <button
+                onClick={() => {
+                  setShowClara(true);
+                  trackEvent('chat_widget_cta_clicked', { cta: 'parler_a_clara' });
+                }}
+                className="flex items-center gap-6 mb-4 p-6 border-2 border-black hover:bg-black hover:text-white transition-colors group w-full text-left"
+              >
+                <div className="bg-black p-3 group-hover:bg-white transition-colors">
+                  <Mic className="w-5 h-5 text-white group-hover:text-black" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Ligne Directe</div>
-                  <div className="text-lg font-serif font-bold tracking-tight">+33 1 59 13 17 47</div>
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Assistante IA 24/7</div>
+                  <div className="text-lg font-serif font-bold tracking-tight">Parler à Clara</div>
                 </div>
-              </div>
-              
-              <a
-                href="https://www.cal.eu/getagenzia"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent('chat_widget_cta_clicked', { cta: 'prendre_rendez_vous' })}
+              </button>
+
+              {/* Callback — secondary CTA (appel sortant via Clara) */}
+              <button
+                onClick={() => {
+                  trackEvent('chat_widget_cta_clicked', { cta: 'se_faire_rappeler' });
+                  openLeadMagnetInCallbackMode();
+                }}
+                className="flex items-center gap-6 mb-4 p-6 border-2 border-black hover:bg-black hover:text-white transition-colors group w-full text-left"
+              >
+                <div className="bg-black p-3 group-hover:bg-white transition-colors">
+                  <PhoneCall className="w-5 h-5 text-white group-hover:text-black" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Rappel express &lt; 2 min</div>
+                  <div className="text-lg font-serif font-bold tracking-tight">Se faire rappeler</div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  trackEvent('chat_widget_cta_clicked', { cta: 'prendre_rendez_vous' });
+                  window.dispatchEvent(new CustomEvent('open-lead-magnet', { detail: { intent: 'diagnostic' } }));
+                  setIsOpen(false);
+                }}
                 className="flex items-center justify-between w-full bg-black text-white px-8 py-4 text-[10px] font-mono uppercase tracking-widest hover:bg-zinc-800 transition-colors group"
               >
-                Prendre rendez-vous
+                Prendre rendez-vous humain
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Clara widget — full ElevenLabs embed when opened */}
+      <AnimatePresence>
+        {showClara && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed bottom-8 right-8 z-[110] w-96 bg-white border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] overflow-hidden"
+          >
+            <div className="bg-black p-4 flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <div className="bg-white p-2">
+                  <Mic className="w-4 h-4 text-black" />
+                </div>
+                <span className="text-white font-serif font-bold text-lg">Clara</span>
+              </div>
+              <button
+                onClick={() => {
+                  setShowClara(false);
+                  trackEvent('clara_widget_closed');
+                }}
+                className="p-2 hover:bg-zinc-800 transition-colors"
+              >
+                <X className="w-4 h-4 text-white" />
+              </button>
+            </div>
+            <div className="p-6 bg-white">
+              <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-4">
+                Autorisez le micro quand votre navigateur le demande
+              </p>
+              <elevenlabs-convai agent-id={CLARA_AGENT_ID} />
+              <p className="text-[10px] text-zinc-400 mt-4 leading-relaxed">
+                Clara est une IA. Conversations traitées selon le RGPD.
+                Pour données sensibles, utilisez <a href="mailto:hello@getagenzia.fr" className="underline">notre email</a>.
+              </p>
             </div>
           </motion.div>
         )}

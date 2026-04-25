@@ -106,9 +106,13 @@ const Footer = () => {
               </p>
             </div>
             <div className="flex md:justify-end gap-12">
-              {['Twitter', 'LinkedIn', 'GitHub'].map((social) => (
-                <a key={social} href="#" className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 hover:text-black transition-colors">
-                  {social}
+              {[
+                { name: 'X', href: 'https://x.com/getagenzia' },
+                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/agenzia-zenocci' },
+                { name: 'GitHub', href: 'https://github.com/ramzilbscontact-ctrl' },
+              ].map((s) => (
+                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono uppercase tracking-widest text-zinc-300 hover:text-black transition-colors">
+                  {s.name}
                 </a>
               ))}
             </div>

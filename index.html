@@ -1,18 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="application-name" content="Agenzia" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Google Search Console verification -->
+    <meta name="google-site-verification" content="0e-UUEWXAQJ7Hs9IfMn67AHdCLOa-aMK-nzsG7-e-Pk" />
+    <!-- SEO defaults (overridden per-page via react-helmet-async) -->
+    <meta name="description" content="Agenzia — Infogérance IA-first pour PME françaises. Supervision 24/7, cybersécurité NIS2, migration cloud. Forfait tout inclus à partir de 55€/poste/mois." />
+    <meta name="keywords" content="infogérance PME, infogérance France, NIS2, cybersécurité PME, migration cloud, MSP France, managed services PME" />
+    <meta name="author" content="Zenocci" />
+    <link rel="canonical" href="https://getagenzia.fr/" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Agenzia" />
+    <meta property="og:title" content="Agenzia — Infogérance IA-first pour PME françaises" />
+    <meta property="og:description" content="Supervision 24/7, cybersécurité NIS2, forfait tout inclus à partir de 55€/poste/mois. Audit gratuit en 30 minutes." />
+    <meta property="og:url" content="https://getagenzia.fr/" />
+    <meta property="og:image" content="https://getagenzia.fr/og-image.png" />
+    <meta property="og:locale" content="fr_FR" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Agenzia — Infogérance IA-first" />
+    <meta name="twitter:description" content="Supervision 24/7 + NIS2 + IA. Forfait à partir de 55€/poste/mois." />
+    <meta name="twitter:image" content="https://getagenzia.fr/og-image.png" />
+    <!-- JSON-LD Structured Data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Agenzia",
+      "alternateName": "Zenocci",
+      "url": "https://getagenzia.fr",
+      "logo": "https://getagenzia.fr/brand-logo.png",
+      "description": "Infogérance IA-first pour PME françaises — supervision 24/7, cybersécurité NIS2, migration cloud.",
+      "foundingDate": "2026",
+      "email": "hello@getagenzia.fr",
+      "areaServed": "France",
+      "sameAs": [
+        "https://www.linkedin.com/company/agenzia-zenocci"
+      ]
+    }
+    </script>
+    <!-- JSON-LD: LocalBusiness / ProfessionalService -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Agenzia",
+      "image": "https://getagenzia.fr/brand-logo.png",
+      "priceRange": "€€",
+      "url": "https://getagenzia.fr",
+      "email": "hello@getagenzia.fr",
+      "potentialAction": {
+        "@type": "ContactAction",
+        "name": "Etre rappele",
+        "target": "https://getagenzia.fr/#callback"
+      },
+      "address": {"@type": "PostalAddress", "addressCountry": "FR"},
+      "areaServed": "France",
+      "serviceType": ["Infogérance", "Cybersécurité NIS2", "Migration cloud", "Managed IT Services"]
+    }
+    </script>
+    <!-- Google tag (gtag.js) GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K6FTMXXLJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-0K6FTMXXLJ', {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure'
+      });
+    </script>
+    <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png?v=2" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
     <meta name="apple-mobile-web-app-title" content="Agenzia" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agenzia - Infogérance IA-first</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
