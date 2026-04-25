@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './LeadMagnetModal.css';
 import { X, Mail, Phone, CheckCircle2 } from 'lucide-react';
+import CalEmbed from './CalEmbed';
 
 type Intent = 'diagnostic' | 'callback';
 
@@ -145,6 +146,12 @@ const LeadMagnetModal: React.FC = () => {
             <CheckCircle2 size={48} color="#22c55e" style={{ marginBottom: 16 }} />
             <h2>{intent === 'callback' ? 'On vous rappelle !' : 'Merci, vérifiez votre boîte mail !'}</h2>
             <p>{successMessage}</p>
+            <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid #e5e7eb' }}>
+              <p style={{ fontSize: 12, color: '#6b7280', textAlign: 'center', marginBottom: 12 }}>
+                Préférez choisir un créneau précis ?
+              </p>
+              <CalEmbed compact />
+            </div>
           </div>
         ) : (
           <>
