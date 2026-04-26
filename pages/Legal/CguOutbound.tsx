@@ -55,7 +55,7 @@ const CguOutbound: React.FC = () => (
           Un seul clic suffit : votre adresse est immediatement et definitivement retiree de notre liste.
         </p>
         <p className="mt-2">
-          Vous pouvez egalement nous ecrire directement a <a href="mailto:contact@agenzia.uk" className="underline">contact@agenzia.uk</a>
+          Vous pouvez egalement nous ecrire directement a <a href="mailto:contact@getagenzia.fr" className="underline">contact@getagenzia.fr</a>
           ou utiliser le bouton "Se desinscrire" natif de votre client mail (Gmail, Outlook),
           notre infrastructure respecte le standard RFC 8058 (one-click unsubscribe).
         </p>
@@ -74,7 +74,7 @@ const CguOutbound: React.FC = () => (
           <li>droit a la portabilite</li>
         </ul>
         <p className="mt-2">
-          Pour exercer ces droits : <a href="mailto:contact@agenzia.uk" className="underline">contact@agenzia.uk</a>.
+          Pour exercer ces droits : <a href="mailto:contact@getagenzia.fr" className="underline">contact@getagenzia.fr</a>.
           En cas de litige, vous pouvez saisir la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="underline">cnil.fr</a>).
         </p>
       </div>
@@ -99,7 +99,7 @@ const CguOutbound: React.FC = () => (
     </section>
 
     <div className="mt-16 pt-8 border-t border-zinc-200 text-sm text-zinc-500">
-      <p>Une question ? <a href="mailto:contact@agenzia.uk" className="underline">contact@agenzia.uk</a></p>
+      <p>Une question ? <a href="mailto:contact@getagenzia.fr" className="underline">contact@getagenzia.fr</a></p>
     </div>
   </div>
 );

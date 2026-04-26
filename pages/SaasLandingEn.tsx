@@ -81,7 +81,7 @@ const SaasLandingEn: React.FC = () => {
 
           <p className="text-xs text-neutral-500 font-mono mb-2">
             <code className="bg-neutral-100 px-2 py-1 text-black">
-              curl -sSL https://agenzia.uk/scanner/install.sh | sh
+              curl -sSL https://api.getagenzia.fr/scanner/install.sh | sh
             </code>
           </p>
           <p className="text-xs text-neutral-400 font-mono">
@@ -402,10 +402,10 @@ const SaasLandingEn: React.FC = () => {
 
           <div className="bg-black text-green-400 p-8 font-mono text-sm border-2 border-black shadow-[8px_8px_0px_0px_rgba(26,143,160,1)]">
             <div className="text-neutral-500 mb-2"># macOS / Linux</div>
-            <div>$ curl -sSL https://agenzia.uk/scanner/install.sh | sh</div>
+            <div>$ curl -sSL https://api.getagenzia.fr/scanner/install.sh | sh</div>
             <div>$ agenzia-scan</div>
             <div className="text-neutral-500 mt-4 mb-2"># Windows PowerShell</div>
-            <div>{'>'} iwr -useb https://agenzia.uk/scanner/install.ps1 | iex</div>
+            <div>{'>'} iwr -useb https://api.getagenzia.fr/scanner/install.ps1 | iex</div>
             <div>{'>'} agenzia-scan</div>
             <div className="text-neutral-500 mt-4 mb-2"># From source</div>
             <div>$ git clone https://github.com/ramzilbscontact-ctrl/scanner.git</div>
@@ -464,7 +464,7 @@ const SaasLandingEn: React.FC = () => {
             . EU infrastructure (OVH + Scaleway). No CLOUD Act, no BS.
           </p>
           <p className="text-xs text-neutral-400 font-mono mt-4">
-            🇫🇷 Agenzia SAS · GDPR-compliant by design · dpo@agenzia.uk
+            🇫🇷 Agenzia SAS · GDPR-compliant by design · dpo@getagenzia.fr
           </p>
         </div>
       </footer>
