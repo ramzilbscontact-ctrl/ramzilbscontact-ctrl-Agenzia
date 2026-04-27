@@ -6,9 +6,11 @@
  */
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Loader2 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
+
+const API_BASE = (import.meta.env.VITE_BRIDGE_URL as string) || 'https://api.getagenzia.fr';
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -17,12 +19,66 @@ const fadeUp = (delay: number) => ({
   transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
 });
 
+type PlanId = 'starter' | 'pro' | 'enterprise';
+
+async function startCheckout(plan: PlanId, cycle: 'monthly' | 'yearly'): Promise<string | null> {
+  // Demande email avant de lancer le checkout (Stripe accepte l'edit après)
+  const email = window.prompt('Votre email professionnel pour le checkout :');
+  if (!email || !email.includes('@')) return null;
+  const company = window.prompt('Nom de votre entreprise (optionnel) :') || '';
+
+  const r = await fetch(`${API_BASE}/billing/checkout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      plan, cycle,
+      customer_email: email,
+      organisation: company || null,
+    }),
+  });
+  if (!r.ok) {
+    const err = await r.text();
+    alert(`Erreur Stripe : ${err.slice(0, 200)}`);
+    return null;
+  }
+  const data = await r.json();
+  return data.checkout_url || null;
+}
+
 const PricingSection: React.FC = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+
+  const handleCta = async (plan: PlanId) => {
+    if (plan === 'starter') {
+      window.dispatchEvent(
+        new CustomEvent('open-smart-form', {
+          detail: { intent: 'audit_nis2', source: 'pricing_starter' },
+        })
+      );
+      return;
+    }
+    if (plan === 'enterprise') {
+      // Enterprise = sur devis → form contact (pas Stripe direct)
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    // Pro = checkout Stripe
+    setLoadingPlan('pro');
+    trackEvent('pricing_checkout_start', { plan, cycle: isAnnual ? 'yearly' : 'monthly' });
+    try {
+      const url = await startCheckout('pro', isAnnual ? 'yearly' : 'monthly');
+      if (url) window.location.href = url;
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
 
   const plans = [
     {
       id: '01',
+      slug: 'starter' as PlanId,
       name: 'Starter',
       price: 'Gratuit',
       suffix: '',
@@ -34,11 +90,11 @@ const PricingSection: React.FC = () => {
         'Support email',
       ],
       cta: 'Commencer',
-      href: '/simulateur-roi',
       popular: false,
     },
     {
       id: '02',
+      slug: 'pro' as PlanId,
       name: 'Pro',
       price: isAnnual ? '39€' : '49€',
       suffix: '/mois',
@@ -51,11 +107,11 @@ const PricingSection: React.FC = () => {
         'Rapport de valeur mensuel',
       ],
       cta: 'Garantir mon IT',
-      href: 'https://buy.stripe.com/test_placeholder_pro',
       popular: true,
     },
     {
       id: '03',
+      slug: 'enterprise' as PlanId,
       name: 'Enterprise',
       price: 'Sur devis',
       suffix: '',
@@ -197,24 +253,29 @@ const PricingSection: React.FC = () => {
                 ))}
               </ul>
 
-              <a
-                href={plan.href}
-                onClick={() =>
+              <button
+                onClick={() => {
                   trackEvent('pricing_cta_clicked', {
-                    plan: plan.name.toLowerCase(),
+                    plan: plan.slug,
                     cta: plan.cta.toLowerCase(),
-                  })
-                }
+                    cycle: isAnnual ? 'yearly' : 'monthly',
+                  });
+                  handleCta(plan.slug);
+                }}
+                disabled={loadingPlan === plan.slug}
                 className={cn(
-                  'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all',
+                  'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed',
                   plan.popular
                     ? 'bg-pure text-ink hover:bg-porcelain'
                     : 'bg-ink text-pure hover:bg-ink-soft'
                 )}
               >
-                {plan.cta}
-                <ArrowRight size={16} />
-              </a>
+                {loadingPlan === plan.slug ? (
+                  <><Loader2 size={16} className="animate-spin" /> Chargement…</>
+                ) : (
+                  <>{plan.cta}<ArrowRight size={16} /></>
+                )}
+              </button>
             </motion.article>
           ))}
         </div>
