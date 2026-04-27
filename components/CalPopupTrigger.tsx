@@ -117,6 +117,16 @@ export const CalPopupTrigger: React.FC = () => {
     return () => clearTimeout(t);
   }, []);
 
+  // External trigger: window.dispatchEvent(new CustomEvent('open-cal-popup'))
+  useEffect(() => {
+    const handler = () => {
+      setOpen(true);
+      setMode('menu');
+    };
+    window.addEventListener('open-cal-popup', handler);
+    return () => window.removeEventListener('open-cal-popup', handler);
+  }, []);
+
   const openPopup = () => {
     setOpen(true);
     setMode('menu');

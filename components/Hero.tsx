@@ -1,86 +1,106 @@
+/**
+ * Hero — Agenzia Pure (style screen 2 du brief : centered + Manrope ExtraBold + pill CTA).
+ *
+ * Pitch conservé : NIS2/Infogérance pour PME (pas de pivot product, juste refresh visuel).
+ * Disposition: badge pill "Conformité IA-first" → headline ExtraBold → sous-titre Medium →
+ * 2 CTAs (pill noir tactile + lien secondaire) → trust strip souveraineté.
+ */
 import React from 'react';
 import { motion } from 'motion/react';
-import { Shield, Zap, Database, ArrowRight } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { trackEvent } from '../lib/posthog';
 
-const Hero = () => {
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
+
+const Hero: React.FC = () => {
+  const triggerSmartForm = () => {
+    trackEvent('cta_clicked', { location: 'hero', cta: 'diagnostic_nis2' });
+    window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'hero' } }));
+  };
+
+  const openCal = () => {
+    trackEvent('cta_clicked', { location: 'hero', cta: 'book_call' });
+    // CalPopupTrigger écoute cet event (geré dans CalPopupTrigger.tsx via openPopup public hook)
+    window.dispatchEvent(new CustomEvent('open-cal-popup', { detail: { source: 'hero' } }));
+  };
+
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-8 border-b-[8px] border-black overflow-hidden bg-white">
-      {/* Texture de fond subtile */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[repeating-linear-gradient(0deg,transparent,transparent_1px,#000_1px,#000_2px)] bg-[length:100%_4px]"></div>
+    <section className="relative overflow-hidden bg-pure">
+      {/* Subtile aura porcelaine en fond — radial blur très diffus */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,102,255,0.05),transparent_60%)]" />
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-[480px] w-[800px] bg-accent/[0.04] rounded-full blur-[120px]" />
 
-      {/* Background Accent */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[120px] -z-10 animate-pulse-slow" />
-      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-brand-accent/10 rounded-full blur-[100px] -z-10 animate-float" />
-
-      <div className="z-10 container mx-auto text-center">
+      <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-28 md:pt-32 md:pb-40 text-center">
+        {/* Badge pill */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-8"
+          {...fadeUp}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-zinc-400">01 // THE COMPLIANCE</span>
+          <span className="badge-pill badge-pill-accent">
+            <Sparkles size={12} strokeWidth={2.4} />
+            Conformité NIS2 IA-first
+          </span>
         </motion.div>
 
+        {/* Headline ExtraBold Manrope, scale fluide */}
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[12vw] sm:text-[8vw] md:text-[6.5vw] leading-[0.95] font-black uppercase font-serif tracking-tight max-w-5xl mx-auto"
+          {...fadeUp}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="headline mt-8 text-[clamp(2.75rem,7vw,5.5rem)] mx-auto max-w-5xl"
         >
-          Conformité &{' '}
-          <span className="italic font-light text-brand-accent">Sécurisation.</span>
+          Votre IT,{' '}
+          <span className="text-graphite">en version</span>{' '}
+          <span className="italic font-medium">augmentée</span>{' '}
+          <span className="text-graphite">par l'IA.</span>
         </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-10 max-w-2xl mx-auto"
+        {/* Sous-titre Medium */}
+        <motion.p
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 mx-auto max-w-2xl text-lg md:text-xl text-graphite leading-relaxed"
         >
-          <p className="text-base md:text-xl font-serif text-neutral-600 leading-relaxed">
-            Maîtrisez votre parc informatique. Mise en conformité NIS2 totale et sécurisation de vos actifs pour une sérénité opérationnelle absolue.
-          </p>
+          Supervision 24/7, mise en conformité NIS2 automatisée, résolution L1/L2 par IA.{' '}
+          <span className="text-ink font-semibold">Souverain. Sécurisé. Mesurable.</span>
+        </motion.p>
 
-          <div className="mt-12 flex flex-col sm:flex-row gap-6 items-center justify-center">
-            <motion.button
-              onClick={() => {
-                trackEvent('cta_clicked', { location: 'hero', cta: 'diagnostic_gratuit' });
-                window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }));
-              }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-black text-white px-10 py-5 text-xs font-mono tracking-widest uppercase hover:bg-brand-accent border-2 border-black transition-all duration-300 shadow-tactile hover:shadow-tactile-accent"
-            >
-              Diagnostic NIS2 gratuit →
-            </motion.button>
-            <motion.a
-              href="https://cal.eu/getagenzia/discovery-15"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent('cta_clicked', { location: 'hero', cta: 'reserver_15min' })}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="text-xs font-mono tracking-widest uppercase text-black hover:text-brand-accent transition-colors underline underline-offset-4"
-            >
-              Réserver 15 min avec Ramzi
-            </motion.a>
-          </div>
+        {/* CTAs */}
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-center"
+        >
+          <button
+            onClick={triggerSmartForm}
+            className="btn-tactile group text-sm px-8 py-4"
+          >
+            Diagnostic NIS2 gratuit
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+          </button>
+          <button
+            onClick={openCal}
+            className="btn-tactile-ghost text-sm px-8 py-4"
+          >
+            Réserver un appel
+          </button>
+        </motion.div>
 
-          <div className="mt-10 flex items-center justify-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
-            </span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500">Souverain · OVH SecNumCloud 3.2 · 99.99% Uptime</span>
-          </div>
+        {/* Trust strip */}
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 flex items-center justify-center gap-3 text-xs font-mono uppercase tracking-[0.18em] text-mist"
+        >
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-pulse-soft" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success" />
+          </span>
+          <span>Souverain · OVH SecNumCloud 3.2 · 99.99% uptime</span>
         </motion.div>
       </div>
-
-      {/* Decorative vertical line */}
-      <div className="absolute right-12 top-0 bottom-0 w-[1px] bg-black opacity-10 hidden lg:block"></div>
     </section>
   );
 };

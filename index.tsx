@@ -1,7 +1,7 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './src/index.css';  // Tailwind v4 + Agenzia Pure design tokens
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

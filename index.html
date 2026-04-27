@@ -82,53 +82,12 @@
     <link rel="manifest" href="/site.webmanifest?v=2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agenzia - Infogérance IA-first</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind v4 chargé via Vite plugin (src/index.css) — plus de CDN -->
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    <link href="https://fonts.cdnfonts.com/css/glicker" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              serif: ['Cormorant Garamond', 'serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-              brand: ['Glicker', 'sans-serif'],
-            },
-            colors: {
-              'brand-primary': '#000000',
-              'brand-secondary': '#71717a',
-              'brand-accent': '#0066FF',
-              'brand-surface': '#F8F9FA',
-            },
-            boxShadow: {
-              'subtle': 'none',
-              'card': 'none',
-              'tactile': '8px 8px 0px 0px rgba(0,0,0,1)',
-              'tactile-accent': '8px 8px 0px 0px rgba(0,102,255,1)',
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'marquee': 'marquee 50s linear infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              marquee: {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-50%)' },
-              },
-            }
-          },
-        },
-      }
-    </script>
+    <!-- Manrope (Agenzia Pure) + JetBrains Mono (code) -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       /* Global Layout & Typography Fixes */
       * {

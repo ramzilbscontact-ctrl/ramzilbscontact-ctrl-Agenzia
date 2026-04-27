@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@google/genai": "^1.42.0",
     "@slidev/theme-apple-basic": "^0.25.1",
     "clsx": "^2.1.1",
@@ -29,9 +30,11 @@
   "devDependencies": {
     "@slidev/cli": "^52.14.2",
     "@slidev/theme-default": "^0.25.0",
+    "@tailwindcss/vite": "^4.2.4",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "playwright-chromium": "^1.59.1",
+    "tailwindcss": "^4.2.4",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

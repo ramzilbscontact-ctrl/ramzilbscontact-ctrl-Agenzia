@@ -1,131 +1,127 @@
+/**
+ * Navbar — Agenzia Pure (glassmorphism + pill button + Manrope).
+ *
+ * Sticky top, fond verre translucide qui s'opacifie au scroll, ancres router-friendly,
+ * CTA principal pill noir tactile. Mobile menu en sheet plein écran.
+ */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-const Navbar = () => {
+const NAV_LINKS = [
+  { name: 'Solutions', href: '/#services' },
+  { name: 'Tarifs', href: '/#tarifs' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Contact', href: '/#contact' },
+];
+
+const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Ancres pointent vers /#anchor : marche depuis n'importe quelle page
-  // (router envoie sur Home puis Home gère le scroll vers l'ancre via le hook useHashScroll)
-  const navLinks = [
-    { name: "Vision", href: "/#nis2", internal: true },
-    { name: "The Outcome", href: "/#services", internal: true },
-    { name: "Pricing", href: "/#tarifs", internal: true },
-    { name: "Blog", href: "/blog", internal: true },
-    { name: "Connect", href: "/#contact", internal: true },
-  ];
+  // Ferme le menu mobile au changement de route
+  useEffect(() => { setIsMobileOpen(false); }, [pathname]);
+
+  const triggerSmartForm = () =>
+    window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'navbar' } }));
 
   return (
     <>
-      <nav className={cn(
-        "w-full border-b-[1px] border-black py-6 px-6 md:px-8 flex justify-between items-center bg-white sticky top-0 z-50 transition-all duration-300",
-        isScrolled ? "py-4" : "py-8"
-      )}>
-        <Link to="/" className="flex items-center gap-3 group">
-          <span className="text-2xl font-bold tracking-tighter font-brand flex items-center gap-1">
-            Agenzia<span className="text-[10px] align-top font-brand">©</span>
-          </span>
-        </Link>
-        
-        <div className="hidden md:flex gap-8 lg:gap-12 text-[10px] font-mono tracking-[0.2em] uppercase">
-          {navLinks.map((link) =>
-            link.internal ? (
+      <header
+        className={cn(
+          'sticky top-0 z-50 w-full transition-all duration-300',
+          isScrolled ? 'glass-nav py-3' : 'bg-pure/60 backdrop-blur-md py-5'
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-6 flex items-center justify-between gap-6">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 shrink-0">
+            <span className="headline text-2xl tracking-tight">
+              Agenzia
+            </span>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium text-graphite">
+            {NAV_LINKS.map((l) => (
               <Link
-                key={link.name}
-                to={link.href}
-                className="hover:text-brand-accent transition-colors relative group"
+                key={l.name}
+                to={l.href}
+                className="relative hover:text-ink transition-colors duration-200 tracking-tight"
               >
-                {link.name}
-                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full" />
+                {l.name}
+                <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-0 bg-ink transition-all duration-300 hover:w-full group-hover:w-full" />
               </Link>
-            ) : (
-              <a key={link.name} href={link.href} className="hover:text-brand-accent transition-colors relative group">
-                {link.name}
-                <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-accent transition-all group-hover:w-full" />
-              </a>
-            )
-          )}
+            ))}
+          </nav>
+
+          {/* Right side: CTA + mobile toggle */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={triggerSmartForm}
+              className="hidden sm:inline-flex btn-tactile text-xs"
+              aria-label="Démarrer un diagnostic NIS2 gratuit"
+            >
+              <Sparkles size={14} />
+              Diagnostic gratuit
+            </button>
+
+            <button
+              onClick={() => setIsMobileOpen((v) => !v)}
+              aria-label={isMobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={isMobileOpen}
+              className="md:hidden h-10 w-10 inline-flex items-center justify-center rounded-full border border-[--color-ghost-strong] hover:bg-porcelain transition"
+            >
+              {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
+      </header>
 
-        <div className="flex items-center gap-4 md:gap-6">
-          <button
-            onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
-            className="hidden sm:block bg-black text-white px-6 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent border border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
-          >
-            Audit Gratuit
-          </button>
-
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-zinc-100 transition-colors"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Overlay */}
+      {/* Mobile sheet */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-white pt-32 px-8 flex flex-col gap-12 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 md:hidden bg-pure pt-24 px-8 flex flex-col"
           >
-            <div className="flex flex-col gap-8">
-              {navLinks.map((link, i) =>
-                link.internal ? (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
+            <div className="flex flex-col gap-2">
+              {NAV_LINKS.map((l, i) => (
+                <motion.div
+                  key={l.name}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 * i, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    to={l.href}
+                    className="block py-5 text-3xl headline tracking-tight border-b border-[--color-ghost]"
                   >
-                    <Link
-                      to={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-4xl font-serif font-bold uppercase tracking-tighter hover:italic hover:text-brand-accent transition-all block"
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-4xl font-serif font-bold uppercase tracking-tighter hover:italic hover:text-brand-accent transition-all"
-                  >
-                    {link.name}
-                  </motion.a>
-                )
-              )}
+                    {l.name}
+                  </Link>
+                </motion.div>
+              ))}
             </div>
 
-            <div className="mt-auto pb-12 flex flex-col gap-6">
+            <div className="mt-auto pb-12 flex flex-col gap-4">
               <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }));
-                }}
-                className="w-full bg-black text-white px-8 py-6 text-center text-xs font-mono uppercase tracking-widest border-2 border-black shadow-tactile"
+                onClick={() => { setIsMobileOpen(false); triggerSmartForm(); }}
+                className="btn-tactile w-full justify-center text-sm py-4"
               >
-                Audit Gratuit
+                <Sparkles size={16} />
+                Diagnostic gratuit
               </button>
             </div>
           </motion.div>

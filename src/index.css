@@ -1,0 +1,250 @@
+/**
+ * Agenzia Pure — Design System v2 (Tailwind 4 + @theme)
+ *
+ * 4 piliers identité visuelle :
+ *  1. Aesthétique "Porcelaine & Verre" — blanc pur + gris porcelaine + bordures fantômes
+ *  2. Typographie premium — Manrope (ExtraBold 800 titres / Medium 500 corps)
+ *  3. Composants tactiles — glassmorphism + boutons pill avec micro-scaling
+ *  4. Mouvement fluide — animations Unfold + cascade
+ *
+ * Toutes les couleurs/spacings/animations sont déclarés dans @theme — utilisables comme
+ *  `bg-porcelain`, `border-ghost`, `font-manrope`, `shadow-tactile`, `animate-unfold`, etc.
+ */
+
+@import "tailwindcss";
+
+@theme {
+  /* ─── Couleurs Porcelaine & Verre ─────────────────────────────── */
+  --color-pure: #FFFFFF;
+  --color-porcelain: #F9FAFB;        /* fond sections subtiles */
+  --color-glass-tint: #F4F5F7;       /* surfaces verre, hovers ultra-light */
+  --color-ink: #0A0A0A;              /* noir presque pur, plus chaleureux que #000 */
+  --color-ink-soft: #1A1A1A;
+  --color-graphite: #404040;         /* texte secondaire */
+  --color-mist: #71717A;              /* texte tertiaire */
+  --color-fog: #A1A1AA;              /* texte placeholder, captions */
+  --color-cloud: #E4E4E7;             /* dividers visibles */
+
+  /* Bordures "fantômes" presque invisibles — défini comme variables custom car Tailwind
+     n'accepte que les hex/oklch dans les colors. On les utilise via `border-[--color-ghost]` */
+  --color-ghost: rgba(0, 0, 0, 0.04);
+  --color-ghost-strong: rgba(0, 0, 0, 0.08);
+  --color-ghost-soft: rgba(0, 0, 0, 0.02);
+
+  /* Accent (utilisé avec parcimonie : focus, badges, highlights) */
+  --color-accent: #0066FF;            /* bleu signature, conservé du précédent */
+  --color-accent-soft: #E6F0FF;
+  --color-success: #10B981;           /* vert subtil pour validations */
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-danger-soft: #FEE2E2;
+
+  /* ─── Aliases legacy (compat composants existants) ──────────── */
+  --color-brand-primary: #0A0A0A;
+  --color-brand-secondary: #71717A;
+  --color-brand-accent: #0066FF;
+  --color-brand-surface: #F9FAFB;
+
+  /* ─── Typographie Manrope ─────────────────────────────────────── */
+  --font-sans: "Manrope", "Inter", system-ui, sans-serif;
+  --font-display: "Manrope", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  /* Aliases legacy : ancien font-serif (Cormorant) + font-brand (Glicker) → Manrope partout
+     pour cohérence Agenzia Pure. Composants existants n'ont pas besoin d'être touchés. */
+  --font-serif: "Manrope", system-ui, sans-serif;
+  --font-brand: "Manrope", system-ui, sans-serif;
+
+  /* ─── Ombres tactiles (multicouches pour profondeur physique) ──── */
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.03), 0 1px 1px rgb(0 0 0 / 0.02);
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / 0.04), 0 2px 4px -2px rgb(0 0 0 / 0.03);
+  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-tactile: 0 2px 4px rgb(0 0 0 / 0.05), 0 8px 24px -4px rgb(0 0 0 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.1);
+  --shadow-tactile-hover: 0 4px 8px rgb(0 0 0 / 0.08), 0 16px 32px -4px rgb(0 0 0 / 0.12), inset 0 1px 0 rgb(255 255 255 / 0.15);
+  --shadow-glass: 0 8px 32px rgb(0 0 0 / 0.04), inset 0 1px 0 rgb(255 255 255 / 0.6);
+  /* Alias legacy: ancien tactile noir 8/8 → nouveau soft tactile multicouches */
+  --shadow-tactile-accent: 0 2px 4px rgb(0 102 255 / 0.15), 0 12px 32px -4px rgb(0 102 255 / 0.2);
+
+  /* ─── Animations Unfold + cascade ────────────────────────────── */
+  --animate-unfold: unfold 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
+
+  /* ─── Radius pill / soft ──────────────────────────────────────── */
+  --radius-pill: 9999px;
+}
+
+/* ─── Keyframes (déclarés en CSS standard, pas dans @theme) ──── */
+@keyframes unfold {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+/* ─── Base globale ──────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-pure);
+    color: var(--color-ink);
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-pure);
+  }
+  /* Scrollbar discret */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-porcelain); }
+  ::-webkit-scrollbar-thumb { background: var(--color-cloud); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-fog); }
+}
+
+/* ─── Composants utilitaires custom ─────────────────────────── */
+@layer components {
+  /* Carte verre — fond translucide blanc avec backdrop blur prononcé */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--color-ghost-strong);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Carte glass plus dense (Navbar sticky) */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--color-ghost);
+  }
+
+  /* Bouton tactile principal — pill noir avec micro-interaction */
+  .btn-tactile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink);
+    color: var(--color-pure);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-tactile);
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 200ms ease,
+                background 200ms ease;
+    cursor: pointer;
+  }
+  .btn-tactile:hover {
+    transform: scale(1.02) translateY(-1px);
+    box-shadow: var(--shadow-tactile-hover);
+    background: var(--color-ink-soft);
+  }
+  .btn-tactile:active { transform: scale(0.98) translateY(0); }
+
+  /* Bouton tactile secondaire — pill blanc bordure fantôme */
+  .btn-tactile-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-pure);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 1px solid var(--color-ghost-strong);
+    box-shadow: var(--shadow-soft);
+    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .btn-tactile-ghost:hover {
+    transform: scale(1.02) translateY(-1px);
+    background: var(--color-porcelain);
+    border-color: var(--color-cloud);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  /* Badge pill (ex: "AI-DRIVEN EFFICIENCY") */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-porcelain);
+    color: var(--color-graphite);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid var(--color-ghost-strong);
+  }
+  .badge-pill-accent {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    border-color: rgba(0, 102, 255, 0.15);
+  }
+  .badge-pill-danger {
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+    border-color: rgba(239, 68, 68, 0.15);
+  }
+
+  /* Section ghost — séparation par bordure fantôme presque invisible */
+  .section-ghost {
+    border-top: 1px solid var(--color-ghost);
+    border-bottom: 1px solid var(--color-ghost);
+  }
+
+  /* Card porcelaine pour grilles (challenges, services, etc.) */
+  .card-porcelain {
+    background: var(--color-pure);
+    border-radius: 1.25rem;
+    border: 1px solid var(--color-ghost-strong);
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
+    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-porcelain:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-cloud);
+  }
+
+  /* Headline display — Manrope ExtraBold 800 avec tracking serré */
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--color-ink);
+  }
+}
