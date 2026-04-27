@@ -1,16 +1,27 @@
 /**
- * PricingSection — Agenzia Pure (3 cards porcelaine, plan Pro mis en avant noir).
+ * PricingSection — Agenzia Pure v2 (Sprint pricing optimization).
  *
- * Toggle mensuel/annuel pill, 3 plans (Starter gratuit / Pro 49€ / Enterprise devis),
- * card "popular" inversée (fond ink, texte pure). CTA mid-funnel conservé en bas.
+ * 4 améliorations vs v1:
+ * 1. Starter renommé "Diagnostic NIS2 offert · Résultat en 48h" (urgence + tangibilité)
+ * 2. Pro: bullets reformulés en bénéfices mesurables (panne <4h, mises à jour sans maintenance, etc.)
+ * 3. Enterprise: "Devis en 24h" + bouton Cal.com (au lieu de "Sur devis" qui fait fuir)
+ * 4. Simulateur de prix: slider postes interactif → prix total live (réduit hésitation)
+ *
+ * Toggle mensuel/annuel pill, plan Pro inversé (ink-on-pure scale), checkout Stripe avec quantity.
  */
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
-import { Check, ArrowRight, Loader2 } from 'lucide-react';
+import { Check, ArrowRight, Loader2, Calendar, Zap } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
 
 const API_BASE = (import.meta.env.VITE_BRIDGE_URL as string) || 'https://api.getagenzia.fr';
+
+// Pricing per-poste (par mois) selon cycle
+const PRICE_PER_SEAT = {
+  monthly: 49,
+  yearly: 39,  // -20%
+};
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -21,8 +32,11 @@ const fadeUp = (delay: number) => ({
 
 type PlanId = 'starter' | 'pro' | 'enterprise';
 
-async function startCheckout(plan: PlanId, cycle: 'monthly' | 'yearly'): Promise<string | null> {
-  // Demande email avant de lancer le checkout (Stripe accepte l'edit après)
+async function startCheckout(
+  plan: PlanId,
+  cycle: 'monthly' | 'yearly',
+  quantity: number
+): Promise<string | null> {
   const email = window.prompt('Votre email professionnel pour le checkout :');
   if (!email || !email.includes('@')) return null;
   const company = window.prompt('Nom de votre entreprise (optionnel) :') || '';
@@ -31,7 +45,7 @@ async function startCheckout(plan: PlanId, cycle: 'monthly' | 'yearly'): Promise
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      plan, cycle,
+      plan, cycle, quantity,
       customer_email: email,
       organisation: company || null,
     }),
@@ -47,10 +61,21 @@ async function startCheckout(plan: PlanId, cycle: 'monthly' | 'yearly'): Promise
 
 const PricingSection: React.FC = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [seats, setSeats] = useState(20);
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+
+  // Prix calculés en temps réel selon cycle + nombre de postes
+  const seatPrice = isAnnual ? PRICE_PER_SEAT.yearly : PRICE_PER_SEAT.monthly;
+  const totalMonthly = useMemo(() => seats * seatPrice, [seats, seatPrice]);
+  const totalYearly = useMemo(() => totalMonthly * 12, [totalMonthly]);
+  const savings = useMemo(
+    () => isAnnual ? Math.round(seats * (PRICE_PER_SEAT.monthly - PRICE_PER_SEAT.yearly) * 12) : 0,
+    [seats, isAnnual]
+  );
 
   const handleCta = async (plan: PlanId) => {
     if (plan === 'starter') {
+      trackEvent('pricing_starter_clicked', { source: 'pricing_section' });
       window.dispatchEvent(
         new CustomEvent('open-smart-form', {
           detail: { intent: 'audit_nis2', source: 'pricing_starter' },
@@ -59,22 +84,25 @@ const PricingSection: React.FC = () => {
       return;
     }
     if (plan === 'enterprise') {
-      // Enterprise = sur devis → form contact (pas Stripe direct)
-      const el = document.getElementById('contact');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      // Enterprise = devis → ouvre Cal.com pour appel rapide
+      trackEvent('pricing_enterprise_clicked', { source: 'pricing_section', seats });
+      window.dispatchEvent(new CustomEvent('open-cal-popup', { detail: { source: 'pricing_enterprise' } }));
       return;
     }
-    // Pro = checkout Stripe
+    // Pro = checkout Stripe avec quantity = seats
     setLoadingPlan('pro');
-    trackEvent('pricing_checkout_start', { plan, cycle: isAnnual ? 'yearly' : 'monthly' });
+    trackEvent('pricing_checkout_start', {
+      plan, cycle: isAnnual ? 'yearly' : 'monthly', seats, total_monthly: totalMonthly,
+    });
     try {
-      const url = await startCheckout('pro', isAnnual ? 'yearly' : 'monthly');
+      const url = await startCheckout('pro', isAnnual ? 'yearly' : 'monthly', seats);
       if (url) window.location.href = url;
     } finally {
       setLoadingPlan(null);
     }
   };
 
+  // 3 plans avec data structurée (titres + bullets reformulés)
   const plans = [
     {
       id: '01',
@@ -82,29 +110,32 @@ const PricingSection: React.FC = () => {
       name: 'Starter',
       price: 'Gratuit',
       suffix: '',
-      description: 'Audit Flash NIS2',
+      description: 'Diagnostic NIS2 offert',
+      tagline: 'Résultat en 48h · sans engagement',
       features: [
-        'Scan de vulnérabilités',
-        'Rapport initial PDF',
-        'Conseils de remédiation',
-        'Support email',
+        'Scan complet de vos vulnérabilités',
+        'Score d\'exposition NIS2 chiffré sur 100',
+        'Plan de remédiation priorisé (quick wins)',
+        'Rapport PDF exportable signé Agenzia',
       ],
-      cta: 'Commencer',
+      cta: 'Recevoir mon diagnostic',
       popular: false,
     },
     {
       id: '02',
       slug: 'pro' as PlanId,
       name: 'Pro',
-      price: isAnnual ? '39€' : '49€',
-      suffix: '/mois',
+      price: `${seatPrice}€`,
+      suffix: '/mois / poste',
       description: 'Continuité totale + Immunité NIS2',
+      tagline: '30 jours satisfait ou remboursé',
       features: [
-        'Zéro interruption garantie',
-        'Mises à jour invisibles',
-        'Résolution automatique L1/L2',
-        'Conformité NIS2 permanente',
-        'Rapport de valeur mensuel',
+        'Première intervention en moins de 15 min, résolution <4h sur 80% des cas',
+        'Mises à jour planifiées hors heures ouvrées · zéro impact business',
+        'Support N1/N2 résolu par IA, sans ticket manuel',
+        'Score NIS2 calculé en continu + rapport Article 21 trimestriel',
+        'Dashboard temps réel + rapport mensuel exportable',
+        'Onboarding en 48h ou remboursé',
       ],
       cta: 'Garantir mon IT',
       popular: true,
@@ -113,18 +144,18 @@ const PricingSection: React.FC = () => {
       id: '03',
       slug: 'enterprise' as PlanId,
       name: 'Enterprise',
-      price: 'Sur devis',
+      price: 'Sur-mesure',
       suffix: '',
       description: 'Souveraineté + SLA critique',
+      tagline: 'Devis en 24h',
       features: [
-        'Accompagnement stratégique',
-        'Infrastructure 100% européenne',
-        'Disponibilité 99.99%',
-        'Audit de performance annuel',
-        'Gestion de crise prioritaire',
+        'Account manager dédié + revue trimestrielle CISO',
+        'Hébergement OVH SecNumCloud 3.2 (qualifié ANSSI)',
+        'SLA 99.9% avec pénalités contractuelles',
+        'Audit NIS2 trimestriel + rapport pour DPO',
+        'Cellule de crise (réponse <30 min, 8h-20h 7j/7)',
       ],
-      cta: 'Nous contacter',
-      href: '/#contact',
+      cta: 'Réserver un appel',
       popular: false,
     },
   ];
@@ -132,6 +163,7 @@ const PricingSection: React.FC = () => {
   return (
     <section id="tarifs" className="relative bg-porcelain section-ghost py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <motion.span {...fadeUp(0)} className="badge-pill inline-flex">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
@@ -177,12 +209,71 @@ const PricingSection: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Simulateur de prix interactif */}
+        <motion.div
+          {...fadeUp(0.3)}
+          className="card-porcelain max-w-3xl mx-auto p-6 md:p-8 mb-12 md:mb-16"
+        >
+          <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-widest text-fog mb-1">
+                Simulateur Pro
+              </div>
+              <h3 className="headline text-lg md:text-xl">
+                Combien de postes à gérer ?
+              </h3>
+            </div>
+            <div className="text-right">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-fog">
+                {isAnnual ? 'Total annuel' : 'Total mensuel'}
+              </div>
+              <div className="text-3xl md:text-4xl font-extrabold tracking-tight text-ink">
+                {(isAnnual ? totalYearly : totalMonthly).toLocaleString('fr-FR')} €
+              </div>
+              {isAnnual && savings > 0 && (
+                <div className="text-xs text-success font-semibold">
+                  Vous économisez {savings.toLocaleString('fr-FR')} €/an
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <input
+              type="range"
+              min={1}
+              max={500}
+              step={1}
+              value={seats}
+              onChange={(e) => setSeats(parseInt(e.target.value))}
+              className="flex-1 h-1.5 bg-cloud rounded-full appearance-none cursor-pointer accent-ink"
+              aria-label="Nombre de postes"
+            />
+            <div className="min-w-[88px] text-right">
+              <div className="text-2xl font-extrabold tracking-tight">{seats}</div>
+              <div className="text-[10px] font-mono uppercase tracking-widest text-fog">
+                {seats <= 1 ? 'poste' : 'postes'}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between text-xs text-mist">
+            <span>{seatPrice} €/mois × {seats}</span>
+            <button
+              onClick={() => setSeats(seats >= 250 ? 500 : seats >= 50 ? 250 : seats >= 20 ? 50 : 20)}
+              className="text-accent hover:underline underline-offset-4 font-medium"
+            >
+              + de postes →
+            </button>
+          </div>
+        </motion.div>
+
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {plans.map((plan, i) => (
             <motion.article
               key={plan.id}
-              {...fadeUp(0.3 + i * 0.1)}
+              {...fadeUp(0.4 + i * 0.1)}
               className={cn(
                 'rounded-3xl p-8 md:p-10 transition-all duration-300 flex flex-col',
                 plan.popular
@@ -193,8 +284,8 @@ const PricingSection: React.FC = () => {
               {/* Badge popular */}
               {plan.popular && (
                 <div className="inline-flex self-start mb-4 items-center gap-1.5 px-3 py-1 rounded-full bg-pure/10 border border-pure/20 text-[10px] font-semibold uppercase tracking-widest">
-                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                  Recommandé
+                  <Zap size={10} />
+                  Le plus choisi
                 </div>
               )}
 
@@ -223,10 +314,23 @@ const PricingSection: React.FC = () => {
                         plan.popular ? 'text-pure/60' : 'text-mist'
                       )}
                     >
-                      {plan.suffix} / poste
+                      {plan.suffix}
                     </span>
                   )}
                 </div>
+
+                {/* Total live pour Pro (calculé depuis le slider) */}
+                {plan.popular && (
+                  <div className="mt-3 pt-3 border-t border-pure/10">
+                    <div className="text-xs text-pure/60">
+                      Pour {seats} postes : <strong className="text-pure">{totalMonthly.toLocaleString('fr-FR')} €/mois</strong>
+                      {isAnnual && (
+                        <span className="text-pure/50"> · facturé {totalYearly.toLocaleString('fr-FR')} €/an</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <p
                   className={cn(
                     'mt-3 text-base',
@@ -235,6 +339,17 @@ const PricingSection: React.FC = () => {
                 >
                   {plan.description}
                 </p>
+
+                {/* Tagline urgence (Starter / Enterprise) */}
+                {plan.tagline && (
+                  <div className={cn(
+                    'mt-3 inline-flex items-center gap-1.5 text-xs font-semibold',
+                    plan.popular ? 'text-pure' : 'text-accent'
+                  )}>
+                    <Calendar size={12} />
+                    {plan.tagline}
+                  </div>
+                )}
               </div>
 
               <ul className="space-y-3 mb-10 flex-grow">
@@ -259,6 +374,7 @@ const PricingSection: React.FC = () => {
                     plan: plan.slug,
                     cta: plan.cta.toLowerCase(),
                     cycle: isAnnual ? 'yearly' : 'monthly',
+                    seats,
                   });
                   handleCta(plan.slug);
                 }}
