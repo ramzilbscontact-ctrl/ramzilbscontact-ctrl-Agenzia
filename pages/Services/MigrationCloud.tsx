@@ -1,83 +1,96 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Cloud, Server, ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import PageLayout from '../../components/PageLayout';
 
-const MigrationCloud: React.FC = () => {
-  return (
-    <section className="py-32 bg-white border-b border-black">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-24"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-black text-white mb-8">
-            <span className="text-[10px] font-mono uppercase tracking-widest">03 // SOVEREIGNTY</span>
-          </div>
-          <h1 className="text-6xl md:text-8xl font-black text-zinc-900 tracking-tighter mb-8 uppercase font-serif">
-            Souveraineté Cloud
-          </h1>
-          <p className="text-2xl text-zinc-500 max-w-3xl mx-auto leading-relaxed font-serif italic">
-            Libérez votre potentiel. Nous migrons vos actifs vers des infrastructures cloud européennes protégées, garantissant performance et indépendance.
-          </p>
-        </motion.div>
+const FEATURES = [
+  'Audit de performance infrastructure',
+  'Migration sans interruption de flux',
+  'Optimisation des coûts cloud',
+  'Garantie de souveraineté européenne (OVH SecNumCloud, Scaleway)',
+];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-l border-black mb-24">
-          <div className="bg-white p-12 border-r border-b border-black">
-            <h2 className="text-3xl font-serif font-bold uppercase mb-8">L'Approche Stratégique</h2>
-            <p className="text-zinc-600 leading-relaxed mb-10 font-serif text-lg">
-              La migration n'est pas une fin, c'est un nouveau départ. Nous concevons une architecture agile qui s'adapte à vos besoins réels, tout en assurant une transition sans aucune interruption de service.
-            </p>
-            <ul className="space-y-6">
-              {[
-                "Audit de performance infrastructure",
-                "Migration sans interruption de flux",
-                "Optimisation des coûts cloud",
-                "Garantie de souveraineté européenne"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-4">
-                  <div className="w-1.5 h-1.5 bg-black rounded-full" />
-                  <span className="font-serif text-zinc-800">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-black p-12 border-r border-b border-black text-white">
-            <h2 className="text-3xl font-serif font-bold uppercase mb-12">Résultats Attendus</h2>
-            <div className="space-y-12">
-              <div>
-                <div className="text-6xl font-black text-white tracking-tighter mb-2 font-serif italic">ZÉRO</div>
-                <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">Interruption de service</p>
-              </div>
-              <div>
-                <div className="text-6xl font-black text-white tracking-tighter mb-2 font-serif italic">-30%</div>
-                <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">Coûts d'infrastructure</p>
-              </div>
-              <div>
-                <div className="text-6xl font-black text-white tracking-tighter mb-2 font-serif italic">100%</div>
-                <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">Indépendance Technologique</p>
-              </div>
-            </div>
-          </div>
-        </div>
+const RESULTS = [
+  { value: 'Zéro', label: 'Interruption de service' },
+  { value: '−30%', label: 'Coûts d\'infrastructure' },
+  { value: '100%', label: 'Indépendance technologique' },
+];
 
-        <div className="bg-zinc-50 border border-black p-12 text-center">
-          <h2 className="text-3xl font-serif font-bold uppercase mb-6">Prêt pour la transition ?</h2>
-          <p className="text-zinc-600 mb-10 max-w-2xl mx-auto font-serif text-lg italic">
-            Nos experts vous accompagnent pour garantir une transition fluide vers une infrastructure souveraine et performante.
-          </p>
-          <a
-            href="/#contact"
-            className="inline-flex items-center gap-6 bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-white hover:text-black border-2 border-black transition-all duration-300"
-          >
-            Demander une étude de valeur
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </div>
-      </div>
-    </section>
+const triggerSmartForm = () =>
+  window.dispatchEvent(
+    new CustomEvent('open-smart-form', {
+      detail: { intent: 'audit_nis2', source: 'service_migration' },
+    })
   );
-};
+
+const MigrationCloud: React.FC = () => (
+  <PageLayout
+    title="Souveraineté cloud"
+    badge="03 · Souveraineté"
+    badgeVariant="accent"
+    subtitle="Migrez vos actifs vers des infrastructures cloud européennes protégées : performance et indépendance."
+    maxWidth="wide"
+  >
+    <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="card-porcelain p-8 md:p-10"
+      >
+        <h2 className="headline text-2xl md:text-3xl mb-4">L'approche stratégique</h2>
+        <p className="text-graphite leading-relaxed mb-8">
+          La migration n'est pas une fin, c'est un nouveau départ. Architecture agile qui s'adapte à vos
+          besoins réels, transition sans interruption de service.
+        </p>
+        <ul className="space-y-3">
+          {FEATURES.map((f) => (
+            <li key={f} className="flex items-start gap-3 text-graphite">
+              <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="rounded-3xl bg-ink text-pure p-8 md:p-10 shadow-tactile"
+      >
+        <h2 className="headline text-2xl md:text-3xl text-pure mb-8">Résultats attendus</h2>
+        <div className="space-y-8">
+          {RESULTS.map((r) => (
+            <div key={r.label}>
+              <div className="text-5xl md:text-6xl font-extrabold tracking-tight text-pure">{r.value}</div>
+              <p className="mt-2 text-xs font-mono uppercase tracking-widest text-pure/50">{r.label}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+
+    {/* CTA bottom */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="card-porcelain p-10 md:p-14 text-center"
+    >
+      <h2 className="headline text-2xl md:text-3xl mb-4">Prêt pour la transition ?</h2>
+      <p className="text-graphite max-w-2xl mx-auto mb-8 leading-relaxed">
+        Nos experts vous accompagnent pour garantir une transition fluide vers une infrastructure souveraine et performante.
+      </p>
+      <button onClick={triggerSmartForm} className="btn-tactile group text-sm">
+        Demander une étude de valeur
+        <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+      </button>
+    </motion.div>
+  </PageLayout>
+);
 
 export default MigrationCloud;

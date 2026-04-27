@@ -8,16 +8,13 @@ const renderBlock = (block: ArticleBlock, i: number) => {
   switch (block.type) {
     case 'h2':
       return (
-        <h2
-          key={i}
-          className="text-2xl md:text-3xl font-black font-serif uppercase tracking-tight mt-14 mb-6 text-zinc-900"
-        >
+        <h2 key={i} className="headline text-2xl md:text-3xl mt-12 mb-5">
           {block.text}
         </h2>
       );
     case 'p':
       return (
-        <p key={i} className="font-serif text-lg text-zinc-600 leading-relaxed mb-6">
+        <p key={i} className="text-lg text-graphite leading-relaxed mb-5">
           {block.text}
         </p>
       );
@@ -25,9 +22,9 @@ const renderBlock = (block: ArticleBlock, i: number) => {
       return (
         <ul key={i} className="mb-6 space-y-3">
           {block.items.map((item, j) => (
-            <li key={j} className="flex items-start gap-4">
-              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0" />
-              <span className="font-serif text-lg text-zinc-600 leading-relaxed">{item}</span>
+            <li key={j} className="flex items-start gap-3 text-lg text-graphite leading-relaxed">
+              <span className="mt-2.5 inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+              <span>{item}</span>
             </li>
           ))}
         </ul>
@@ -43,154 +40,133 @@ const ArticlePage: React.FC = () => {
 
   if (!article) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
-        <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-zinc-400 mb-4">
-          404 // ARTICLE INTROUVABLE
-        </div>
-        <h1 className="text-5xl font-black font-serif uppercase tracking-tighter mb-8">
-          Cet article n'existe pas.
-        </h1>
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-3 text-[10px] font-mono uppercase tracking-widest bg-black text-white px-8 py-4 border-[2px] border-black shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all duration-200"
-        >
-          <ArrowLeft className="w-4 h-4" />
+      <main className="min-h-[60vh] bg-pure flex flex-col items-center justify-center px-6 py-24 text-center">
+        <span className="badge-pill badge-pill-danger mb-6">404 · Article introuvable</span>
+        <h1 className="headline text-4xl md:text-5xl mb-6">Cet article n'existe pas</h1>
+        <Link to="/blog" className="btn-tactile text-sm">
+          <ArrowLeft size={16} />
           Retour au blog
         </Link>
-      </div>
+      </main>
     );
   }
 
   const formattedDate = new Date(article.date).toLocaleDateString('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    day: 'numeric', month: 'long', year: 'numeric',
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <main className="bg-pure">
       {/* Back nav */}
-      <div className="border-b border-zinc-100 px-6 py-4">
-        <div className="container mx-auto">
+      <div className="border-b border-[--color-ghost] py-4">
+        <div className="mx-auto max-w-4xl px-6">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-zinc-400 hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-medium text-mist hover:text-ink transition-colors"
           >
-            <ArrowLeft className="w-3 h-3" />
+            <ArrowLeft size={14} />
             Retour au blog
           </Link>
         </div>
       </div>
 
-      {/* Article header */}
-      <header className="py-20 px-6 border-b-[3px] border-black bg-white">
-        <div className="container mx-auto max-w-4xl">
+      {/* Article header — porcelaine bg */}
+      <header className="bg-porcelain border-b border-[--color-ghost] py-16 md:py-24">
+        <div className="mx-auto max-w-4xl px-6">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-6"
           >
-            <span className="text-[9px] font-mono uppercase tracking-widest px-3 py-1.5 bg-black text-white">
+            <span className="badge-pill">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-60" />
               {article.categorie}
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-6xl lg:text-7xl font-black font-serif uppercase tracking-tight leading-[0.9] mb-10"
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="headline mt-6 text-4xl md:text-5xl lg:text-6xl"
           >
             {article.titre}
           </motion.h1>
 
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-400 border-t border-zinc-100 pt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-medium text-mist border-t border-[--color-ghost] pt-6"
           >
-            <span className="flex items-center gap-2">
-              <User className="w-3 h-3" />
-              {article.auteur}
-            </span>
-            <span className="flex items-center gap-2">
-              <Calendar className="w-3 h-3" />
-              {formattedDate}
-            </span>
-            <span className="flex items-center gap-2">
-              <Clock className="w-3 h-3" />
-              {article.tempsLecture} min de lecture
-            </span>
+            <span className="inline-flex items-center gap-2"><User size={13} />{article.auteur}</span>
+            <span className="inline-flex items-center gap-2"><Calendar size={13} />{formattedDate}</span>
+            <span className="inline-flex items-center gap-2"><Clock size={13} />{article.tempsLecture} min de lecture</span>
           </motion.div>
         </div>
       </header>
 
-      {/* Article content */}
-      <article className="py-20 px-6">
-        <div className="container mx-auto max-w-3xl">
+      {/* Body */}
+      <article className="py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {/* Lead paragraph styled distinctly */}
-            <p className="text-xl md:text-2xl font-serif text-zinc-700 leading-relaxed border-l-[4px] border-brand-accent pl-6 mb-12">
+            <p className="text-xl md:text-2xl text-ink leading-relaxed border-l-4 border-accent pl-6 mb-12 italic font-medium">
               {article.excerpt}
             </p>
-
-            {/* Body blocks */}
             {article.contenu.map((block, i) => renderBlock(block, i))}
           </motion.div>
         </div>
       </article>
 
       {/* CTA end of article */}
-      <section className="px-6 pb-24">
-        <div className="container mx-auto max-w-3xl">
+      <section className="px-6 pb-20">
+        <div className="mx-auto max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="border-[3px] border-black p-10 md:p-14 shadow-tactile bg-zinc-50 flex flex-col md:flex-row items-center gap-8"
+            transition={{ duration: 0.6 }}
+            className="card-porcelain p-8 md:p-12 flex flex-col md:flex-row items-center gap-8"
           >
             <div className="flex-1">
-              <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-brand-accent mb-3">
-                AUDIT GRATUIT //
-              </div>
-              <h3 className="text-2xl md:text-3xl font-black font-serif uppercase tracking-tighter mb-3">
-                Passez à l'action maintenant.
-              </h3>
-              <p className="font-serif text-zinc-500 leading-relaxed">
-                Nos experts analysent votre infrastructure et identifient vos vulnérabilités clés — sans engagement, sans frais.
+              <div className="text-xs font-mono uppercase tracking-widest text-accent mb-2">Audit gratuit</div>
+              <h3 className="headline text-xl md:text-2xl mb-3">Passez à l'action maintenant</h3>
+              <p className="text-graphite leading-relaxed">
+                Nos experts analysent votre infrastructure et identifient vos vulnérabilités clés —
+                sans engagement, sans frais.
               </p>
             </div>
-            <Link
-              to="/#contact"
-              className="flex-shrink-0 inline-flex items-center gap-3 bg-black text-white px-10 py-5 text-[10px] font-mono uppercase tracking-widest border-[2px] border-black shadow-tactile hover:shadow-tactile-accent hover:bg-brand-accent transition-all duration-200"
+            <button
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent('open-smart-form', {
+                    detail: { intent: 'audit_nis2', source: 'article_cta' },
+                  })
+                )
+              }
+              className="btn-tactile shrink-0 text-sm"
             >
-              Demander un audit gratuit
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              Demander un audit
+              <ArrowRight size={14} />
+            </button>
           </motion.div>
         </div>
       </section>
 
       {/* Back to blog */}
-      <div className="border-t-[3px] border-black px-6 py-8 bg-white">
-        <div className="container mx-auto max-w-3xl">
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-3 text-[10px] font-mono uppercase tracking-widest border-[2px] border-black px-6 py-3 shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1 hover:bg-black hover:text-white transition-all duration-200"
-          >
-            <ArrowLeft className="w-4 h-4" />
+      <div className="border-t border-[--color-ghost] py-10 bg-porcelain">
+        <div className="mx-auto max-w-3xl px-6">
+          <Link to="/blog" className="btn-tactile-ghost text-xs">
+            <ArrowLeft size={14} />
             Tous les articles
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

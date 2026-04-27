@@ -1,11 +1,16 @@
 import React from 'react';
+import PageLayout from '../../components/PageLayout';
+import LegalContent from '../../components/LegalContent';
 
 const CguOutbound: React.FC = () => (
-  <div className="max-w-3xl mx-auto px-6 py-16">
-    <h1 className="text-3xl font-serif font-bold mb-2">Politique de prospection commerciale</h1>
-    <p className="text-sm text-zinc-500 mb-12">Mise a jour : 26 avril 2026</p>
-
-    <section className="space-y-6 text-zinc-700 leading-relaxed">
+  <PageLayout
+    title="Politique de prospection commerciale"
+    badge="Légal · Outbound"
+    subtitle="Mise à jour : 26 avril 2026"
+    maxWidth="prose"
+  >
+    <LegalContent>
+    <section className="space-y-6">
       <div>
         <h2 className="text-xl font-bold mb-2 text-zinc-900">1. Qui vous contacte ?</h2>
         <p>
@@ -98,10 +103,11 @@ const CguOutbound: React.FC = () => (
       </div>
     </section>
 
-    <div className="mt-16 pt-8 border-t border-zinc-200 text-sm text-zinc-500">
-      <p>Une question ? <a href="mailto:contact@getagenzia.fr" className="underline">contact@getagenzia.fr</a></p>
+    <div className="mt-16 pt-8 border-t border-[--color-ghost] text-sm text-mist">
+      <p>Une question ? <a href="mailto:contact@getagenzia.fr">contact@getagenzia.fr</a></p>
     </div>
-  </div>
+    </LegalContent>
+  </PageLayout>
 );
 
 export default CguOutbound;
