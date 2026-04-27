@@ -1,0 +1,91 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Glicker&display=swap');
+
+.slidev-layout.linkedin-cover, .slidev-layout.linkedin-slide, .slidev-layout.linkedin-end {
+  background-color: #F8F9FA;
+  font-family: 'Inter', sans-serif;
+  color: #000000;
+  padding: 80px;
+  text-align: center;
+  position: relative;
+}
+
+.slidev-layout.linkedin-cover h1, .slidev-layout.linkedin-slide h1, .slidev-layout.linkedin-end h1 {
+  font-family: 'Glicker', sans-serif;
+  font-size: 4rem;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.slidev-layout.linkedin-cover p, .slidev-layout.linkedin-slide p, .slidev-layout.linkedin-end p {
+  font-size: 1.5rem;
+  color: #71717a;
+}
+
+.slidev-layout.linkedin-cover::before, .slidev-layout.linkedin-slide::before, .slidev-layout.linkedin-end::before, .slidev-layout.hook::before, .slidev-layout.bento::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 60px;
+  height: 60px;
+  background-image: url('/favicon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.slidev-layout.hook {
+  background-color: #F8F8F8;
+  text-align: center;
+  padding: 80px;
+}
+
+.slidev-layout h1, .slidev-layout h2, .slidev-layout h3 {
+  font-family: 'Glicker', sans-serif;
+  color: #000;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.slidev-layout p, .slidev-layout li {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.75rem;
+  line-height: 1.6;
+  color: #71717a;
+}
+
+.slidev-layout.hook h1 {
+  font-size: 5.5rem;
+  font-weight: 900;
+}
+
+.slidev-layout.bento {
+  background-color: #F8F8F8;
+  padding: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  background-color: #006AFF;
+  width: calc(100% * var(--slidev-slide-current-no) / var(--slidev-slide-total));
+  transition: width 0.3s;
+}
+
+
+
+.slidev-layout.linkedin-end a {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background-color: #0066FF;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+}

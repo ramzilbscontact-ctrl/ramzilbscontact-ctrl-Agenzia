@@ -16,12 +16,14 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Ancres pointent vers /#anchor : marche depuis n'importe quelle page
+  // (router envoie sur Home puis Home gère le scroll vers l'ancre via le hook useHashScroll)
   const navLinks = [
-    { name: "Vision", href: "#nis2", internal: false },
-    { name: "The Outcome", href: "#services", internal: false },
-    { name: "Pricing", href: "#tarifs", internal: false },
+    { name: "Vision", href: "/#nis2", internal: true },
+    { name: "The Outcome", href: "/#services", internal: true },
+    { name: "Pricing", href: "/#tarifs", internal: true },
     { name: "Blog", href: "/blog", internal: true },
-    { name: "Connect", href: "#contact", internal: false },
+    { name: "Connect", href: "/#contact", internal: true },
   ];
 
   return (
@@ -57,13 +59,18 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4 md:gap-6">
-          <button className="hidden lg:flex items-center gap-2 border-[1px] border-black px-6 py-2 text-[10px] font-mono uppercase hover:bg-black hover:text-white transition-colors duration-100 group">
+          {/* Indicateur visuel statut système — purement informatif, non cliquable */}
+          <div
+            role="status"
+            aria-label="Statut système opérationnel"
+            className="hidden lg:flex items-center gap-2 border-[1px] border-black px-6 py-2 text-[10px] font-mono uppercase select-none cursor-default"
+          >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
             </span>
             System Status: Active
-          </button>
+          </div>
           
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
