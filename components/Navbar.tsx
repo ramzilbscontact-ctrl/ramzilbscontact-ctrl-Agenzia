@@ -59,19 +59,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4 md:gap-6">
-          {/* Indicateur visuel statut système — purement informatif, non cliquable */}
-          <div
-            role="status"
-            aria-label="Statut système opérationnel"
-            className="hidden lg:flex items-center gap-2 border-[1px] border-black px-6 py-2 text-[10px] font-mono uppercase select-none cursor-default"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
-            </span>
-            System Status: Active
-          </div>
-          
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
             className="hidden sm:block bg-black text-white px-6 py-2 text-[10px] font-black uppercase tracking-widest hover:bg-brand-accent border border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
@@ -140,13 +127,6 @@ const Navbar = () => {
               >
                 Audit Gratuit
               </button>
-              <div className="flex items-center justify-center gap-2 text-[10px] font-mono uppercase tracking-widest text-zinc-400">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-accent"></span>
-                </span>
-                System Status: Active
-              </div>
             </div>
           </motion.div>
         )}
