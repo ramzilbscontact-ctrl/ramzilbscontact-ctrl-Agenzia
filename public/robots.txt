@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://getagenzia.fr/sitemap.xml
+
+# Crawl-delay pour bots aggressifs
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10

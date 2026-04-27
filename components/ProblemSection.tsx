@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { AlertCircle, ShieldAlert, TrendingDown } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
 
 const ProblemSection = () => {
   const problems = [
@@ -68,6 +68,28 @@ const ProblemSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA mid-funnel: capture l'utilisateur après l'effet "peur NIS2" — moment psychologique optimal */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-16 md:mt-20 flex flex-col md:flex-row items-center justify-center gap-6 text-center"
+        >
+          <p className="text-base md:text-lg font-serif text-zinc-700 max-w-xl">
+            Ces risques s'appliquent à votre PME ?{' '}
+            <span className="font-bold text-black">Mesurez votre exposition en 90 secondes.</span>
+          </p>
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'problem_section' } }))}
+            className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 text-xs font-mono uppercase tracking-widest hover:bg-brand-accent border-2 border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+          >
+            <ShieldCheck size={16} />
+            Vérifier mon score NIS2
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );

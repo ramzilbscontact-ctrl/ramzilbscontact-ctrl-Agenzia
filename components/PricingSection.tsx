@@ -149,6 +149,27 @@ const PricingSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA mid-funnel: capture les hésitants qui veulent une recommandation perso avant de choisir un plan */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-16 md:mt-20 max-w-2xl mx-auto text-center"
+        >
+          <p className="text-base md:text-lg font-serif text-zinc-700 mb-6">
+            Pas sûr du plan adapté à votre PME ?{' '}
+            <span className="font-bold text-black">On audite gratuitement votre infra et on recommande la bonne formule.</span>
+          </p>
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'pricing_section' } }))}
+            className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white border-2 border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+          >
+            Mon plan en 5 minutes
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );
