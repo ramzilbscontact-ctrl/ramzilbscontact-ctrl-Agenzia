@@ -164,42 +164,49 @@ export const LeadMagnetSmartForm: React.FC = () => {
 
   if (!isOpen) return null;
 
+  const inputBase =
+    'w-full bg-pure border border-[--color-ghost-strong] rounded-2xl px-4 py-3 text-sm text-ink placeholder-fog focus:outline-none focus:border-ink focus:ring-2 focus:ring-ink/5 transition';
+  const labelBase = 'block text-xs font-semibold text-graphite mb-2';
+
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 p-4" onClick={close}>
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-ink/30 backdrop-blur-sm p-4"
+      onClick={close}
+    >
       <div
-        className="relative w-full max-w-lg bg-white border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-pure rounded-3xl shadow-tactile border border-[--color-ghost-strong]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close */}
         <button
           onClick={close}
-          className="absolute top-4 right-4 p-2 hover:bg-zinc-100"
           aria-label="Fermer"
+          className="absolute top-4 right-4 z-10 h-9 w-9 inline-flex items-center justify-center rounded-full bg-pure border border-[--color-ghost-strong] hover:bg-porcelain transition"
         >
-          <X size={20} />
+          <X size={16} />
         </button>
 
         {/* Progress bar */}
-        <div className="h-1 bg-zinc-100">
+        <div className="h-1 bg-porcelain">
           <div
-            className="h-full bg-[#0066FF] transition-all"
+            className="h-full bg-accent transition-all duration-300"
             style={{ width: step === 'A' ? '33%' : step === 'B' ? '66%' : '100%' }}
           />
         </div>
 
-        <div className="p-8">
+        <div className="p-7 md:p-9">
           {/* Step A */}
           {step === 'A' && (
             <form onSubmit={handleEnrich}>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-2">
-                01 / 03 — Identification
-              </p>
-              <h2 className="text-2xl font-serif font-bold mb-2">{copy.headline}</h2>
-              <p className="text-sm text-zinc-600 mb-6">{copy.subheadline}</p>
+              <span className="badge-pill inline-flex">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-60" />
+                01 / 03 · Identification
+              </span>
+              <h2 className="headline mt-5 text-2xl">{copy.headline}</h2>
+              <p className="mt-3 text-sm text-graphite leading-relaxed">{copy.subheadline}</p>
 
-              <label className="block mb-4">
-                <span className="text-xs font-mono uppercase tracking-widest mb-1 block">
-                  Email professionnel
-                </span>
+              <label className="block mt-6">
+                <span className={labelBase}>Email professionnel</span>
                 <input
                   type="email"
                   required
@@ -207,20 +214,20 @@ export const LeadMagnetSmartForm: React.FC = () => {
                   placeholder="vous@entreprise.fr"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border-2 border-black px-4 py-3 text-base focus:outline-none focus:bg-zinc-50"
+                  className={inputBase}
                 />
               </label>
 
               {(personaId === 'P12' || intent === 'assurance') && (
-                <label className="flex items-start gap-2 mb-4 cursor-pointer">
+                <label className="mt-4 flex items-start gap-3 p-3 rounded-2xl border border-[--color-ghost-strong] bg-porcelain cursor-pointer">
                   <input
                     type="checkbox"
                     checked={insuranceRefused}
                     onChange={(e) => setInsuranceRefused(e.target.checked)}
-                    className="mt-1"
+                    className="mt-0.5 accent-ink"
                   />
-                  <span className="text-sm">
-                    Mon assureur cyber a refusé ma couverture / non-renouvelé récemment
+                  <span className="text-sm text-graphite">
+                    Mon assureur cyber a refusé / non-renouvelé récemment
                   </span>
                 </label>
               )}
@@ -228,18 +235,27 @@ export const LeadMagnetSmartForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={enriching || !email}
-                className="w-full bg-black text-white px-6 py-4 text-sm font-mono uppercase tracking-widest hover:bg-zinc-800 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="mt-6 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
-                {enriching ? <><Loader2 className="animate-spin" size={16} /> Analyse en cours…</> : <>{copy.cta} <ArrowRight size={16} /></>}
+                {enriching ? (
+                  <><Loader2 className="animate-spin" size={16} /> Analyse en cours…</>
+                ) : (
+                  <>{copy.cta} <ArrowRight size={16} /></>
+                )}
               </button>
 
               {submitError && (
-                <p className="text-xs text-red-600 mt-3">Erreur : {submitError}</p>
+                <p className="mt-3 text-xs text-danger">Erreur : {submitError}</p>
               )}
 
-              <p className="text-[10px] text-zinc-400 mt-6 leading-relaxed">
-                <Shield size={10} className="inline mr-1" />
-                RGPD-by-design · Aucune donnée vendue · <a href="/cgu-outbound" className="underline">Politique de prospection</a>
+              <p className="mt-6 text-[10px] text-fog leading-relaxed inline-flex items-start gap-1.5">
+                <Shield size={11} className="mt-0.5 shrink-0" />
+                <span>
+                  RGPD-by-design · Aucune donnée vendue ·{' '}
+                  <a href="/cgu-outbound" className="text-accent underline-offset-4 hover:underline">
+                    Politique de prospection
+                  </a>
+                </span>
               </p>
             </form>
           )}
@@ -247,78 +263,88 @@ export const LeadMagnetSmartForm: React.FC = () => {
           {/* Step B */}
           {step === 'B' && enrichData && (
             <div>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-2">
-                02 / 03 — Validation
-              </p>
-              <h2 className="text-2xl font-serif font-bold mb-4">Confirmez vos informations</h2>
+              <span className="badge-pill inline-flex">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-current opacity-60" />
+                02 / 03 · Validation
+              </span>
+              <h2 className="headline mt-5 text-2xl">Confirmez vos informations</h2>
 
               {enrichData.sirene && (
-                <div className="bg-zinc-50 border border-zinc-200 p-4 mb-4 text-xs">
-                  <p className="font-mono text-zinc-500 mb-1">Détecté automatiquement</p>
-                  <p>
+                <div className="mt-5 rounded-2xl bg-porcelain border border-[--color-ghost-strong] p-4 text-sm">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-fog mb-1">
+                    Détecté automatiquement (Sirene)
+                  </div>
+                  <p className="text-ink">
                     <strong>{enrichData.sirene.nom_complet}</strong>
-                    {enrichData.sirene.naf_label && <> · {enrichData.sirene.naf_label}</>}
+                    {enrichData.sirene.naf_label && (
+                      <span className="text-graphite"> · {enrichData.sirene.naf_label}</span>
+                    )}
                   </p>
-                  {enrichData.sirene.nis2_classification !== 'hors_scope' && (
-                    <p className="mt-1 text-[#0066FF]">
-                      ⚠️ Classification NIS2 : <strong>
-                        {enrichData.sirene.nis2_classification === 'essentielle' ? 'Entité essentielle' : 'Entité importante'}
-                      </strong>
-                    </p>
-                  )}
+                  {enrichData.sirene.nis2_classification &&
+                    enrichData.sirene.nis2_classification !== 'hors_scope' && (
+                      <p className="mt-2 text-accent text-xs inline-flex items-center gap-1.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                        Classification NIS2 :{' '}
+                        <strong>
+                          {enrichData.sirene.nis2_classification === 'essentielle'
+                            ? 'Entité essentielle'
+                            : 'Entité importante'}
+                        </strong>
+                      </p>
+                    )}
                 </div>
               )}
 
-              <div className="space-y-3">
+              <div className="mt-5 space-y-4">
                 <label className="block">
-                  <span className="text-xs font-mono uppercase tracking-widest mb-1 block">Société</span>
+                  <span className={labelBase}>Société</span>
                   <input
                     type="text"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    className="w-full border-2 border-black px-3 py-2 text-sm"
+                    className={inputBase}
                   />
                 </label>
 
                 <div className="grid grid-cols-2 gap-3">
                   <label>
-                    <span className="text-xs font-mono uppercase tracking-widest mb-1 block">Prénom</span>
+                    <span className={labelBase}>Prénom</span>
                     <input
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full border-2 border-black px-3 py-2 text-sm"
+                      className={inputBase}
                     />
                   </label>
                   <label>
-                    <span className="text-xs font-mono uppercase tracking-widest mb-1 block">Nom</span>
+                    <span className={labelBase}>Nom</span>
                     <input
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      className="w-full border-2 border-black px-3 py-2 text-sm"
+                      className={inputBase}
                     />
                   </label>
                 </div>
 
                 <label className="block">
-                  <span className="text-xs font-mono uppercase tracking-widest mb-1 block">Fonction</span>
+                  <span className={labelBase}>Fonction</span>
                   <input
                     type="text"
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                     placeholder="Dirigeant / DSI / RSSI / DPO"
-                    className="w-full border-2 border-black px-3 py-2 text-sm"
+                    className={inputBase}
                   />
                 </label>
 
                 {personaId === 'P12' && (
                   <label className="block">
-                    <span className="text-xs font-mono uppercase tracking-widest mb-1 block">Assureur cyber actuel/sollicité</span>
+                    <span className={labelBase}>Assureur cyber actuel/sollicité</span>
                     <select
                       value={insuranceCompany}
                       onChange={(e) => setInsuranceCompany(e.target.value)}
-                      className="w-full border-2 border-black px-3 py-2 text-sm bg-white"
+                      className={inputBase}
                     >
                       <option value="generic">Autre / Plusieurs assureurs</option>
                       <option value="axa">AXA Cyber</option>
@@ -331,28 +357,39 @@ export const LeadMagnetSmartForm: React.FC = () => {
               </div>
 
               {/* Score live */}
-              <div className="mt-6 bg-black text-white p-4">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">
+              <div className="mt-6 rounded-2xl bg-ink text-pure p-5">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-pure/50 mb-1">
                   Score d'exposition estimé
                 </p>
-                <p className="text-3xl font-bold">
-                  {enrichData.breach_risk_score}/100
+                <p className="text-4xl font-extrabold tracking-tight">
+                  {enrichData.breach_risk_score}<span className="text-pure/40 text-2xl">/100</span>
                 </p>
                 {enrichData.breach_signal && (
-                  <p className="text-[10px] text-red-400 mt-1">⚠️ Signal breach détecté</p>
+                  <p className="mt-2 text-xs text-danger inline-flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-danger" />
+                    Signal breach détecté
+                  </p>
                 )}
               </div>
 
-              <div className="flex gap-3 mt-6">
-                <button onClick={() => setStep('A')} className="px-4 py-3 border-2 border-black text-sm font-mono uppercase tracking-widest">
-                  <ArrowLeft size={14} />
+              <div className="mt-6 flex gap-2">
+                <button
+                  onClick={() => setStep('A')}
+                  className="inline-flex items-center justify-center px-4 rounded-full border border-[--color-ghost-strong] bg-pure hover:bg-porcelain transition"
+                  aria-label="Retour"
+                >
+                  <ArrowLeft size={16} />
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="flex-1 bg-[#0066FF] text-white px-6 py-3 text-sm font-mono uppercase tracking-widest hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft disabled:opacity-50 disabled:cursor-not-allowed transition"
                 >
-                  {submitting ? <><Loader2 className="animate-spin" size={16} /> Génération…</> : <>Recevoir mon rapport <ArrowRight size={16} /></>}
+                  {submitting ? (
+                    <><Loader2 className="animate-spin" size={16} /> Génération…</>
+                  ) : (
+                    <>Recevoir mon rapport <ArrowRight size={16} /></>
+                  )}
                 </button>
               </div>
             </div>
@@ -360,17 +397,20 @@ export const LeadMagnetSmartForm: React.FC = () => {
 
           {/* Step C */}
           {step === 'C' && submitted && (
-            <div className="text-center py-8">
-              <CheckCircle2 size={56} className="mx-auto text-green-600 mb-4" />
-              <h2 className="text-2xl font-serif font-bold mb-3">Reçu</h2>
-              <p className="text-sm text-zinc-600 mb-6 max-w-sm mx-auto">{resultMessage}</p>
+            <div className="text-center py-6">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-success-soft mb-5">
+                <CheckCircle2 size={32} className="text-success" />
+              </div>
+              <h2 className="headline text-2xl mb-3">Bien reçu</h2>
+              <p className="text-sm text-graphite max-w-sm mx-auto leading-relaxed">{resultMessage}</p>
               <a
                 href="https://cal.eu/getagenzia/discovery-15"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-black text-white px-6 py-3 text-xs font-mono uppercase tracking-widest hover:bg-zinc-800"
+                className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft transition"
               >
-                Réserver 15 min avec Ramzi →
+                Réserver un appel
+                <ArrowRight size={14} />
               </a>
             </div>
           )}

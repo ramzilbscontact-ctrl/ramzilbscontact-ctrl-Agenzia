@@ -1,9 +1,13 @@
+/**
+ * ChatWidget — Agenzia Pure (sticky bottom-right pill noir + popover glass-card).
+ *
+ * 3 actions au tap : parler à Clara (IA voix ElevenLabs) / se faire rappeler (callback) / diagnostic NIS2.
+ */
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X, Phone, ArrowRight, Mic, PhoneCall } from 'lucide-react';
+import { MessageCircle, X, ArrowRight, Mic, PhoneCall, Sparkles } from 'lucide-react';
 import { trackEvent } from '../lib/posthog';
 
-// ElevenLabs widget custom element typing
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -21,146 +25,154 @@ const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showClara, setShowClara] = useState(false);
 
-  const openLeadMagnetInCallbackMode = () => {
+  const dispatchSmartForm = () => {
+    trackEvent('chat_widget_cta_clicked', { cta: 'diagnostic_nis2' });
+    window.dispatchEvent(
+      new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'chat_widget' } })
+    );
+    setIsOpen(false);
+  };
+
+  const dispatchCallback = () => {
+    trackEvent('chat_widget_cta_clicked', { cta: 'se_faire_rappeler' });
     window.dispatchEvent(new CustomEvent('open-lead-magnet', { detail: { intent: 'callback' } }));
     setIsOpen(false);
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-4">
+      {/* Popover */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="mb-6 w-80 bg-white border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.96 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="w-[340px] glass-card rounded-3xl overflow-hidden"
           >
-            <div className="bg-black p-8 text-white">
-              <div className="flex justify-between items-start mb-6">
-                <div className="bg-white p-2">
-                  <MessageCircle className="w-6 h-6 text-black" />
+            <div className="bg-ink text-pure px-6 py-5 flex items-start justify-between">
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-widest text-pure/50 mb-1">
+                  Une question ?
                 </div>
-                <button 
-                  onClick={() => {
-                    setIsOpen(false);
-                    trackEvent('chat_widget_closed');
-                  }}
-                  className="p-2 hover:bg-zinc-800 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <h3 className="headline text-xl text-pure">Comment vous aider ?</h3>
               </div>
-              <h3 className="text-2xl font-serif font-bold uppercase tracking-tighter mb-2 italic">Une question ?</h3>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">Appelez-nous directement</p>
+              <button
+                onClick={() => { setIsOpen(false); trackEvent('chat_widget_closed'); }}
+                aria-label="Fermer"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-full hover:bg-pure/10 transition"
+              >
+                <X size={16} />
+              </button>
             </div>
-            
-            <div className="p-8">
-              {/* Clara IA voice agent — primary CTA */}
+
+            <div className="p-4 space-y-2">
+              {/* Clara IA */}
               <button
                 onClick={() => {
                   setShowClara(true);
                   trackEvent('chat_widget_cta_clicked', { cta: 'parler_a_clara' });
                 }}
-                className="flex items-center gap-6 mb-4 p-6 border-2 border-black hover:bg-black hover:text-white transition-colors group w-full text-left"
+                className="w-full flex items-center gap-4 p-4 rounded-2xl bg-pure border border-[--color-ghost-strong] hover:border-ink hover:shadow-card transition-all text-left"
               >
-                <div className="bg-black p-3 group-hover:bg-white transition-colors">
-                  <Mic className="w-5 h-5 text-white group-hover:text-black" />
+                <div className="h-10 w-10 rounded-2xl bg-porcelain border border-[--color-ghost-strong] flex items-center justify-center text-graphite">
+                  <Mic size={18} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Assistante IA 24/7</div>
-                  <div className="text-lg font-serif font-bold tracking-tight">Parler à Clara</div>
+                <div className="flex-1">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-fog">Assistante IA 24/7</div>
+                  <div className="font-semibold text-ink">Parler à Clara</div>
                 </div>
+                <ArrowRight size={14} className="text-mist" />
               </button>
 
-              {/* Callback — secondary CTA (appel sortant via Clara) */}
+              {/* Callback */}
               <button
-                onClick={() => {
-                  trackEvent('chat_widget_cta_clicked', { cta: 'se_faire_rappeler' });
-                  openLeadMagnetInCallbackMode();
-                }}
-                className="flex items-center gap-6 mb-4 p-6 border-2 border-black hover:bg-black hover:text-white transition-colors group w-full text-left"
+                onClick={dispatchCallback}
+                className="w-full flex items-center gap-4 p-4 rounded-2xl bg-pure border border-[--color-ghost-strong] hover:border-ink hover:shadow-card transition-all text-left"
               >
-                <div className="bg-black p-3 group-hover:bg-white transition-colors">
-                  <PhoneCall className="w-5 h-5 text-white group-hover:text-black" />
+                <div className="h-10 w-10 rounded-2xl bg-porcelain border border-[--color-ghost-strong] flex items-center justify-center text-graphite">
+                  <PhoneCall size={18} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1">Rappel express &lt; 2 min</div>
-                  <div className="text-lg font-serif font-bold tracking-tight">Se faire rappeler</div>
+                <div className="flex-1">
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-fog">Rappel express &lt; 2 min</div>
+                  <div className="font-semibold text-ink">Se faire rappeler</div>
                 </div>
+                <ArrowRight size={14} className="text-mist" />
               </button>
 
+              {/* Smart-form CTA principal */}
               <button
-                onClick={() => {
-                  trackEvent('chat_widget_cta_clicked', { cta: 'diagnostic_nis2' });
-                  window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }));
-                  setIsOpen(false);
-                }}
-                className="flex items-center justify-between w-full bg-black text-white px-8 py-4 text-[10px] font-mono uppercase tracking-widest hover:bg-zinc-800 transition-colors group"
+                onClick={dispatchSmartForm}
+                className="w-full inline-flex items-center justify-between gap-3 px-5 py-3.5 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft transition-all mt-3"
               >
-                Diagnostic NIS2 gratuit
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span className="inline-flex items-center gap-2">
+                  <Sparkles size={14} />
+                  Diagnostic NIS2 gratuit
+                </span>
+                <ArrowRight size={14} />
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Clara widget — full ElevenLabs embed when opened */}
+      {/* Clara widget */}
       <AnimatePresence>
         {showClara && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed bottom-8 right-8 z-[110] w-96 bg-white border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.96 }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-24 right-6 z-[110] w-[380px] glass-card rounded-3xl overflow-hidden"
           >
-            <div className="bg-black p-4 flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="bg-white p-2">
-                  <Mic className="w-4 h-4 text-black" />
+            <div className="bg-ink text-pure px-5 py-4 flex items-center justify-between">
+              <div className="inline-flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-pure/10 flex items-center justify-center">
+                  <Mic size={14} />
                 </div>
-                <span className="text-white font-serif font-bold text-lg">Clara</span>
+                <span className="font-semibold">Clara · IA Agenzia</span>
               </div>
               <button
-                onClick={() => {
-                  setShowClara(false);
-                  trackEvent('clara_widget_closed');
-                }}
-                className="p-2 hover:bg-zinc-800 transition-colors"
+                onClick={() => { setShowClara(false); trackEvent('clara_widget_closed'); }}
+                aria-label="Fermer Clara"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-full hover:bg-pure/10 transition"
               >
-                <X className="w-4 h-4 text-white" />
+                <X size={14} />
               </button>
             </div>
-            <div className="p-6 bg-white">
-              <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 mb-4">
-                Autorisez le micro quand votre navigateur le demande
+            <div className="p-5 bg-pure">
+              <p className="text-xs text-mist mb-3">
+                Autorisez le micro quand votre navigateur le demande.
               </p>
               <elevenlabs-convai agent-id={CLARA_AGENT_ID} />
-              <p className="text-[10px] text-zinc-400 mt-4 leading-relaxed">
-                Clara est une IA. Conversations traitées selon le RGPD.
-                Pour données sensibles, utilisez <a href="mailto:hello@getagenzia.fr" className="underline">notre email</a>.
+              <p className="text-[10px] text-fog mt-4 leading-relaxed">
+                Clara est une IA. Conversations traitées selon le RGPD. Pour données sensibles, écrivez à{' '}
+                <a href="mailto:hello@getagenzia.fr" className="text-accent hover:underline">notre email</a>.
               </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Pill button principal */}
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.97 }}
         onClick={() => {
           const next = !isOpen;
           setIsOpen(next);
           trackEvent(next ? 'chat_widget_opened' : 'chat_widget_closed');
         }}
-        className="bg-black text-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all flex items-center gap-4 group"
+        className="inline-flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-ink text-pure shadow-tactile font-medium text-sm"
+        aria-label={isOpen ? 'Fermer le chat' : 'Ouvrir le chat'}
       >
         <div className="relative">
-          <MessageCircle className="w-6 h-6" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-brand-accent rounded-full border-2 border-black animate-pulse" />
+          <MessageCircle size={18} />
+          <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-success ring-2 ring-ink animate-pulse-soft" />
         </div>
-        <span className="text-[10px] font-mono uppercase tracking-widest hidden md:block">Une question ?</span>
+        <span className="hidden md:inline">Une question ?</span>
       </motion.button>
     </div>
   );

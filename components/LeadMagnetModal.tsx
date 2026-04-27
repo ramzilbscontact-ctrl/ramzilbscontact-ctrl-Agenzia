@@ -1,6 +1,16 @@
+/**
+ * LeadMagnetModal — Agenzia Pure (modal callback OR diagnostic, déclenché via custom event).
+ *
+ * Trigger:
+ *   window.dispatchEvent(new CustomEvent('open-lead-magnet', { detail: { intent: 'callback' } }))
+ *   ou intent: 'diagnostic'
+ *
+ * 2 modes :
+ * - callback : Clara fait un outbound call via FastAPI bridge
+ * - diagnostic : email confirmation immediate
+ */
 import React, { useState, useEffect } from 'react';
-import './LeadMagnetModal.css';
-import { X, Mail, Phone, CheckCircle2 } from 'lucide-react';
+import { X, Mail, Phone, CheckCircle2, Loader2 } from 'lucide-react';
 import CalEmbed from './CalEmbed';
 
 type Intent = 'diagnostic' | 'callback';
@@ -12,6 +22,10 @@ const BRIDGE_URL =
 const LEAD_MAGNET_WEBHOOK = `${BRIDGE_URL}/webhook/lead-magnet`;
 const CALLBACK_ENDPOINT = `${BRIDGE_URL}/webhook/callback-request`;
 
+const inputClass =
+  'w-full bg-pure border border-[--color-ghost-strong] rounded-2xl px-4 py-3 text-sm text-ink placeholder-fog focus:outline-none focus:border-ink focus:ring-2 focus:ring-ink/5 transition';
+const labelClass = 'block text-xs font-semibold text-graphite mb-2';
+
 const LeadMagnetModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,10 +34,8 @@ const LeadMagnetModal: React.FC = () => {
   const [intent, setIntent] = useState<Intent>('diagnostic');
   const [successMessage, setSuccessMessage] = useState<string>('');
 
-  const openModal = () => setIsOpen(true);
   const closeModal = () => {
     setIsOpen(false);
-    // Reset state après fermeture
     setTimeout(() => {
       setIsSubmitted(false);
       setError(null);
@@ -32,33 +44,16 @@ const LeadMagnetModal: React.FC = () => {
   };
 
   useEffect(() => {
-    const trigger = document.getElementById('open-lead-magnet');
     const handler = (e: Event) => {
-      e.preventDefault();
-      openModal();
-    };
-    if (trigger) {
-      trigger.addEventListener('click', handler);
-    }
-
-    const customHandler = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (detail?.intent === 'callback' || detail?.intent === 'diagnostic') {
         setIntent(detail.intent);
       }
-      openModal();
+      setIsOpen(true);
     };
-    window.addEventListener('open-lead-magnet', customHandler);
-
-    return () => {
-      if (trigger) trigger.removeEventListener('click', handler);
-      window.removeEventListener('open-lead-magnet', customHandler);
-    };
+    window.addEventListener('open-lead-magnet', handler);
+    return () => window.removeEventListener('open-lead-magnet', handler);
   }, []);
-
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) closeModal();
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,59 +67,45 @@ const LeadMagnetModal: React.FC = () => {
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
-      let response: Response;
-
-      if (intent === 'callback') {
-        // 📞 Trigger outbound call via FastAPI AI Bridge
-        response = await fetch(CALLBACK_ENDPOINT, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+      const endpoint = intent === 'callback' ? CALLBACK_ENDPOINT : LEAD_MAGNET_WEBHOOK;
+      const body = intent === 'callback'
+        ? {
             email: data.email,
             phone: data.phone,
             company_name: data.company_name || null,
             first_name: data.first_name || null,
             preferred_window: data.preferred_window || 'asap',
             consent_rgpd: true,
-          }),
-          signal: controller.signal,
-        });
-        if (response.ok) {
-          const res = await response.json();
-          setSuccessMessage(res.message || `On vous rappelle dans moins de 2 minutes au ${data.phone}.`);
-        }
-      } else {
-        // 📄 Diagnostic PDF → existing n8n lead magnet webhook
-        response = await fetch(LEAD_MAGNET_WEBHOOK, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...data,
-            intent: 'diagnostic',
-          }),
-          signal: controller.signal,
-        });
-        if (response.ok) {
-          setSuccessMessage('Merci ! Votre diagnostic arrive par email dans les prochaines minutes.');
-        }
-      }
+          }
+        : { ...data, intent: 'diagnostic' };
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
 
       clearTimeout(timeoutId);
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
+      if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Erreur ${response.status} : ${errorText.slice(0, 200)}`);
       }
+
+      if (intent === 'callback') {
+        const res = await response.json();
+        setSuccessMessage(res.message || `On vous rappelle dans moins de 2 minutes au ${data.phone}.`);
+      } else {
+        setSuccessMessage('Merci ! Votre diagnostic arrive par email dans les prochaines minutes.');
+      }
+      setIsSubmitted(true);
     } catch (err: any) {
       clearTimeout(timeoutId);
       if (err.name === 'AbortError') {
         setError("Délai d'attente dépassé. Vérifiez votre connexion et réessayez.");
       } else {
-        console.error('Error submitting form:', err);
         setError(err.message || 'Une erreur est survenue. Réessayez ou contactez hello@getagenzia.fr');
       }
     } finally {
@@ -135,147 +116,141 @@ const LeadMagnetModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-backdrop" onClick={handleBackdropClick}>
-      <div className="modal-card">
-        <button className="modal-close-btn" onClick={closeModal} aria-label="Fermer">
-          <X size={24} />
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-ink/30 backdrop-blur-sm p-4"
+      onClick={(e) => e.target === e.currentTarget && closeModal()}
+    >
+      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-pure rounded-3xl shadow-tactile border border-[--color-ghost-strong]">
+        <button
+          onClick={closeModal}
+          aria-label="Fermer"
+          className="absolute top-4 right-4 z-10 h-9 w-9 inline-flex items-center justify-center rounded-full bg-pure border border-[--color-ghost-strong] hover:bg-porcelain transition"
+        >
+          <X size={16} />
         </button>
 
-        {isSubmitted ? (
-          <div className="modal-success-message">
-            <CheckCircle2 size={48} color="#22c55e" style={{ marginBottom: 16 }} />
-            <h2>{intent === 'callback' ? 'On vous rappelle !' : 'Merci, vérifiez votre boîte mail !'}</h2>
-            <p>{successMessage}</p>
-            <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px solid #e5e7eb' }}>
-              <p style={{ fontSize: 12, color: '#6b7280', textAlign: 'center', marginBottom: 12 }}>
-                Préférez choisir un créneau précis ?
-              </p>
-              <CalEmbed compact />
-            </div>
-          </div>
-        ) : (
-          <>
-            <h2>Accédez à votre diagnostic NIS2 gratuit</h2>
-            <p className="modal-subtitle">
-              Compatible PME 50-250 salariés — Diagnostic offert en 7 minutes
-            </p>
-
-            {/* Intent selector */}
-            <div className="intent-selector">
-              <button
-                type="button"
-                className={`intent-btn ${intent === 'diagnostic' ? 'active' : ''}`}
-                onClick={() => setIntent('diagnostic')}
-              >
-                <Mail size={18} />
-                <span>Recevoir par email</span>
-              </button>
-              <button
-                type="button"
-                className={`intent-btn ${intent === 'callback' ? 'active' : ''}`}
-                onClick={() => setIntent('callback')}
-              >
-                <Phone size={18} />
-                <span>Être rappelé·e</span>
-                <span className="intent-badge">&lt; 2 min</span>
-              </button>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="email">Email professionnel *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="vous@entreprise.fr"
-                  required
-                  autoComplete="email"
-                />
+        <div className="p-7 md:p-9">
+          {isSubmitted ? (
+            <div className="text-center py-4">
+              <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-success-soft mb-5">
+                <CheckCircle2 size={32} className="text-success" />
               </div>
+              <h2 className="headline text-2xl mb-3">
+                {intent === 'callback' ? 'On vous rappelle !' : 'Vérifiez votre boîte mail'}
+              </h2>
+              <p className="text-sm text-graphite leading-relaxed max-w-sm mx-auto">{successMessage}</p>
 
-              {intent === 'callback' && (
-                <>
-                  <div className="form-group">
-                    <label htmlFor="phone">Téléphone *</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      placeholder="+33 6 12 34 56 78"
-                      pattern="^\+?[0-9\s\-]{8,}$"
-                      required
-                      autoComplete="tel"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="first_name">Prénom (facultatif)</label>
-                    <input
-                      type="text"
-                      id="first_name"
-                      name="first_name"
-                      placeholder="Marie"
-                      autoComplete="given-name"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="preferred_window">Quand vous rappeler ?</label>
-                    <select id="preferred_window" name="preferred_window" defaultValue="asap">
-                      <option value="asap">Maintenant (&lt; 2 min)</option>
-                      <option value="morning">Ce matin (9h-12h)</option>
-                      <option value="afternoon">Cet après-midi (14h-18h)</option>
-                      <option value="tomorrow">Demain</option>
-                    </select>
-                  </div>
-                </>
-              )}
-
-              <div className="form-group">
-                <label htmlFor="company_name">Entreprise (facultatif)</label>
-                <input
-                  type="text"
-                  id="company_name"
-                  name="company_name"
-                  placeholder="Nom de votre société"
-                  autoComplete="organization"
-                />
+              <div className="mt-6 pt-6 border-t border-[--color-ghost]">
+                <p className="text-xs text-mist mb-3">Préférez choisir un créneau précis ?</p>
+                <CalEmbed compact />
               </div>
-
-              {intent === 'diagnostic' && (
-                <div className="form-group">
-                  <label htmlFor="company_url">URL de l'entreprise (facultatif)</label>
-                  <input
-                    type="url"
-                    id="company_url"
-                    name="company_url"
-                    placeholder="https://votre-site.fr"
-                    autoComplete="url"
-                  />
-                </div>
-              )}
-
-              <button type="submit" className="modal-submit-btn" disabled={isLoading}>
-                {isLoading
-                  ? 'Envoi en cours…'
-                  : intent === 'callback'
-                  ? '📞 Me rappeler maintenant'
-                  : "📄 Recevoir mon diagnostic"}
-              </button>
-
-              <p className="modal-footer-text">
-                {intent === 'callback'
-                  ? '🔒 Clara, notre assistante IA, vous rappellera pour qualifier votre besoin.'
-                  : '🔒 Vos données sont sécurisées. Conforme RGPD.'}
+            </div>
+          ) : (
+            <>
+              <h2 className="headline text-2xl">Diagnostic NIS2 gratuit</h2>
+              <p className="mt-3 text-sm text-graphite leading-relaxed">
+                Compatible PME 50–250 salariés · Diagnostic offert en 7 minutes
               </p>
 
-              {error && (
-                <div className="modal-error-box">
-                  <strong>Erreur :</strong> {error}
-                </div>
-              )}
-            </form>
-          </>
-        )}
+              {/* Intent toggle */}
+              <div className="mt-6 grid grid-cols-2 gap-2 p-1 rounded-2xl bg-porcelain border border-[--color-ghost-strong]">
+                <button
+                  type="button"
+                  onClick={() => setIntent('diagnostic')}
+                  className={`inline-flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition ${
+                    intent === 'diagnostic' ? 'bg-pure text-ink shadow-soft' : 'text-graphite hover:text-ink'
+                  }`}
+                >
+                  <Mail size={14} />
+                  Recevoir par email
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIntent('callback')}
+                  className={`relative inline-flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold transition ${
+                    intent === 'callback' ? 'bg-pure text-ink shadow-soft' : 'text-graphite hover:text-ink'
+                  }`}
+                >
+                  <Phone size={14} />
+                  Être rappelé
+                  <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-success-soft text-success font-bold">
+                    &lt; 2 min
+                  </span>
+                </button>
+              </div>
+
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <label className="block">
+                  <span className={labelClass}>Email professionnel *</span>
+                  <input type="email" name="email" required autoComplete="email" placeholder="vous@entreprise.fr" className={inputClass} />
+                </label>
+
+                {intent === 'callback' && (
+                  <>
+                    <label className="block">
+                      <span className={labelClass}>Téléphone *</span>
+                      <input
+                        type="tel" name="phone" required pattern="^\+?[0-9\s\-]{8,}$"
+                        autoComplete="tel" placeholder="+33 6 12 34 56 78" className={inputClass}
+                      />
+                    </label>
+                    <label className="block">
+                      <span className={labelClass}>Prénom (facultatif)</span>
+                      <input type="text" name="first_name" autoComplete="given-name" placeholder="Marie" className={inputClass} />
+                    </label>
+                    <label className="block">
+                      <span className={labelClass}>Quand vous rappeler ?</span>
+                      <select name="preferred_window" defaultValue="asap" className={inputClass}>
+                        <option value="asap">Maintenant (&lt; 2 min)</option>
+                        <option value="morning">Ce matin (9h-12h)</option>
+                        <option value="afternoon">Cet après-midi (14h-18h)</option>
+                        <option value="tomorrow">Demain</option>
+                      </select>
+                    </label>
+                  </>
+                )}
+
+                <label className="block">
+                  <span className={labelClass}>Entreprise (facultatif)</span>
+                  <input type="text" name="company_name" autoComplete="organization" placeholder="Nom de votre société" className={inputClass} />
+                </label>
+
+                {intent === 'diagnostic' && (
+                  <label className="block">
+                    <span className={labelClass}>URL de l'entreprise (facultatif)</span>
+                    <input type="url" name="company_url" autoComplete="url" placeholder="https://votre-site.fr" className={inputClass} />
+                  </label>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  {isLoading ? (
+                    <><Loader2 className="animate-spin" size={16} /> Envoi…</>
+                  ) : intent === 'callback' ? (
+                    <>Me rappeler maintenant</>
+                  ) : (
+                    <>Recevoir mon diagnostic</>
+                  )}
+                </button>
+
+                <p className="text-[11px] text-fog text-center leading-relaxed">
+                  {intent === 'callback'
+                    ? 'Clara, notre assistante IA, vous rappellera pour qualifier votre besoin.'
+                    : 'Vos données sont sécurisées. Conforme RGPD.'}
+                </p>
+
+                {error && (
+                  <div className="rounded-2xl bg-danger-soft border border-danger/20 p-3 text-xs text-danger">
+                    <strong>Erreur :</strong> {error}
+                  </div>
+                )}
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

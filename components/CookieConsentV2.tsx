@@ -89,34 +89,37 @@ export const CookieConsentV2: React.FC = () => {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[300] bg-white border-t-2 border-black shadow-[0_-8px_0px_0px_rgba(0,0,0,1)]">
-      <div className="max-w-4xl mx-auto p-6">
+    <div className="fixed bottom-4 left-4 right-4 md:bottom-6 md:left-auto md:right-6 md:max-w-md z-[300]">
+      <div className="glass-card rounded-3xl p-5 md:p-6">
         {!showDetails ? (
-          <div className="flex flex-col md:flex-row md:items-center gap-4">
-            <div className="flex-1">
-              <h3 className="text-sm font-mono uppercase tracking-widest mb-1">Confidentialité</h3>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                Nous utilisons des cookies <strong>nécessaires</strong> au fonctionnement, et avec votre accord
-                pour mesurer l'audience (PostHog) et améliorer votre expérience. Vos données restent en France (OVH SecNumCloud).{' '}
-                <a href="/politique-confidentialite" className="underline">En savoir plus</a>
-              </p>
+          <div className="space-y-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-widest text-fog">Confidentialité</div>
+                <h3 className="headline text-lg mt-1">Vos préférences cookies</h3>
+              </div>
             </div>
+            <p className="text-sm text-graphite leading-relaxed">
+              Cookies <strong className="text-ink">nécessaires</strong> au fonctionnement, et avec votre accord
+              mesure d'audience (PostHog) et marketing. Données hébergées en France (OVH SecNumCloud).{' '}
+              <a href="/politique-confidentialite" className="text-accent underline-offset-4 hover:underline">En savoir plus</a>
+            </p>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setShowDetails(true)}
-                className="px-3 py-2 text-[10px] font-mono uppercase tracking-widest border-2 border-black hover:bg-zinc-50 flex items-center gap-1"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border border-[--color-ghost-strong] bg-pure hover:bg-porcelain transition"
               >
                 <Settings size={12} /> Personnaliser
               </button>
               <button
                 onClick={rejectAll}
-                className="px-3 py-2 text-[10px] font-mono uppercase tracking-widest border-2 border-black hover:bg-zinc-50"
+                className="px-4 py-2 rounded-full text-xs font-medium border border-[--color-ghost-strong] bg-pure hover:bg-porcelain transition"
               >
-                Refuser tout
+                Refuser
               </button>
               <button
                 onClick={acceptAll}
-                className="px-4 py-2 text-[10px] font-mono uppercase tracking-widest bg-black text-white hover:bg-zinc-800 flex items-center gap-1"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-ink text-pure text-xs font-semibold hover:bg-ink-soft transition"
               >
                 <Check size={12} /> Tout accepter
               </button>
@@ -124,50 +127,60 @@ export const CookieConsentV2: React.FC = () => {
           </div>
         ) : (
           <div>
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-base font-bold">Vos préférences</h3>
-              <button onClick={() => setShowDetails(false)} className="p-1 hover:bg-zinc-100">
-                <X size={18} />
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="headline text-lg">Vos préférences</h3>
+              <button
+                onClick={() => setShowDetails(false)}
+                aria-label="Fermer les détails"
+                className="h-8 w-8 inline-flex items-center justify-center rounded-full hover:bg-porcelain"
+              >
+                <X size={16} />
               </button>
             </div>
-            <div className="space-y-3 text-xs">
-              <label className="flex items-start gap-3 p-3 border border-zinc-200 bg-zinc-50 cursor-not-allowed">
-                <input type="checkbox" checked disabled className="mt-1" />
-                <div>
-                  <p className="font-bold">Nécessaires</p>
-                  <p className="text-zinc-600">Sécurité, session, préférences. Toujours activés.</p>
+            <div className="space-y-2.5">
+              <label className="flex items-start gap-3 p-3 rounded-2xl border border-[--color-ghost-strong] bg-porcelain cursor-not-allowed opacity-80">
+                <input type="checkbox" checked disabled className="mt-1 accent-ink" />
+                <div className="text-sm">
+                  <p className="font-semibold text-ink">Nécessaires</p>
+                  <p className="text-xs text-graphite">Sécurité, session, préférences. Toujours activés.</p>
                 </div>
               </label>
-              <label className="flex items-start gap-3 p-3 border-2 border-black cursor-pointer hover:bg-zinc-50">
+              <label className="flex items-start gap-3 p-3 rounded-2xl border border-[--color-ghost-strong] bg-pure cursor-pointer hover:bg-porcelain transition">
                 <input
                   type="checkbox"
                   checked={consent.analytics}
                   onChange={(e) => setConsent({ ...consent, analytics: e.target.checked })}
-                  className="mt-1"
+                  className="mt-1 accent-ink"
                 />
-                <div>
-                  <p className="font-bold">Analytics (PostHog)</p>
-                  <p className="text-zinc-600">Comprendre comment vous utilisez le site (anonyme, hébergé EU).</p>
+                <div className="text-sm">
+                  <p className="font-semibold text-ink">Analytics (PostHog)</p>
+                  <p className="text-xs text-graphite">Mesure d'audience anonyme, hébergement EU.</p>
                 </div>
               </label>
-              <label className="flex items-start gap-3 p-3 border-2 border-black cursor-pointer hover:bg-zinc-50">
+              <label className="flex items-start gap-3 p-3 rounded-2xl border border-[--color-ghost-strong] bg-pure cursor-pointer hover:bg-porcelain transition">
                 <input
                   type="checkbox"
                   checked={consent.marketing}
                   onChange={(e) => setConsent({ ...consent, marketing: e.target.checked })}
-                  className="mt-1"
+                  className="mt-1 accent-ink"
                 />
-                <div>
-                  <p className="font-bold">Marketing</p>
-                  <p className="text-zinc-600">Mesure publicitaire (GA4 conversion). Optionnel.</p>
+                <div className="text-sm">
+                  <p className="font-semibold text-ink">Marketing</p>
+                  <p className="text-xs text-graphite">Mesure publicitaire (GA4 conversion). Optionnel.</p>
                 </div>
               </label>
             </div>
             <div className="flex gap-2 mt-4 justify-end">
-              <button onClick={rejectAll} className="px-3 py-2 text-[10px] font-mono uppercase tracking-widest border-2 border-black">
+              <button
+                onClick={rejectAll}
+                className="px-4 py-2 rounded-full text-xs font-medium border border-[--color-ghost-strong] bg-pure hover:bg-porcelain"
+              >
                 Refuser tout
               </button>
-              <button onClick={saveCustom} className="px-4 py-2 text-[10px] font-mono uppercase tracking-widest bg-black text-white">
+              <button
+                onClick={saveCustom}
+                className="px-4 py-2 rounded-full bg-ink text-pure text-xs font-semibold hover:bg-ink-soft"
+              >
                 Enregistrer
               </button>
             </div>
