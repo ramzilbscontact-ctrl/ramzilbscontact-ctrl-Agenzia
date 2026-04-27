@@ -19,7 +19,9 @@ interface FormData {
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
-const WEBHOOK_URL = import.meta.env.VITE_CONTACT_WEBHOOK_URL || 'https://n8nhook.zenocci.fr/webhook/contact';
+// Endpoint backend Agenzia ai_bridge — env-configurable, fallback prod
+const API_BASE = (import.meta.env.VITE_BRIDGE_URL as string) || 'https://api.getagenzia.fr';
+const WEBHOOK_URL = `${API_BASE}/api/leads/contact`;
 
 const inputBase =
   'w-full bg-pure border border-[--color-ghost-strong] rounded-2xl px-4 py-3 text-sm text-ink placeholder-fog focus:outline-none focus:border-ink focus:ring-2 focus:ring-ink/5 transition';
