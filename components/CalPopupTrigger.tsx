@@ -136,48 +136,49 @@ export const CalPopupTrigger: React.FC = () => {
 
   return (
     <>
-      {/* Sticky floating button — label générique */}
+      {/* Sticky floating button — Agenzia Pure pill ink */}
       {stickyVisible && !open && (
         <button
           onClick={openPopup}
-          className="fixed bottom-6 right-24 z-[150] bg-[#0066FF] text-white p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex items-center gap-2"
+          className="fixed bottom-6 right-24 z-[150] inline-flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-ink text-pure shadow-tactile font-semibold text-sm hover:scale-[1.04] active:scale-[0.97] transition-transform"
           aria-label="Réserver un appel"
         >
-          <Calendar size={18} />
-          <span className="text-[10px] font-mono uppercase tracking-widest hidden md:inline">Réserver un appel</span>
+          <Calendar size={16} />
+          <span className="hidden md:inline">Réserver un appel</span>
         </button>
       )}
 
-      {/* Popup */}
+      {/* Popup — Agenzia Pure */}
       {open && (
         <div
-          className="fixed inset-0 z-[250] flex items-center justify-center bg-black/40 p-4"
+          className="fixed inset-0 z-[250] flex items-center justify-center bg-ink/30 backdrop-blur-sm p-4"
           onClick={() => setOpen(false)}
         >
           <div
-            className="relative w-full max-w-4xl bg-white border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col"
+            className="relative w-full max-w-4xl bg-pure rounded-3xl shadow-tactile border border-[--color-ghost-strong] overflow-hidden flex flex-col"
             style={{ height: mode === 'menu' ? 'auto' : '80vh', maxHeight: '700px' }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b-2 border-black bg-zinc-50">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[--color-ghost] bg-porcelain/60">
               {mode !== 'menu' ? (
                 <button
                   onClick={() => setMode('menu')}
-                  className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-700 hover:text-black"
+                  className="inline-flex items-center gap-2 text-xs font-medium text-graphite hover:text-ink transition"
                   aria-label="Retour au menu"
                 >
                   <ArrowLeft size={14} /> Retour
                 </button>
               ) : (
-                <span className="text-xs font-mono uppercase tracking-widest text-zinc-700">
+                <span className="badge-pill inline-flex">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
                   Choisis ton créneau · 15 min
                 </span>
               )}
               <button
                 onClick={() => setOpen(false)}
-                className="p-2 bg-white border-2 border-black hover:bg-zinc-100"
                 aria-label="Fermer"
+                className="h-9 w-9 inline-flex items-center justify-center rounded-full bg-pure border border-[--color-ghost-strong] hover:bg-porcelain transition"
               >
                 <X size={16} />
               </button>
@@ -185,9 +186,11 @@ export const CalPopupTrigger: React.FC = () => {
 
             {/* Body */}
             {mode === 'menu' ? (
-              <div className="p-6 md:p-8">
-                <h3 className="text-2xl md:text-3xl font-black mb-2">Réserver un appel découverte</h3>
-                <p className="text-sm text-zinc-600 mb-6">
+              <div className="p-6 md:p-10">
+                <h3 className="headline text-2xl md:text-3xl mb-2">
+                  Réserver un appel découverte
+                </h3>
+                <p className="text-sm md:text-base text-graphite mb-8 leading-relaxed">
                   15 min pour comprendre tes besoins infogérance / NIS2. Aucun engagement.
                 </p>
 
@@ -195,34 +198,42 @@ export const CalPopupTrigger: React.FC = () => {
                   {/* Card "Au plus tôt" */}
                   <button
                     onClick={() => setMode('now')}
-                    className="group text-left p-5 bg-white border-2 border-black hover:bg-[#0066FF] hover:text-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+                    className="group text-left p-6 rounded-2xl bg-pure border border-[--color-ghost-strong] hover:border-ink hover:shadow-card transition-all"
                   >
-                    <div className="flex items-center gap-3 mb-2">
-                      <Zap size={20} />
-                      <span className="text-xs font-mono uppercase tracking-widest">Aujourd'hui</span>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-10 w-10 rounded-2xl bg-porcelain border border-[--color-ghost-strong] flex items-center justify-center text-graphite group-hover:bg-ink group-hover:text-pure group-hover:border-ink transition-all">
+                        <Zap size={16} />
+                      </div>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-fog">
+                        Aujourd'hui
+                      </span>
                     </div>
-                    <div className="text-lg font-bold mb-1">Au plus tôt</div>
-                    <div className="text-xs opacity-80">Premier créneau dispo (≥ 1h)</div>
+                    <div className="font-semibold text-ink mb-1">Au plus tôt</div>
+                    <div className="text-xs text-mist">Premier créneau dispo (≥ 1h)</div>
                   </button>
 
                   {/* Card "Demain matin" */}
                   <button
                     onClick={() => setMode('tomorrow')}
-                    className="group text-left p-5 bg-white border-2 border-black hover:bg-[#0066FF] hover:text-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+                    className="group text-left p-6 rounded-2xl bg-pure border border-[--color-ghost-strong] hover:border-ink hover:shadow-card transition-all"
                   >
-                    <div className="flex items-center gap-3 mb-2">
-                      <Sunrise size={20} />
-                      <span className="text-xs font-mono uppercase tracking-widest">Demain</span>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-10 w-10 rounded-2xl bg-porcelain border border-[--color-ghost-strong] flex items-center justify-center text-graphite group-hover:bg-ink group-hover:text-pure group-hover:border-ink transition-all">
+                        <Sunrise size={16} />
+                      </div>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-fog">
+                        Demain
+                      </span>
                     </div>
-                    <div className="text-lg font-bold mb-1">Demain matin</div>
-                    <div className="text-xs opacity-80">Créneaux 9h–12h</div>
+                    <div className="font-semibold text-ink mb-1">Demain matin</div>
+                    <div className="text-xs text-mist">Créneaux 9h–12h</div>
                   </button>
                 </div>
 
-                {/* Lien secondaire vers full calendar */}
+                {/* Lien secondaire */}
                 <button
                   onClick={() => setMode('full')}
-                  className="mt-4 w-full text-center py-3 text-xs font-mono uppercase tracking-widest text-zinc-600 hover:text-[#0066FF] underline-offset-4 hover:underline flex items-center justify-center gap-2"
+                  className="mt-4 w-full inline-flex items-center justify-center gap-2 py-3 text-xs font-medium text-graphite hover:text-ink transition"
                 >
                   <CalendarDays size={14} /> Voir tous les créneaux du mois
                 </button>
