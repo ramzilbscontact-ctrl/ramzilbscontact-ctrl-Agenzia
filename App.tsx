@@ -19,6 +19,9 @@ import SaasLanding from './pages/SaasLanding';
 import SaasLandingEn from './pages/SaasLandingEn';
 import { initPostHog, trackPageView } from './lib/posthog';
 import LeadMagnetModal from './components/LeadMagnetModal';
+import LeadMagnetSmartForm from './components/LeadMagnetSmartForm';
+import CookieConsentV2 from './components/CookieConsentV2';
+import CalPopupTrigger from './components/CalPopupTrigger';
 
 const AnalyticsTracker: React.FC = () => {
   const location = useLocation();
@@ -59,6 +62,9 @@ const App: React.FC = () => {
           <Route path="/en" element={<SaasLandingEn />} />
         </Routes>
         <LeadMagnetModal />
+        <LeadMagnetSmartForm />
+        <CookieConsentV2 />
+        <CalPopupTrigger />
       </Layout>
     </Router>
   );
