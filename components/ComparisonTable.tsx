@@ -75,15 +75,13 @@ const ComparisonTable = () => {
         </div>
 
         <div className="mt-24 text-center">
-          <a
-            href="https://www.cal.eu/getagenzia"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
             className="inline-flex items-center gap-6 bg-black text-white px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-white hover:text-black border-2 border-black transition-all duration-300"
           >
             Démarrer la transition
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </button>
         </div>
       </div>
     </section>

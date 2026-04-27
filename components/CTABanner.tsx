@@ -25,15 +25,13 @@ const CTABanner = () => {
               ))}
             </div>
 
-            <a
-              href="https://www.cal.eu/getagenzia"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
               className="inline-flex items-center gap-6 bg-white text-black px-12 py-6 text-xs font-mono tracking-widest uppercase hover:bg-black hover:text-white border-2 border-white transition-all duration-300"
             >
               Planifier mon diagnostic
               <ArrowRight className="w-6 h-6" />
-            </a>
+            </button>
           </div>
         </div>
       </div>

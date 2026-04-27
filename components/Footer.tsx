@@ -12,7 +12,7 @@ const Footer = () => {
         { name: "Infogérance IA", href: "/services/infogerance-ia" },
         { name: "Cybersécurité NIS2", href: "/services/cybersecurite-nis2" },
         { name: "Migration Cloud", href: "/services/migration-cloud" },
-        { name: "Audit Flash", href: "/#contact" }
+        { name: "Audit Flash", href: "#smart-form" }
       ]
     },
     {
@@ -71,16 +71,23 @@ const Footer = () => {
                 <ul className="space-y-4">
                   {section.links.map((link, j) => (
                     <li key={j}>
-                      {link.href.startsWith('/#') ? (
-                        <a 
-                          href={link.href} 
+                      {link.href === "#smart-form" ? (
+                        <button
+                          onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }))}
+                          className="text-sm font-serif text-zinc-500 hover:text-black hover:underline underline-offset-4 transition-all text-left"
+                        >
+                          {link.name}
+                        </button>
+                      ) : link.href.startsWith('/#') ? (
+                        <a
+                          href={link.href}
                           className="text-sm font-serif text-zinc-500 hover:text-black hover:underline underline-offset-4 transition-all"
                         >
                           {link.name}
                         </a>
                       ) : (
-                        <Link 
-                          to={link.href} 
+                        <Link
+                          to={link.href}
                           className="text-sm font-serif text-zinc-500 hover:text-black hover:underline underline-offset-4 transition-all"
                         >
                           {link.name}

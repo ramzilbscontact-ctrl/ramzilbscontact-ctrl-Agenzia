@@ -92,13 +92,13 @@ const ChatWidget: React.FC = () => {
 
               <button
                 onClick={() => {
-                  trackEvent('chat_widget_cta_clicked', { cta: 'prendre_rendez_vous' });
-                  window.dispatchEvent(new CustomEvent('open-lead-magnet', { detail: { intent: 'diagnostic' } }));
+                  trackEvent('chat_widget_cta_clicked', { cta: 'diagnostic_nis2' });
+                  window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2' } }));
                   setIsOpen(false);
                 }}
                 className="flex items-center justify-between w-full bg-black text-white px-8 py-4 text-[10px] font-mono uppercase tracking-widest hover:bg-zinc-800 transition-colors group"
               >
-                Prendre rendez-vous humain
+                Diagnostic NIS2 gratuit
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
