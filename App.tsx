@@ -17,6 +17,9 @@ import Blog from './pages/Blog';
 import ArticlePage from './pages/Blog/ArticlePage';
 import SaasLanding from './pages/SaasLanding';
 import SaasLandingEn from './pages/SaasLandingEn';
+import Login from './pages/Auth/Login';
+import Verify from './pages/Auth/Verify';
+import Account from './pages/Account';
 import { initPostHog, trackPageView } from './lib/posthog';
 import LeadMagnetModal from './components/LeadMagnetModal';
 import LeadMagnetSmartForm from './components/LeadMagnetSmartForm';
@@ -60,6 +63,10 @@ const App: React.FC = () => {
           <Route path="/saas" element={<SaasLanding />} />
           <Route path="/en/saas" element={<SaasLandingEn />} />
           <Route path="/en" element={<SaasLandingEn />} />
+          {/* Auth + Account (Sprint 1 support auto) */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/auth/verify" element={<Verify />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
         <LeadMagnetModal />
         <LeadMagnetSmartForm />
