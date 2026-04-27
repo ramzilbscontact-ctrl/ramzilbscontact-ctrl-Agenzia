@@ -1,82 +1,104 @@
+/**
+ * PricingSection — Agenzia Pure (3 cards porcelaine, plan Pro mis en avant noir).
+ *
+ * Toggle mensuel/annuel pill, 3 plans (Starter gratuit / Pro 49€ / Enterprise devis),
+ * card "popular" inversée (fond ink, texte pure). CTA mid-funnel conservé en bas.
+ */
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Check, ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
 
-const PricingSection = () => {
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
+});
+
+const PricingSection: React.FC = () => {
   const [isAnnual, setIsAnnual] = useState(false);
 
   const plans = [
     {
-      id: "01",
-      name: "Starter",
-      price: "0€",
-      description: "Audit Flash NIS2",
+      id: '01',
+      name: 'Starter',
+      price: 'Gratuit',
+      suffix: '',
+      description: 'Audit Flash NIS2',
       features: [
-        "Scan de vulnérabilités",
-        "Rapport initial",
-        "Conseils de remédiation",
-        "Support par email"
+        'Scan de vulnérabilités',
+        'Rapport initial PDF',
+        'Conseils de remédiation',
+        'Support email',
       ],
-      cta: "Commencer",
-      href: "/simulateur-roi",
-      popular: false
+      cta: 'Commencer',
+      href: '/simulateur-roi',
+      popular: false,
     },
     {
-      id: "02",
-      name: "Pro",
-      price: isAnnual ? "16€" : "20€",
-      description: "Continuité totale + Immunité",
+      id: '02',
+      name: 'Pro',
+      price: isAnnual ? '39€' : '49€',
+      suffix: '/mois',
+      description: 'Continuité totale + Immunité NIS2',
       features: [
-        "Zéro interruption garantie",
-        "Mises à jour invisibles",
-        "Résolution instantanée",
-        "Conformité NIS2 permanente",
-        "Rapport de valeur mensuel"
+        'Zéro interruption garantie',
+        'Mises à jour invisibles',
+        'Résolution automatique L1/L2',
+        'Conformité NIS2 permanente',
+        'Rapport de valeur mensuel',
       ],
-      cta: "Garantir mon IT",
-      href: "https://buy.stripe.com/test_placeholder_pro",
-      popular: true
+      cta: 'Garantir mon IT',
+      href: 'https://buy.stripe.com/test_placeholder_pro',
+      popular: true,
     },
     {
-      id: "03",
-      name: "Enterprise",
-      price: "DEVIS",
-      description: "Souveraineté totale + SLA Critique",
+      id: '03',
+      name: 'Enterprise',
+      price: 'Sur devis',
+      suffix: '',
+      description: 'Souveraineté + SLA critique',
       features: [
-        "Accompagnement stratégique",
-        "Infrastructure 100% Européenne",
-        "Disponibilité 99.99%",
-        "Audit de performance annuel",
-        "Gestion de crise prioritaire"
+        'Accompagnement stratégique',
+        'Infrastructure 100% européenne',
+        'Disponibilité 99.99%',
+        'Audit de performance annuel',
+        'Gestion de crise prioritaire',
       ],
-      cta: "Nous contacter",
-      href: "#contact",
-      popular: false
-    }
+      cta: 'Nous contacter',
+      href: '/#contact',
+      popular: false,
+    },
   ];
 
   return (
-    <section id="tarifs" className="py-32 bg-white border-b border-black">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <div className="max-w-2xl">
-            <div className="text-[10px] font-mono text-zinc-400 tracking-[0.4em] uppercase mb-4">04 // INVESTMENT</div>
-            <h2 className="text-5xl md:text-7xl font-black text-zinc-900 tracking-tighter uppercase font-serif">
-              TRANSPARENT.<br />SANS SURPRISE.
-            </h2>
-          </div>
-          
-          <div className="flex items-center gap-0 border border-black p-1">
+    <section id="tarifs" className="relative bg-porcelain section-ghost py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <motion.span {...fadeUp(0)} className="badge-pill inline-flex">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
+            Investissement
+          </motion.span>
+          <motion.h2 {...fadeUp(0.1)} className="headline mt-6 text-[clamp(2rem,5vw,3.75rem)]">
+            Transparent.{' '}
+            <span className="italic font-medium text-graphite">Sans surprise.</span>
+          </motion.h2>
+
+          {/* Toggle billing */}
+          <motion.div
+            {...fadeUp(0.2)}
+            className="mt-10 inline-flex items-center gap-1 p-1 rounded-full bg-pure border border-[--color-ghost-strong] shadow-soft"
+          >
             <button
               onClick={() => {
                 setIsAnnual(false);
                 trackEvent('pricing_billing_changed', { cadence: 'monthly' });
               }}
               className={cn(
-                "px-6 py-2 text-[10px] font-mono uppercase tracking-widest transition-all",
-                !isAnnual ? "bg-black text-white" : "text-zinc-400"
+                'px-5 py-2 rounded-full text-xs font-medium transition-all',
+                !isAnnual ? 'bg-ink text-pure' : 'text-graphite hover:text-ink'
               )}
             >
               Mensuel
@@ -87,87 +109,136 @@ const PricingSection = () => {
                 trackEvent('pricing_billing_changed', { cadence: 'annual' });
               }}
               className={cn(
-                "px-6 py-2 text-[10px] font-mono uppercase tracking-widest transition-all flex items-center gap-2",
-                isAnnual ? "bg-black text-white" : "text-zinc-400"
+                'px-5 py-2 rounded-full text-xs font-medium transition-all inline-flex items-center gap-2',
+                isAnnual ? 'bg-ink text-pure' : 'text-graphite hover:text-ink'
               )}
             >
               Annuel
-              <span className={cn("text-[8px] px-1.5 py-0.5 rounded", isAnnual ? "bg-white text-black" : "bg-black text-white")}>-20%</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-success-soft text-success font-bold">
+                -20%
+              </span>
             </button>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-l border-black shadow-tactile">
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {plans.map((plan, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
+            <motion.article
+              key={plan.id}
+              {...fadeUp(0.3 + i * 0.1)}
               className={cn(
-                "p-8 md:p-12 flex flex-col relative border-r border-b border-black transition-all duration-300 group hover:bg-black hover:text-white overflow-hidden",
-                plan.popular ? "bg-zinc-50/50" : "bg-white"
+                'rounded-3xl p-8 md:p-10 transition-all duration-300 flex flex-col',
+                plan.popular
+                  ? 'bg-ink text-pure shadow-tactile border border-ink-soft scale-[1.02] md:scale-[1.04]'
+                  : 'card-porcelain'
               )}
             >
-              {/* Hover Color Accent */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-brand-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              {/* Badge popular */}
+              {plan.popular && (
+                <div className="inline-flex self-start mb-4 items-center gap-1.5 px-3 py-1 rounded-full bg-pure/10 border border-pure/20 text-[10px] font-semibold uppercase tracking-widest">
+                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
+                  Recommandé
+                </div>
+              )}
 
-              <div className="mb-16">
-                <div className="text-[10px] font-mono text-zinc-400 group-hover:text-brand-accent uppercase tracking-widest mb-4 transition-colors">{plan.id} // {plan.name}</div>
-                <div className="text-6xl font-black text-zinc-900 group-hover:text-white tracking-tighter mb-4 font-serif transition-colors">
-                  {plan.price}
-                  {plan.price !== "0€" && plan.price !== "DEVIS" && (
-                    <span className="text-sm font-mono text-zinc-400 ml-2 tracking-normal uppercase">/device</span>
+              <div className="mb-8">
+                <div
+                  className={cn(
+                    'text-[10px] font-mono uppercase tracking-[0.25em] mb-3',
+                    plan.popular ? 'text-pure/60' : 'text-fog'
+                  )}
+                >
+                  {plan.id} · {plan.name}
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span
+                    className={cn(
+                      'text-5xl md:text-6xl font-extrabold tracking-tight',
+                      plan.popular ? 'text-pure' : 'text-ink'
+                    )}
+                  >
+                    {plan.price}
+                  </span>
+                  {plan.suffix && (
+                    <span
+                      className={cn(
+                        'text-sm font-medium',
+                        plan.popular ? 'text-pure/60' : 'text-mist'
+                      )}
+                    >
+                      {plan.suffix} / poste
+                    </span>
                   )}
                 </div>
-                <p className="text-zinc-500 group-hover:text-zinc-400 text-lg font-serif italic transition-colors">{plan.description}</p>
+                <p
+                  className={cn(
+                    'mt-3 text-base',
+                    plan.popular ? 'text-pure/80' : 'text-graphite'
+                  )}
+                >
+                  {plan.description}
+                </p>
               </div>
 
-              <div className="space-y-6 mb-20 flex-grow">
-                {plan.features.map((feature, j) => (
-                  <div key={j} className="flex items-center gap-4">
-                    <div className="w-1 h-1 bg-black group-hover:bg-brand-accent rounded-full transition-colors" />
-                    <span className="text-zinc-600 group-hover:text-zinc-300 text-sm font-serif transition-colors">{feature}</span>
-                  </div>
+              <ul className="space-y-3 mb-10 flex-grow">
+                {plan.features.map((f, j) => (
+                  <li key={j} className="flex items-start gap-3 text-sm">
+                    <Check
+                      size={16}
+                      strokeWidth={2.4}
+                      className={cn(
+                        'shrink-0 mt-0.5',
+                        plan.popular ? 'text-pure' : 'text-success'
+                      )}
+                    />
+                    <span className={plan.popular ? 'text-pure/90' : 'text-graphite'}>{f}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
               <a
                 href={plan.href}
-                onClick={() => trackEvent('pricing_cta_clicked', { plan: plan.name.toLowerCase(), cta: plan.cta.toLowerCase() })}
+                onClick={() =>
+                  trackEvent('pricing_cta_clicked', {
+                    plan: plan.name.toLowerCase(),
+                    cta: plan.cta.toLowerCase(),
+                  })
+                }
                 className={cn(
-                  "w-full py-6 text-[10px] font-mono uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-4 border border-black shadow-tactile group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1",
-                  plan.popular 
-                    ? "bg-black text-white group-hover:bg-brand-accent group-hover:text-white" 
-                    : "bg-white text-zinc-900 hover:bg-zinc-50 group-hover:bg-white group-hover:text-black"
+                  'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all',
+                  plan.popular
+                    ? 'bg-pure text-ink hover:bg-porcelain'
+                    : 'bg-ink text-pure hover:bg-ink-soft'
                 )}
               >
                 {plan.cta}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight size={16} />
               </a>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
-        {/* CTA mid-funnel: capture les hésitants qui veulent une recommandation perso avant de choisir un plan */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16 md:mt-20 max-w-2xl mx-auto text-center"
-        >
-          <p className="text-base md:text-lg font-serif text-zinc-700 mb-6">
+        {/* CTA mid-funnel */}
+        <motion.div {...fadeUp(0.7)} className="mt-16 md:mt-20 text-center max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-graphite mb-6">
             Pas sûr du plan adapté à votre PME ?{' '}
-            <span className="font-bold text-black">On audite gratuitement votre infra et on recommande la bonne formule.</span>
+            <span className="font-semibold text-ink">
+              Audit gratuit + recommandation perso en 5 min.
+            </span>
           </p>
           <button
-            onClick={() => window.dispatchEvent(new CustomEvent('open-smart-form', { detail: { intent: 'audit_nis2', source: 'pricing_section' } }))}
-            className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white border-2 border-black transition-all shadow-tactile hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+            onClick={() =>
+              window.dispatchEvent(
+                new CustomEvent('open-smart-form', {
+                  detail: { intent: 'audit_nis2', source: 'pricing_section' },
+                })
+              )
+            }
+            className="btn-tactile-ghost group text-sm"
           >
             Mon plan en 5 minutes
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
           </button>
         </motion.div>
       </div>

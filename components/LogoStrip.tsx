@@ -38,19 +38,19 @@ const LogoStrip: React.FC = () => {
 
   return (
     <section
-      className="py-20 md:py-24 bg-white overflow-hidden border-b border-black"
+      className="bg-pure border-y border-[--color-ghost] py-16 md:py-20 overflow-hidden"
       aria-label="Partenaires technologiques et infrastructure"
     >
-      <div className="container mx-auto px-6 mb-12 text-center">
-        <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-zinc-400">
-          Infrastructures de Confiance & Souveraineté
+      <div className="mx-auto max-w-7xl px-6 mb-10 text-center">
+        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-fog">
+          Infrastructure de confiance & souveraineté
         </span>
       </div>
 
       <div className="relative w-full overflow-hidden group">
-        {/* Fades latéraux pour un effet pro (logos qui apparaissent / disparaissent en douceur) */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-white to-transparent z-10" />
+        {/* Fades latéraux blanc → transparent (effet apparition/disparition pro) */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-pure to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-pure to-transparent z-10" />
 
         <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
           {loop.map((p, i) => (
@@ -66,7 +66,7 @@ const LogoStrip: React.FC = () => {
                 height={56}
                 loading="lazy"
                 decoding="async"
-                className="h-10 md:h-12 w-auto max-w-[140px] object-contain opacity-60 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
+                className="h-9 md:h-10 w-auto max-w-[140px] object-contain opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}

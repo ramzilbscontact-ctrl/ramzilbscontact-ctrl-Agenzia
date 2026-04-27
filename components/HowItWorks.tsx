@@ -1,64 +1,83 @@
+/**
+ * HowItWorks — Agenzia Pure (3 steps avec connecteur ligne pointillée + cards porcelaine).
+ *
+ * Méthode 3 étapes : Diagnostic → Stabilisation → Expansion. Chaque step a son propre
+ * numéro 01/02/03 dans badge pill + titre + description.
+ */
 import React from 'react';
 import { motion } from 'motion/react';
-import { Search, Settings, FileText } from 'lucide-react';
+import { Search, Cog, TrendingUp } from 'lucide-react';
 
-const HowItWorks = () => {
-  const steps = [
-    {
-      id: "01",
-      title: "Diagnostic",
-      description: "Analyse complète de vos vulnérabilités et de vos goulots d'étranglement opérationnels.",
-    },
-    {
-      id: "02",
-      title: "Stabilisation",
-      description: "Déploiement de l'infrastructure autonome. Vos systèmes deviennent résilients et auto-réparateurs.",
-    },
-    {
-      id: "03",
-      title: "Expansion",
-      description: "Optimisation continue de vos performances pour soutenir votre croissance sans friction technique.",
-    }
-  ];
+const STEPS = [
+  {
+    n: '01',
+    title: 'Diagnostic',
+    description: 'Analyse complète de vos vulnérabilités et de vos goulots d\'étranglement opérationnels.',
+    Icon: Search,
+  },
+  {
+    n: '02',
+    title: 'Stabilisation',
+    description: 'Déploiement de l\'infrastructure autonome. Vos systèmes deviennent résilients et auto-réparateurs.',
+    Icon: Cog,
+  },
+  {
+    n: '03',
+    title: 'Expansion',
+    description: 'Optimisation continue de vos performances pour soutenir votre croissance sans friction technique.',
+    Icon: TrendingUp,
+  },
+];
 
-  return (
-    <section className="py-32 bg-white border-b border-black">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <div className="max-w-3xl">
-            <div className="text-[10px] font-mono text-zinc-400 tracking-[0.4em] uppercase mb-4">05 // THE PROCESS</div>
-            <h2 className="text-5xl md:text-7xl font-black text-zinc-900 tracking-tighter uppercase font-serif">
-              UNE MÉTHODE.<br />ZÉRO FRICTION.
-            </h2>
-          </div>
-          <p className="text-xl font-serif text-zinc-500 max-w-sm leading-relaxed">
-            Une approche structurée pour transformer votre IT d'un centre de coût en un levier de performance.
-          </p>
-        </div>
+const fadeUp = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
+});
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-l border-black">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="p-12 border-r border-b border-black group hover:bg-black hover:text-white transition-colors duration-100 flex flex-col justify-between min-h-[300px]"
-            >
-              <span className="font-mono text-[10px] text-zinc-400 group-hover:text-zinc-500 mb-12 tracking-[0.3em]">{step.id} // STEP</span>
-              <div>
-                <h3 className="text-3xl font-serif font-bold uppercase mb-6 tracking-tight">{step.title}</h3>
-                <p className="font-serif text-lg leading-relaxed text-zinc-500 group-hover:text-zinc-300">
-                  {step.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+const HowItWorks: React.FC = () => (
+  <section className="relative bg-pure section-ghost py-24 md:py-32">
+    <div className="mx-auto max-w-7xl px-6">
+      <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <motion.span {...fadeUp(0)} className="badge-pill inline-flex">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink" />
+          The Process
+        </motion.span>
+        <motion.h2 {...fadeUp(0.1)} className="headline mt-6 text-[clamp(2rem,5vw,3.75rem)]">
+          Une méthode.{' '}
+          <span className="italic font-medium text-graphite">Zéro friction.</span>
+        </motion.h2>
+        <motion.p {...fadeUp(0.2)} className="mt-6 text-lg text-graphite leading-relaxed">
+          3 étapes structurées pour transformer votre IT d'un centre de coût en levier de performance.
+        </motion.p>
       </div>
-    </section>
-  );
-};
+
+      {/* Cards en ligne avec connecteur visuel pointillé */}
+      <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {/* Connecteur horizontal desktop seulement */}
+        <div className="hidden md:block absolute top-[68px] left-[12%] right-[12%] h-px border-t border-dashed border-cloud pointer-events-none" />
+
+        {STEPS.map((step, i) => (
+          <motion.article
+            key={step.n}
+            {...fadeUp(0.3 + i * 0.12)}
+            className="relative flex flex-col items-center text-center px-6 py-10 md:py-0"
+          >
+            {/* Cercle avec icône */}
+            <div className="relative z-10 h-14 w-14 rounded-full bg-pure border border-[--color-ghost-strong] shadow-soft flex items-center justify-center text-graphite mb-6">
+              <step.Icon size={20} strokeWidth={1.8} />
+            </div>
+            <span className="badge-pill mb-4">
+              Étape {step.n}
+            </span>
+            <h3 className="headline text-2xl mb-3">{step.title}</h3>
+            <p className="text-graphite leading-relaxed max-w-xs">{step.description}</p>
+          </motion.article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default HowItWorks;

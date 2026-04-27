@@ -35,7 +35,9 @@
   --color-accent: #0066FF;            /* bleu signature, conservé du précédent */
   --color-accent-soft: #E6F0FF;
   --color-success: #10B981;           /* vert subtil pour validations */
+  --color-success-soft: #D1FAE5;
   --color-warning: #F59E0B;
+  --color-warning-soft: #FEF3C7;
   --color-danger: #EF4444;
   --color-danger-soft: #FEE2E2;
 
