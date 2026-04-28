@@ -7,8 +7,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, LogIn, User } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useAuth } from '../lib/auth';
 
 const NAV_LINKS = [
   { name: 'Solutions', href: '/#services' },
@@ -21,6 +22,7 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { pathname } = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -65,8 +67,29 @@ const Navbar: React.FC = () => {
             ))}
           </nav>
 
-          {/* Right side: CTA + mobile toggle */}
+          {/* Right side: Login/Account + CTA + mobile toggle */}
           <div className="flex items-center gap-3">
+            {/* Login (anonyme) ou Mon compte (connecté) — desktop seulement */}
+            {user ? (
+              <Link
+                to="/account"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[--color-ghost-strong] bg-pure hover:bg-porcelain text-xs font-medium text-graphite hover:text-ink transition"
+                aria-label="Mon compte"
+              >
+                <User size={14} />
+                <span className="hidden md:inline">Mon compte</span>
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-graphite hover:text-ink transition"
+                aria-label="Se connecter"
+              >
+                <LogIn size={14} />
+                Connexion
+              </Link>
+            )}
+
             <button
               onClick={triggerSmartForm}
               className="hidden sm:inline-flex btn-tactile text-xs"
@@ -115,7 +138,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            <div className="mt-auto pb-12 flex flex-col gap-4">
+            <div className="mt-auto pb-12 flex flex-col gap-3">
               <button
                 onClick={() => { setIsMobileOpen(false); triggerSmartForm(); }}
                 className="btn-tactile w-full justify-center text-sm py-4"
@@ -123,6 +146,13 @@ const Navbar: React.FC = () => {
                 <Sparkles size={16} />
                 Diagnostic gratuit
               </button>
+              <Link
+                to={user ? '/account' : '/login'}
+                onClick={() => setIsMobileOpen(false)}
+                className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-full border border-[--color-ghost-strong] bg-pure hover:bg-porcelain text-sm font-medium text-graphite hover:text-ink transition"
+              >
+                {user ? <><User size={16} /> Mon compte</> : <><LogIn size={16} /> Connexion</>}
+              </Link>
             </div>
           </motion.div>
         )}
