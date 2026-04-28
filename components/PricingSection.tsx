@@ -9,24 +9,13 @@
  *
  * Toggle mensuel/annuel pill, plan Pro inversé (ink-on-pure scale), checkout Stripe avec quantity.
  */
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, Loader2, Calendar, Zap, X, Mail } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
-import StripeBuyButton, { StripeBuyButtonHandle } from './StripeBuyButton';
 
 const API_BASE = (import.meta.env.VITE_BRIDGE_URL as string) || 'https://api.getagenzia.fr';
-
-// Stripe Buy Button (LIVE) — env-overridable
-const STRIPE_PK_LIVE =
-  (import.meta.env.VITE_STRIPE_PK_LIVE as string) ||
-  'pk_live_51QhCwtBpwY3BGuOyHkJ3rnv3R9LM4Nv4sQxGry6FwBp5GSesTvxI5rf5O2507zxsdOtfNadLctDiwn9nYRgenVb500BOqIBEzQ';
-const BUY_BTN_PRO_MONTHLY =
-  (import.meta.env.VITE_STRIPE_BUY_BTN_PRO_MONTHLY as string) ||
-  'buy_btn_1TR78wBpwY3BGuOyPszpTyB2';
-const BUY_BTN_PRO_YEARLY =
-  (import.meta.env.VITE_STRIPE_BUY_BTN_PRO_YEARLY as string) || ''; // à compléter quand fourni
 
 // Pricing per-poste (par mois) selon cycle
 const PRICE_PER_SEAT = {
@@ -74,9 +63,6 @@ const PricingSection: React.FC = () => {
   const [pendingCheckoutEmail, setPendingCheckoutEmail] = useState('');
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
-  // Refs vers les Stripe Buy Buttons cachés (monthly + yearly) pour click programmatique
-  const stripeMonthlyRef = useRef<StripeBuyButtonHandle>(null);
-  const stripeYearlyRef = useRef<StripeBuyButtonHandle>(null);
 
   const launchCheckout = async (email: string) => {
     setLoadingPlan('pro');
@@ -121,20 +107,14 @@ const PricingSection: React.FC = () => {
       window.dispatchEvent(new CustomEvent('open-cal-popup', { detail: { source: 'pricing_enterprise' } }));
       return;
     }
-    // Pro = déclenche le Stripe Buy Button (caché) — Stripe gère email/nom/adresse/paiement
-    trackEvent('pricing_buy_btn_triggered', {
-      plan: 'pro',
-      cycle: isAnnual ? 'yearly' : 'monthly',
-      seats,
-      total_monthly: totalMonthly,
-    });
-    const handle = isAnnual && BUY_BTN_PRO_YEARLY ? stripeYearlyRef.current : stripeMonthlyRef.current;
-    const ok = handle?.trigger() ?? false;
-    if (!ok) {
-      // Fallback gracieux si le shadow root du BB n'a pas pu être atteint
-      setCheckoutError(
-        "Le bouton de paiement n'a pas pu démarrer — recharge la page (Ctrl+F5) ou contacte-nous."
-      );
+    // Pro = checkout via backend /billing/checkout (test+live, marche tjrs)
+    // Si user authentifié → email lu auto via JWT → pas de modal
+    // Sinon → modal email Agenzia Pure
+    const jwt = typeof window !== 'undefined' ? localStorage.getItem('agenzia_jwt') : null;
+    if (jwt) {
+      await launchCheckout('');
+    } else {
+      setEmailModalOpen(true);
     }
   };
 
@@ -404,64 +384,31 @@ const PricingSection: React.FC = () => {
                 ))}
               </ul>
 
-              {/* Plan Pro = wrapper relatif. Bouton custom visible + Stripe BB overlay invisible
-                  qui couvre 100% : les clicks landent direct sur le BB sans accès au shadow root. */}
-              {plan.slug === 'pro' ? (
-                <div className="relative w-full">
-                  {/* Stripe Buy Button overlay absolute opacity-0, capture les clicks */}
-                  <StripeBuyButton
-                    buyButtonId={isAnnual && BUY_BTN_PRO_YEARLY ? BUY_BTN_PRO_YEARLY : BUY_BTN_PRO_MONTHLY}
-                    publishableKey={STRIPE_PK_LIVE}
-                    hidden
-                  />
-                  {/* Bouton custom Agenzia Pure visible (en dessous) — visuel uniquement */}
-                  <div
-                    className={cn(
-                      'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all select-none',
-                      plan.popular
-                        ? 'bg-pure text-ink hover:bg-porcelain'
-                        : 'bg-ink text-pure hover:bg-ink-soft'
-                    )}
-                    onMouseEnter={() =>
-                      trackEvent('pricing_cta_hover', { plan: plan.slug, cycle: isAnnual ? 'yearly' : 'monthly' })
-                    }
-                  >
-                    {plan.cta}<ArrowRight size={16} />
-                  </div>
-                </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    trackEvent('pricing_cta_clicked', {
-                      plan: plan.slug,
-                      cta: plan.cta.toLowerCase(),
-                      cycle: isAnnual ? 'yearly' : 'monthly',
-                      seats,
-                    });
-                    handleCta(plan.slug);
-                  }}
-                  disabled={loadingPlan === plan.slug}
-                  className={cn(
-                    'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed',
-                    plan.popular
-                      ? 'bg-pure text-ink hover:bg-porcelain'
-                      : 'bg-ink text-pure hover:bg-ink-soft'
-                  )}
-                >
-                  {loadingPlan === plan.slug ? (
-                    <><Loader2 size={16} className="animate-spin" /> Chargement…</>
-                  ) : (
-                    <>{plan.cta}<ArrowRight size={16} /></>
-                  )}
-                </button>
-              )}
-
-              {/* Note plan Pro: si toggle yearly mais pas de buy_btn yearly, message info */}
-              {plan.slug === 'pro' && isAnnual && !BUY_BTN_PRO_YEARLY && (
-                <p className="mt-2 text-[10px] text-pure/50 text-center">
-                  Cycle annuel bientôt disponible — paiement mensuel utilisé en attendant
-                </p>
-              )}
+              {/* Tous les plans utilisent le même bouton custom Agenzia Pure → handleCta */}
+              <button
+                onClick={() => {
+                  trackEvent('pricing_cta_clicked', {
+                    plan: plan.slug,
+                    cta: plan.cta.toLowerCase(),
+                    cycle: isAnnual ? 'yearly' : 'monthly',
+                    seats,
+                  });
+                  handleCta(plan.slug);
+                }}
+                disabled={loadingPlan === plan.slug}
+                className={cn(
+                  'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed',
+                  plan.popular
+                    ? 'bg-pure text-ink hover:bg-porcelain'
+                    : 'bg-ink text-pure hover:bg-ink-soft'
+                )}
+              >
+                {loadingPlan === plan.slug ? (
+                  <><Loader2 size={16} className="animate-spin" /> Redirection Stripe…</>
+                ) : (
+                  <>{plan.cta}<ArrowRight size={16} /></>
+                )}
+              </button>
             </motion.article>
           ))}
         </div>
