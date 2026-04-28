@@ -14,8 +14,19 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, Loader2, Calendar, Zap, X, Mail } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
+import StripeBuyButton from './StripeBuyButton';
 
 const API_BASE = (import.meta.env.VITE_BRIDGE_URL as string) || 'https://api.getagenzia.fr';
+
+// Stripe Buy Button (LIVE) — env-overridable
+const STRIPE_PK_LIVE =
+  (import.meta.env.VITE_STRIPE_PK_LIVE as string) ||
+  'pk_live_51QhCwtBpwY3BGuOyHkJ3rnv3R9LM4Nv4sQxGry6FwBp5GSesTvxI5rf5O2507zxsdOtfNadLctDiwn9nYRgenVb500BOqIBEzQ';
+const BUY_BTN_PRO_MONTHLY =
+  (import.meta.env.VITE_STRIPE_BUY_BTN_PRO_MONTHLY as string) ||
+  'buy_btn_1TR78wBpwY3BGuOyPszpTyB2';
+const BUY_BTN_PRO_YEARLY =
+  (import.meta.env.VITE_STRIPE_BUY_BTN_PRO_YEARLY as string) || ''; // à compléter quand fourni
 
 // Pricing per-poste (par mois) selon cycle
 const PRICE_PER_SEAT = {
@@ -383,30 +394,45 @@ const PricingSection: React.FC = () => {
                 ))}
               </ul>
 
-              <button
-                onClick={() => {
-                  trackEvent('pricing_cta_clicked', {
-                    plan: plan.slug,
-                    cta: plan.cta.toLowerCase(),
-                    cycle: isAnnual ? 'yearly' : 'monthly',
-                    seats,
-                  });
-                  handleCta(plan.slug);
-                }}
-                disabled={loadingPlan === plan.slug}
-                className={cn(
-                  'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed',
-                  plan.popular
-                    ? 'bg-pure text-ink hover:bg-porcelain'
-                    : 'bg-ink text-pure hover:bg-ink-soft'
-                )}
-              >
-                {loadingPlan === plan.slug ? (
-                  <><Loader2 size={16} className="animate-spin" /> Chargement…</>
-                ) : (
-                  <>{plan.cta}<ArrowRight size={16} /></>
-                )}
-              </button>
+              {/* Plan Pro = Stripe Buy Button (Stripe heberge tout). Autres plans = handler custom. */}
+              {plan.slug === 'pro' ? (
+                <div className="agenzia-stripe-btn-wrap">
+                  <StripeBuyButton
+                    buyButtonId={isAnnual && BUY_BTN_PRO_YEARLY ? BUY_BTN_PRO_YEARLY : BUY_BTN_PRO_MONTHLY}
+                    publishableKey={STRIPE_PK_LIVE}
+                  />
+                  {isAnnual && !BUY_BTN_PRO_YEARLY && (
+                    <p className="mt-2 text-[10px] text-pure/50 text-center">
+                      Cycle annuel bientôt disponible — utilisez mensuel pour l'instant
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    trackEvent('pricing_cta_clicked', {
+                      plan: plan.slug,
+                      cta: plan.cta.toLowerCase(),
+                      cycle: isAnnual ? 'yearly' : 'monthly',
+                      seats,
+                    });
+                    handleCta(plan.slug);
+                  }}
+                  disabled={loadingPlan === plan.slug}
+                  className={cn(
+                    'w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed',
+                    plan.popular
+                      ? 'bg-pure text-ink hover:bg-porcelain'
+                      : 'bg-ink text-pure hover:bg-ink-soft'
+                  )}
+                >
+                  {loadingPlan === plan.slug ? (
+                    <><Loader2 size={16} className="animate-spin" /> Chargement…</>
+                  ) : (
+                    <>{plan.cta}<ArrowRight size={16} /></>
+                  )}
+                </button>
+              )}
             </motion.article>
           ))}
         </div>
