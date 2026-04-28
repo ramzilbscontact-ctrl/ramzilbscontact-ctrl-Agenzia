@@ -10,8 +10,8 @@
  * Toggle mensuel/annuel pill, plan Pro inversé (ink-on-pure scale), checkout Stripe avec quantity.
  */
 import React, { useState, useMemo } from 'react';
-import { motion } from 'motion/react';
-import { Check, ArrowRight, Loader2, Calendar, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Check, ArrowRight, Loader2, Calendar, Zap, X, Mail } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { trackEvent } from '../lib/posthog';
 
@@ -35,34 +35,51 @@ type PlanId = 'starter' | 'pro' | 'enterprise';
 async function startCheckout(
   plan: PlanId,
   cycle: 'monthly' | 'yearly',
-  quantity: number
-): Promise<string | null> {
-  const email = window.prompt('Votre email professionnel pour le checkout :');
-  if (!email || !email.includes('@')) return null;
-  const company = window.prompt('Nom de votre entreprise (optionnel) :') || '';
+  quantity: number,
+  email?: string
+): Promise<{ url?: string; error?: string }> {
+  const jwt = typeof window !== 'undefined' ? localStorage.getItem('agenzia_jwt') : null;
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (jwt) headers['Authorization'] = `Bearer ${jwt}`;
 
   const r = await fetch(`${API_BASE}/billing/checkout`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      plan, cycle, quantity,
-      customer_email: email,
-      organisation: company || null,
-    }),
+    headers,
+    body: JSON.stringify({ plan, cycle, quantity, customer_email: email }),
   });
   if (!r.ok) {
     const err = await r.text();
-    alert(`Erreur Stripe : ${err.slice(0, 200)}`);
-    return null;
+    return { error: err.slice(0, 200) };
   }
   const data = await r.json();
-  return data.checkout_url || null;
+  return { url: data.checkout_url };
 }
 
 const PricingSection: React.FC = () => {
   const [isAnnual, setIsAnnual] = useState(false);
   const [seats, setSeats] = useState(20);
   const [loadingPlan, setLoadingPlan] = useState<PlanId | null>(null);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [pendingCheckoutEmail, setPendingCheckoutEmail] = useState('');
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
+  const launchCheckout = async (email: string) => {
+    setLoadingPlan('pro');
+    setCheckoutError(null);
+    trackEvent('pricing_checkout_start', {
+      plan: 'pro', cycle: isAnnual ? 'yearly' : 'monthly', seats, total_monthly: totalMonthly,
+    });
+    try {
+      const r = await startCheckout('pro', isAnnual ? 'yearly' : 'monthly', seats, email || undefined);
+      if (r.url) {
+        window.location.href = r.url;
+      } else {
+        setCheckoutError(r.error || 'Erreur Stripe inconnue');
+      }
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
 
   // Prix calculés en temps réel selon cycle + nombre de postes
   const seatPrice = isAnnual ? PRICE_PER_SEAT.yearly : PRICE_PER_SEAT.monthly;
@@ -89,16 +106,14 @@ const PricingSection: React.FC = () => {
       window.dispatchEvent(new CustomEvent('open-cal-popup', { detail: { source: 'pricing_enterprise' } }));
       return;
     }
-    // Pro = checkout Stripe avec quantity = seats
-    setLoadingPlan('pro');
-    trackEvent('pricing_checkout_start', {
-      plan, cycle: isAnnual ? 'yearly' : 'monthly', seats, total_monthly: totalMonthly,
-    });
-    try {
-      const url = await startCheckout('pro', isAnnual ? 'yearly' : 'monthly', seats);
-      if (url) window.location.href = url;
-    } finally {
-      setLoadingPlan(null);
+    // Pro = checkout Stripe. On ouvre un modal email si l'user n'est pas connecté.
+    const jwt = typeof window !== 'undefined' ? localStorage.getItem('agenzia_jwt') : null;
+    if (jwt) {
+      // User authentifié → backend lit son email du JWT, pas besoin de demander
+      await launchCheckout('');
+    } else {
+      // User anonyme → modal Agenzia Pure pour récolter l'email avant Stripe
+      setEmailModalOpen(true);
     }
   };
 
@@ -419,6 +434,109 @@ const PricingSection: React.FC = () => {
           </button>
         </motion.div>
       </div>
+
+      {/* Email modal — Agenzia Pure (remplace window.prompt browser) */}
+      <AnimatePresence>
+        {emailModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setEmailModalOpen(false)}
+            className="fixed inset-0 z-[200] bg-ink/30 backdrop-blur-sm flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md bg-pure rounded-3xl shadow-tactile border border-[--color-ghost-strong] overflow-hidden"
+            >
+              <button
+                onClick={() => setEmailModalOpen(false)}
+                aria-label="Fermer"
+                className="absolute top-4 right-4 z-10 h-9 w-9 inline-flex items-center justify-center rounded-full bg-pure border border-[--color-ghost-strong] hover:bg-porcelain transition"
+              >
+                <X size={16} />
+              </button>
+
+              <div className="p-7 md:p-9">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-porcelain border border-[--color-ghost-strong] text-graphite mb-5">
+                  <Mail size={20} />
+                </div>
+                <h3 className="headline text-2xl mb-2">Avant de continuer</h3>
+                <p className="text-sm text-graphite leading-relaxed mb-6">
+                  Votre email professionnel pour Stripe Checkout. Vous pourrez ajuster nom, adresse de
+                  facturation et méthode de paiement directement sur la page Stripe sécurisée.
+                </p>
+
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    const email = pendingCheckoutEmail.trim();
+                    if (!email || !email.includes('@')) return;
+                    setEmailModalOpen(false);
+                    await launchCheckout(email);
+                    setPendingCheckoutEmail('');
+                  }}
+                >
+                  <input
+                    type="email"
+                    required
+                    autoFocus
+                    value={pendingCheckoutEmail}
+                    onChange={(e) => setPendingCheckoutEmail(e.target.value)}
+                    placeholder="vous@entreprise.fr"
+                    className="w-full bg-pure border border-[--color-ghost-strong] rounded-2xl px-4 py-3 text-sm text-ink placeholder-fog focus:outline-none focus:border-ink focus:ring-2 focus:ring-ink/5 transition mb-5"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={loadingPlan === 'pro' || !pendingCheckoutEmail}
+                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-ink text-pure text-sm font-semibold hover:bg-ink-soft disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    {loadingPlan === 'pro' ? (
+                      <><Loader2 size={16} className="animate-spin" /> Redirection Stripe…</>
+                    ) : (
+                      <>Continuer vers Stripe <ArrowRight size={14} /></>
+                    )}
+                  </button>
+                </form>
+
+                <p className="mt-5 text-[10px] text-fog text-center leading-relaxed">
+                  🔒 Paiement sécurisé Stripe · Données protégées RGPD
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Erreur checkout (toast inline) */}
+      {checkoutError && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] max-w-md w-full mx-auto px-4"
+        >
+          <div className="rounded-2xl bg-danger-soft border border-danger/20 p-4 flex items-start gap-3 shadow-card">
+            <X size={16} className="shrink-0 mt-0.5 text-danger" />
+            <div className="flex-1 text-sm text-danger">
+              <strong>Erreur Stripe : </strong>
+              {checkoutError}
+            </div>
+            <button
+              onClick={() => setCheckoutError(null)}
+              className="shrink-0 text-danger/60 hover:text-danger"
+              aria-label="Fermer"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        </motion.div>
+      )}
     </section>
   );
 };
