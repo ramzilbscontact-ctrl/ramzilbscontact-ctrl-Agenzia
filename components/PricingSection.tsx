@@ -42,10 +42,20 @@ async function startCheckout(
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (jwt) headers['Authorization'] = `Bearer ${jwt}`;
 
+  // URLs Stripe basées sur l'origin courant (getagenzia.fr) — pas le dashboard backend.
+  // success: redirige vers /billing/success avec session_id (page créée landing)
+  // cancel:  retour à la section #tarifs de la landing (pas dashboard.getagenzia.fr)
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://getagenzia.fr';
+
   const r = await fetch(`${API_BASE}/billing/checkout`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ plan, cycle, quantity, customer_email: email }),
+    body: JSON.stringify({
+      plan, cycle, quantity,
+      customer_email: email,
+      success_url: `${origin}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/#tarifs`,
+    }),
   });
   if (!r.ok) {
     const err = await r.text();

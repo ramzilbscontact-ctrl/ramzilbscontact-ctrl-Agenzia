@@ -20,6 +20,7 @@ import SaasLandingEn from './pages/SaasLandingEn';
 import Login from './pages/Auth/Login';
 import Verify from './pages/Auth/Verify';
 import Account from './pages/Account';
+import BillingSuccess from './pages/Billing/Success';
 import { initPostHog, trackPageView } from './lib/posthog';
 import LeadMagnetModal from './components/LeadMagnetModal';
 import LeadMagnetSmartForm from './components/LeadMagnetSmartForm';
@@ -67,6 +68,8 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/auth/verify" element={<Verify />} />
           <Route path="/account" element={<Account />} />
+          {/* Billing post-checkout */}
+          <Route path="/billing/success" element={<BillingSuccess />} />
         </Routes>
         <LeadMagnetModal />
         <LeadMagnetSmartForm />
