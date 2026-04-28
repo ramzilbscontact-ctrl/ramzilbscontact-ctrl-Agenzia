@@ -87,10 +87,23 @@ export const StripeBuyButton = forwardRef<StripeBuyButtonHandle, Props>(({
     },
   }), []);
 
-  // Style hidden : on garde l'élément dans le DOM (le BB doit s'initialiser)
-  // mais visuellement masqué. Pas display:none qui empêcherait Stripe de monter le shadow root.
+  // Style hidden : élément dans le DOM (le BB doit s'initialiser pour que les clicks marchent)
+  // - "absolute" mode : couvre 100% du parent positionné, opacity 0, mais pointer-events AUTO
+  //   → l'user clique sur le bouton custom visible, le click traverse jusqu'au BB invisible au-dessus
   const wrapperStyle: React.CSSProperties = hidden
-    ? { position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }
+    ? {
+        position: 'absolute',
+        inset: 0,
+        opacity: 0,
+        zIndex: 1,
+        cursor: 'pointer',
+        // Le BB est rendu mais invisible. Les clicks landent dessus via stacking context parent.
+      }
+    : {};
+
+  // Style le BB lui-même pour qu'il s'étende à 100% (sinon il a sa taille intrinsèque)
+  const innerStyle: React.CSSProperties = hidden
+    ? { width: '100%', height: '100%', display: 'block' }
     : {};
 
   return (
@@ -98,6 +111,7 @@ export const StripeBuyButton = forwardRef<StripeBuyButtonHandle, Props>(({
       {React.createElement('stripe-buy-button', {
         'buy-button-id': buyButtonId,
         'publishable-key': publishableKey,
+        style: innerStyle,
         ...(customerEmail ? { 'customer-email': customerEmail } : {}),
         ...(clientReferenceId ? { 'client-reference-id': clientReferenceId } : {}),
       })}
