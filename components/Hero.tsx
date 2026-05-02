@@ -6,7 +6,6 @@
  * 2 CTAs (pill noir tactile + lien secondaire) → trust strip souveraineté.
  */
 import React from 'react';
-import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { trackEvent } from '../lib/posthog';
 
@@ -35,33 +34,27 @@ const Hero: React.FC = () => {
 
       <div className="relative mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-36 md:pb-40 text-center">
         {/* Headline ExtraBold Manrope, scale fluide */}
-        <motion.h1
+        <h1
           {...fadeUp}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="headline text-[clamp(2.75rem,7vw,5.5rem)] mx-auto max-w-5xl"
-        >
+          className="headline text-[clamp(2.75rem,7vw,5.5rem)] mx-auto max-w-5xl">
           Votre IT,{' '}
           <span className="text-graphite">en version</span>{' '}
           <span className="italic font-medium">augmentée</span>{' '}
           <span className="text-graphite">par l'IA.</span>
-        </motion.h1>
+        </h1>
 
         {/* Sous-titre Medium */}
-        <motion.p
+        <p
           {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 mx-auto max-w-2xl text-lg md:text-xl text-graphite leading-relaxed"
-        >
+          className="mt-8 mx-auto max-w-2xl text-lg md:text-xl text-graphite leading-relaxed">
           Supervision 24/7, mise en conformité NIS2 automatisée, résolution L1/L2 par IA.{' '}
           <span className="text-ink font-semibold">Souverain. Sécurisé. Mesurable.</span>
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div
+        <div
           {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-center"
-        >
+          className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-center">
           <button
             onClick={triggerSmartForm}
             className="btn-tactile group text-sm px-8 py-4"
@@ -75,7 +68,7 @@ const Hero: React.FC = () => {
           >
             Réserver un appel
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
