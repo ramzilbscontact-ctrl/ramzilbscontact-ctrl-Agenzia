@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { trackEvent } from '../lib/posthog';
 
 const fadeUp = {
@@ -33,23 +33,12 @@ const Hero: React.FC = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,102,255,0.05),transparent_60%)]" />
       <div className="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2 h-[480px] w-[800px] bg-accent/[0.04] rounded-full blur-[120px]" />
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-28 md:pt-32 md:pb-40 text-center">
-        {/* Badge pill */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="badge-pill badge-pill-accent">
-            <Sparkles size={12} strokeWidth={2.4} />
-            Conformité NIS2 IA-first
-          </span>
-        </motion.div>
-
+      <div className="relative mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-36 md:pb-40 text-center">
         {/* Headline ExtraBold Manrope, scale fluide */}
         <motion.h1
           {...fadeUp}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="headline mt-8 text-[clamp(2.75rem,7vw,5.5rem)] mx-auto max-w-5xl"
+          className="headline text-[clamp(2.75rem,7vw,5.5rem)] mx-auto max-w-5xl"
         >
           Votre IT,{' '}
           <span className="text-graphite">en version</span>{' '}
@@ -86,19 +75,6 @@ const Hero: React.FC = () => {
           >
             Réserver un appel
           </button>
-        </motion.div>
-
-        {/* Trust strip */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 flex items-center justify-center gap-3 text-xs font-mono uppercase tracking-[0.18em] text-mist"
-        >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-success opacity-60 animate-pulse-soft" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success" />
-          </span>
-          <span>Souverain · OVH SecNumCloud 3.2 · 99.99% uptime</span>
         </motion.div>
       </div>
     </section>
