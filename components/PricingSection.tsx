@@ -156,7 +156,7 @@ const PricingSection: React.FC = () => {
       description: 'Continuité totale + Immunité NIS2',
       tagline: '30 jours satisfait ou remboursé',
       features: [
-        'Première intervention en moins de 15 min, résolution <4h sur 80% des cas',
+        'Prise en charge prioritaire des incidents · délais cibles définis au contrat',
         'Mises à jour planifiées hors heures ouvrées · zéro impact business',
         'Support N1/N2 résolu par IA, sans ticket manuel',
         'Score NIS2 calculé en continu + rapport Article 21 trimestriel',
