@@ -13,6 +13,7 @@ const CGU = lazy(() => import('./pages/Legal/CGU'));
 const CguOutbound = lazy(() => import('./pages/Legal/CguOutbound'));
 const InfogeranceIA = lazy(() => import('./pages/Services/InfogeranceIA'));
 const CybersecuriteNIS2 = lazy(() => import('./pages/Services/CybersecuriteNIS2'));
+const DiagnosticNIS2 = lazy(() => import('./pages/DiagnosticNIS2'));
 const MigrationCloud = lazy(() => import('./pages/Services/MigrationCloud'));
 const SimulateurROI = lazy(() => import('./pages/Tools/SimulateurROI'));
 const CarouselEditor = lazy(() => import('./pages/Tools/CarouselEditor'));
@@ -66,6 +67,7 @@ const App: React.FC = () => {
             <Route path="/cgu-outbound" element={<CguOutbound />} />
             <Route path="/services/infogerance-ia" element={<InfogeranceIA />} />
             <Route path="/services/cybersecurite-nis2" element={<CybersecuriteNIS2 />} />
+            <Route path="/diagnostic-nis2" element={<DiagnosticNIS2 />} />
             <Route path="/services/migration-cloud" element={<MigrationCloud />} />
             <Route path="/simulateur-roi" element={<SimulateurROI />} />
             <Route path="/tools/carousel-editor" element={<CarouselEditor />} />
